@@ -15,7 +15,7 @@ const developerBenefits = [
 
 const Audience = () => {
   return (
-    <section id="operators" className="section-padding bg-background-alt">
+    <section id="operators" className="py-32 bg-background-alt">
       <div className="container-tight mx-auto">
         {/* Section Header */}
         <motion.div
@@ -28,7 +28,7 @@ const Audience = () => {
           <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">
             Built For You
           </p>
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tighter text-foreground">
             One platform. Two powerful perspectives.
           </h2>
         </motion.div>
@@ -79,7 +79,7 @@ const Audience = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="relative p-8 lg:p-10 rounded-2xl bg-card border border-border overflow-hidden group hover:border-primary/30 transition-colors duration-300"
+            className="relative p-8 lg:p-10 rounded-3xl bg-card border border-border overflow-hidden group hover:border-primary/30 transition-colors duration-300"
           >
             {/* Decorative gradient */}
             <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-accent to-transparent rounded-bl-full" />
@@ -90,7 +90,7 @@ const Audience = () => {
               </div>
 
               <h3 className="text-2xl font-semibold text-foreground mb-2">
-                For Developers
+                For Community Management
               </h3>
               <p className="text-muted-foreground mb-8">
                 Protect your building, delight your residents

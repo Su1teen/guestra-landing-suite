@@ -1,114 +1,108 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MessageCircle, Calendar, ArrowUpRight } from "lucide-react";
+import { Mail, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import BookDemoModal from "@/components/BookDemoModal";
 
-const actions = [
-  {
-    icon: Mail,
-    title: "Sales Inquiry",
-    description: "Get in touch with our team",
-    buttonText: "Contact Sales",
-    href: "mailto:sales@guestra.com",
-    variant: "default" as const,
-  },
+const socialLinks = [
   {
     icon: MessageCircle,
-    title: "Quick Chat",
-    description: "Message us directly",
-    buttonText: "WhatsApp Us",
+    label: "WhatsApp",
     href: "https://wa.me/1234567890",
-    variant: "outline" as const,
   },
   {
-    icon: Calendar,
-    title: "See it in action",
-    description: "Schedule a walkthrough",
-    buttonText: "Book a Demo",
-    href: "https://calendly.com",
-    variant: "outline" as const,
+    icon: Send,
+    label: "Telegram",
+    href: "https://t.me/guestra",
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    href: "mailto:sales@guestra.com",
   },
 ];
 
 const Footer = () => {
-  return (
-    <footer id="contact" className="section-padding bg-foreground text-primary-foreground">
-      <div className="container-tight mx-auto">
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight mb-4">
-            Ready to streamline your operations?
-          </h2>
-          <p className="text-lg text-primary-foreground/70 max-w-xl mx-auto">
-            Join Dubai's leading properties already using Guestra
-          </p>
-        </motion.div>
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-        {/* Action Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid md:grid-cols-3 gap-6 mb-20"
-        >
-          {actions.map((action, index) => (
+  return (
+    <>
+      <footer id="contact" className="py-32 bg-background">
+        <div className="container-tight mx-auto px-6 lg:px-8">
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-foreground mb-6">
+              Ready to streamline your operations?
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
+              Join Dubai's leading properties already using Guestra
+            </p>
+
+            {/* Primary CTA Button */}
             <motion.div
-              key={action.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-6 rounded-2xl bg-primary-foreground/5 border border-primary-foreground/10 hover:bg-primary-foreground/10 transition-colors duration-300"
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mb-8"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary-foreground/10 flex items-center justify-center mb-4">
-                <action.icon className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <h3 className="text-lg font-semibold mb-1">{action.title}</h3>
-              <p className="text-sm text-primary-foreground/60 mb-4">
-                {action.description}
-              </p>
               <Button
-                asChild
-                variant={action.variant}
-                size="sm"
-                className={`rounded-full w-full ${
-                  action.variant === "default"
-                    ? "bg-primary-foreground text-foreground hover:bg-primary-foreground/90"
-                    : "border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
-                }`}
+                onClick={() => setIsModalOpen(true)}
+                size="lg"
+                className="rounded-full px-10 py-6 text-lg shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity"
               >
-                <a
-                  href={action.href}
-                  target={action.href.startsWith("http") ? "_blank" : undefined}
-                  rel={action.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                >
-                  {action.buttonText}
-                  <ArrowUpRight className="ml-2 h-4 w-4" />
-                </a>
+                Book a Demo
               </Button>
             </motion.div>
-          ))}
-        </motion.div>
 
-        {/* Footer Bottom */}
-        <div className="border-t border-primary-foreground/10 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-bold">Guestra</span>
+            {/* Social Icons */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex items-center justify-center gap-6"
+            >
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                  aria-label={link.label}
+                >
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all duration-300">
+                    <link.icon className="w-5 h-5" />
+                  </div>
+                </a>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Footer Bottom */}
+          <div className="border-t border-border mt-20 pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-bold text-foreground">Guestra</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                © 2026 Guestra. All rights reserved.
+              </p>
             </div>
-            <p className="text-sm text-primary-foreground/60">
-              © 2026 Guestra. All rights reserved.
-            </p>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+      {/* Book Demo Modal */}
+      <BookDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 };
 

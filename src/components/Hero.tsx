@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import BookDemoModal from "@/components/BookDemoModal";
 
 const Hero = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <section className="relative min-h-screen flex items-center pt-20 lg:pt-0 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-20 lg:pt-0 pb-32 overflow-hidden">
       {/* Subtle gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-accent/50 to-background pointer-events-none" />
       
@@ -40,22 +43,22 @@ const Hero = () => {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button asChild size="lg" className="rounded-full px-8 text-base">
-                <a href="#contact">
-                  Get Early Access
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+              <Button 
+                onClick={() => setIsModalOpen(true)}
+                size="lg" 
+                className="rounded-full px-8 text-base shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity"
+              >
+                Get Early Access
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
-                asChild
+                onClick={() => setIsModalOpen(true)}
                 variant="outline"
                 size="lg"
-                className="rounded-full px-8 text-base"
+                className="rounded-full px-8 text-base hover:scale-105 transition-all duration-300 backdrop-blur-sm bg-white/5 border-white/20"
               >
-                <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">
-                  <PlayCircle className="mr-2 h-4 w-4" />
-                  Book a Demo
-                </a>
+                <PlayCircle className="mr-2 h-4 w-4" />
+                Book a Demo
               </Button>
             </div>
           </motion.div>
@@ -67,12 +70,12 @@ const Hero = () => {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="relative"
           >
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 backdrop-blur-xl bg-white/10 border border-white/20">
               {/* Gradient placeholder for app mockup */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent to-primary/10" />
               
               {/* Mockup frame */}
-              <div className="absolute inset-4 rounded-xl bg-card border border-border shadow-lg overflow-hidden">
+              <div className="absolute inset-4 rounded-xl bg-card/80 backdrop-blur-lg border border-white/30 shadow-2xl overflow-hidden">
                 {/* App header simulation */}
                 <div className="h-12 bg-secondary/50 border-b border-border flex items-center px-4 gap-2">
                   <div className="w-3 h-3 rounded-full bg-destructive/60" />
@@ -98,7 +101,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
-                className="absolute -bottom-4 -left-4 bg-card rounded-xl p-4 shadow-xl border border-border"
+                className="absolute -bottom-4 -left-4 bg-white/10 backdrop-blur-xl rounded-xl p-4 shadow-2xl border border-white/20"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
@@ -114,6 +117,9 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Book Demo Modal */}
+      <BookDemoModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

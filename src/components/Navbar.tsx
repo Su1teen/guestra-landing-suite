@@ -17,7 +17,7 @@ const Navbar = () => {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-black/5"
     >
       <div className="container-tight mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
@@ -43,7 +43,7 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button asChild size="sm" className="rounded-full px-6">
+            <Button asChild size="sm" className="rounded-full px-6 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:scale-105 transition-all duration-300 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/20 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity">
               <a href="#contact">Get Early Access</a>
             </Button>
           </div>
@@ -80,7 +80,7 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <Button asChild className="w-full rounded-full mt-4">
+              <Button asChild className="w-full rounded-full mt-4 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:scale-105 transition-all duration-300">
                 <a href="#contact" onClick={() => setIsOpen(false)}>
                   Get Early Access
                 </a>
