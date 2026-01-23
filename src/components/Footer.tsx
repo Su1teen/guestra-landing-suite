@@ -41,7 +41,7 @@ const Footer = () => {
               Ready to streamline your operations?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12">
-              Join Dubai's leading properties already using Guestra
+              
             </p>
 
             {/* Primary CTA Button */}
