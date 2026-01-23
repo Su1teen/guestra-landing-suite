@@ -8,17 +8,17 @@ const socialLinks = [
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    href: "https://wa.me/1234567890",
+    href: "https://wa.me/",
   },
   {
     icon: Send,
     label: "Telegram",
-    href: "https://t.me/guestra",
+    href: "https://t.me/",
   },
   {
     icon: Mail,
     label: "Email",
-    href: "mailto:sales@guestra.com",
+    href: "mailto:@guestra.com",
   },
 ];
 

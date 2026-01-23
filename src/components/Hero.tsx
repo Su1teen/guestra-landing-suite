@@ -7,7 +7,7 @@ import BookDemoModal from "@/components/BookDemoModal";
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <section className="relative min-h-screen flex items-center pt-20 lg:pt-0 pb-32 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-32 lg:pt-24 pb-20 overflow-hidden">
       {/* Subtle gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-accent/50 to-background pointer-events-none" />
       
@@ -63,57 +63,80 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* App Mockup Placeholder */}
+          {/* App Screenshots - Phone Mockups */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative"
+            className="relative flex items-center justify-center gap-4 sm:gap-6 lg:gap-8 mt-8 lg:mt-0"
           >
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 backdrop-blur-xl bg-white/10 border border-white/20">
-              {/* Gradient placeholder for app mockup */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent to-primary/10" />
-              
-              {/* Mockup frame */}
-              <div className="absolute inset-4 rounded-xl bg-card/80 backdrop-blur-lg border border-white/30 shadow-2xl overflow-hidden">
-                {/* App header simulation */}
-                <div className="h-12 bg-secondary/50 border-b border-border flex items-center px-4 gap-2">
-                  <div className="w-3 h-3 rounded-full bg-destructive/60" />
-                  <div className="w-3 h-3 rounded-full bg-muted-foreground/40" />
-                  <div className="w-3 h-3 rounded-full bg-accent-foreground/40" />
-                </div>
-                
-                {/* Content placeholder */}
-                <div className="p-6 space-y-4">
-                  <div className="h-8 w-3/4 bg-muted rounded-lg" />
-                  <div className="h-4 w-full bg-muted/60 rounded" />
-                  <div className="h-4 w-5/6 bg-muted/60 rounded" />
-                  <div className="grid grid-cols-2 gap-3 mt-6">
-                    <div className="h-20 bg-accent rounded-xl" />
-                    <div className="h-20 bg-accent rounded-xl" />
+            {/* Background Glow */}
+            <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full" />
+            
+            {/* Left Phone - Scan Passport */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, rotate: -8 }}
+              animate={{ opacity: 1, y: 0, rotate: -8 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="relative z-10"
+            >
+              <div className="relative group">
+                {/* Phone Frame */}
+                <div className="relative w-[130px] sm:w-[161px] md:w-[207px] lg:w-[230px]">
+                  <div className="relative rounded-[2rem] p-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl">
+                    <img 
+                      src="/scan_passport.jpg"
+                      className="w-full h-auto rounded-[1.5rem] shadow-lg"
+                      alt="Passport Scanning"
+                      loading="eager"
+                      decoding="async"
+                    />
                   </div>
-                  <div className="h-12 w-full bg-primary/20 rounded-xl mt-4" />
+                  {/* Glow Effect */}
+                  <div className="absolute inset-0 bg-blue-500/20 blur-2xl -z-10 group-hover:bg-blue-500/30 transition-colors" />
                 </div>
               </div>
-              
-              {/* Floating badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-                className="absolute -bottom-4 -left-4 bg-white/10 backdrop-blur-xl rounded-xl p-4 shadow-2xl border border-white/20"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                    <div className="w-4 h-4 rounded-full bg-primary" />
+            </motion.div>
+
+            {/* Right Phone - Profile Page (Main) */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, rotate: 8 }}
+              animate={{ opacity: 1, y: 0, rotate: 8 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="relative z-20"
+            >
+              <div className="relative group">
+                {/* Phone Frame */}
+                <div className="relative w-[130px] sm:w-[161px] md:w-[207px] lg:w-[230px]">
+                  <div className="relative rounded-[2rem] p-2 bg-white/15 backdrop-blur-xl border border-white/30 shadow-2xl">
+                    <img 
+                      src="/profile_page.jpg"
+                      className="w-full h-auto rounded-[1.5rem] shadow-lg"
+                      alt="User Profile"
+                      loading="eager"
+                      decoding="async"
+                    />
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">Guest Verified</p>
-                    <p className="text-xs text-muted-foreground">ID Check Complete</p>
-                  </div>
+                  {/* Glow Effect */}
+                  <div className="absolute inset-0 bg-primary/30 blur-3xl -z-10 group-hover:bg-primary/40 transition-colors" />
                 </div>
-              </motion.div>
-            </div>
+                
+                {/* Floating badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                  className="absolute -bottom-3 -right-3 bg-green-500 rounded-xl px-3 py-2 shadow-lg shadow-green-500/30"
+                >
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-white text-xs font-semibold">Verified</span>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

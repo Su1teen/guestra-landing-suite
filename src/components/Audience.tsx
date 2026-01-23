@@ -1,22 +1,22 @@
 import { motion } from "framer-motion";
-import { Check, Building2, Home } from "lucide-react";
+import { Check, Building2, Shield } from "lucide-react";
 
 const operatorBenefits = [
-  "Reduce operational costs",
-  "Eliminate manual data entry",
-  "Scale without adding staff",
+  "Digital Security Pass",
+  "Automated Access Logs",
+  "Rule Enforcement",
 ];
 
 const developerBenefits = [
-  "Enhanced building security",
-  "Happy residents",
+  "Seamless building security",
+  "Elevated Living Experience",
   "Zero integration cost",
 ];
 
 const Audience = () => {
   return (
     <section id="operators" className="py-32 bg-background-alt">
-      <div className="container-tight mx-auto">
+      <div className="container-tight mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,78 +34,126 @@ const Audience = () => {
         </motion.div>
 
         {/* Split Cards */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Operators Card */}
           <motion.div
-            id="operators"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="relative p-8 lg:p-10 rounded-2xl bg-card border border-border overflow-hidden group hover:border-primary/30 transition-colors duration-300"
+            className="relative rounded-3xl bg-card border border-border overflow-hidden group hover:border-primary/30 transition-colors duration-300"
           >
-            {/* Decorative gradient */}
-            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-primary/10 to-transparent rounded-bl-full" />
+            {/* Content Row */}
+            <div className="flex flex-col min-h-[350px] lg:min-h-[400px] lg:flex-row">
+              {/* Text Content */}
+              <div className="p-8 lg:p-12 lg:w-1/2">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8">
+                  <Shield className="w-8 h-8 text-primary" />
+                </div>
 
-            <div className="relative z-10">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-                <Home className="w-7 h-7 text-primary" />
+                <h3 className="text-2xl lg:text-3xl font-semibold text-foreground mb-3">
+                  Security & Lobby Control
+                </h3>
+                <p className="text-muted-foreground mb-8 text-base">
+                  Automate guest verification and reduce lobby congestion.
+                </p>
+
+                <ul className="space-y-4">
+                  {operatorBenefits.map((benefit) => (
+                    <li key={benefit} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-foreground">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <h3 className="text-2xl font-semibold text-foreground mb-2">
-                For Holiday Homes
-              </h3>
-              <p className="text-muted-foreground mb-8">
-                Streamline your short-term rental operations
-              </p>
-
-              <ul className="space-y-4">
-                {operatorBenefits.map((benefit) => (
-                  <li key={benefit} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-3 h-3 text-primary" />
-                    </div>
-                    <span className="text-foreground">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Phone Mockup */}
+              <div className="relative lg:w-1/2 flex items-end justify-center pb-0 px-6 lg:px-0">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent" />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="relative z-10 w-[160px] lg:w-[240px] translate-y-6"
+                >
+                  <div className="rounded-t-[2.5rem] p-2.5 bg-white/10 backdrop-blur-xl border border-white/20 border-b-0 shadow-2xl">
+                    <img 
+                      src="/QR_checkin.jpg"
+                      className="w-full h-auto rounded-t-[2rem]"
+                      alt="QR Check-in for Operators"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  {/* Glow */}
+                  <div className="absolute inset-0 bg-primary/20 blur-2xl -z-10" />
+                </motion.div>
+              </div>
             </div>
           </motion.div>
 
           {/* Developers Card */}
           <motion.div
-            id="developers"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="relative p-8 lg:p-10 rounded-3xl bg-card border border-border overflow-hidden group hover:border-primary/30 transition-colors duration-300"
+            className="relative rounded-3xl bg-card border border-border overflow-hidden group hover:border-primary/30 transition-colors duration-300"
           >
-            {/* Decorative gradient */}
-            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-accent to-transparent rounded-bl-full" />
+            {/* Content Row */}
+            <div className="flex flex-col min-h-[350px] lg:min-h-[400px] lg:flex-row">
+              {/* Text Content */}
+              <div className="p-8 lg:p-12 lg:w-1/2">
+                <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center mb-8">
+                  <Building2 className="w-8 h-8 text-primary" />
+                </div>
 
-            <div className="relative z-10">
-              <div className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center mb-6">
-                <Building2 className="w-7 h-7 text-primary" />
+                <h3 className="text-2xl lg:text-3xl font-semibold text-foreground mb-3">
+                  For Community Management
+                </h3>
+                <p className="text-muted-foreground mb-8 text-base">
+                  Protect your building, delight your residents
+                </p>
+
+                <ul className="space-y-4">
+                  {developerBenefits.map((benefit) => (
+                    <li key={benefit} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-foreground">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <h3 className="text-2xl font-semibold text-foreground mb-2">
-                For Community Management
-              </h3>
-              <p className="text-muted-foreground mb-8">
-                Protect your building, delight your residents
-              </p>
-
-              <ul className="space-y-4">
-                {developerBenefits.map((benefit) => (
-                  <li key={benefit} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-3 h-3 text-primary" />
-                    </div>
-                    <span className="text-foreground">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Phone Mockup */}
+              <div className="relative lg:w-1/2 flex items-end justify-center pb-0 px-6 lg:px-0">
+                <div className="absolute inset-0 bg-gradient-to-t from-accent/20 via-transparent to-transparent" />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="relative z-10 w-[160px] lg:w-[240px] translate-y-6"
+                >
+                  <div className="rounded-t-[2.5rem] p-2.5 bg-white/10 backdrop-blur-xl border border-white/20 border-b-0 shadow-2xl">
+                    <img 
+                      src="/smartkey_door.jpg"
+                      className="w-full h-auto rounded-t-[2rem]"
+                      alt="Smart Key Access for Buildings"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  {/* Glow */}
+                  <div className="absolute inset-0 bg-cyan-500/20 blur-2xl -z-10" />
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>

@@ -27,8 +27,8 @@ const DeveloperSection = () => {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px]" />
 
       <div className="relative z-10 py-32">
-        <div className="container-tight mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="container-tight mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}

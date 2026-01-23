@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link2, ShieldCheck, KeyRound, Code2, FileSearch, Zap, Globe } from "lucide-react";
+import { Link2, ShieldCheck, KeyRound, FileSearch, Zap, Globe, ScanFace } from "lucide-react";
 
 const features = [
   {
@@ -7,16 +7,18 @@ const features = [
     title: "Unified Check-In",
     description:
       "Connects booking, registration, and access in one flow. Replaces 5+ disconnected tools.",
-    gradient: "from-blue-500/20 to-cyan-500/20",
+    gradient: "from-pink-500/20 to-rose-500/20",
     size: "normal",
+    screenshot: "/scan_accesspoint.jpg",
   },
   {
-    icon: ShieldCheck,
-    title: "Security & Compliance",
+    icon: ScanFace,
+    title: "Identity Verification",
     description:
-      "Automated guest verification and government-aligned audit trails. SIRA-compliant processes.",
-    gradient: "from-green-500/20 to-emerald-500/20",
+      "OCR passport scanning + biometric selfie match. Under 30 seconds, fully automated.",
+    gradient: "from-blue-500/20 to-cyan-500/20",
     size: "normal",
+    screenshot: "/verify_selfie.jpg",
   },
   {
     icon: FileSearch,
@@ -29,20 +31,21 @@ const features = [
     badges: ["Government Ready", "Developer Access", "Exportable Reports"],
   },
   {
+    icon: ShieldCheck,
+    title: "Security & Compliance",
+    description:
+      "Automated guest verification and government-aligned audit trails. SIRA-compliant processes.",
+    gradient: "from-green-500/20 to-emerald-500/20",
+    size: "normal",
+  },
+  {
     icon: KeyRound,
     title: "Smart Access",
     description:
       "QR and Keyless entry integrated directly with building security systems.",
     gradient: "from-orange-500/20 to-amber-500/20",
     size: "normal",
-  },
-  {
-    icon: Code2,
-    title: "Developer Friendly",
-    description:
-      "Full transparency for building management without operational overhead.",
-    gradient: "from-pink-500/20 to-rose-500/20",
-    size: "normal",
+    screenshot: "/smartkey_door.jpg",
   },
   {
     icon: Zap,
@@ -50,7 +53,7 @@ const features = [
     description:
       "Connect to 50+ PMS platforms, smart locks, and building systems in minutes.",
     gradient: "from-yellow-500/20 to-orange-500/20",
-    size: "small",
+    size: "half",
   },
   {
     icon: Globe,
@@ -58,7 +61,7 @@ const features = [
     description:
       "Guest communications in 12+ languages automatically.",
     gradient: "from-teal-500/20 to-cyan-500/20",
-    size: "small",
+    size: "half",
   },
 ];
 
@@ -84,7 +87,7 @@ const itemVariants = {
 const Features = () => {
   return (
     <section id="features" className="py-32 bg-background">
-      <div className="container-tight mx-auto">
+      <div className="container-tight mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -113,6 +116,10 @@ const Features = () => {
             // Determine grid span based on size
             const colSpan = feature.size === "large" 
               ? "md:col-span-2" 
+              : feature.size === "full"
+              ? "md:col-span-4"
+              : feature.size === "half"
+              ? "md:col-span-2"
               : feature.size === "small" 
               ? "md:col-span-1" 
               : "md:col-span-2";
@@ -141,49 +148,75 @@ const Features = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
                 )}
 
-                <div className={`relative z-10 p-6 ${feature.size === "large" ? "md:p-8" : ""} h-full flex flex-col`}>
-                  {/* Icon */}
-                  <div className={`w-12 h-12 rounded-xl ${
-                    feature.highlight 
-                      ? "bg-primary/20" 
-                      : "bg-white/10"
-                  } flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className={`w-6 h-6 ${
-                      feature.highlight ? "text-primary" : "text-primary/80"
-                    }`} />
+                <div className={`relative z-10 h-full flex ${feature.screenshot ? "flex-col sm:flex-row" : "flex-col"} ${feature.highlight && !feature.screenshot ? "justify-center" : ""}`}>
+                  {/* Text Content */}
+                  <div className={`${feature.screenshot ? "sm:w-1/2 p-5 sm:p-6" : `p-6 ${feature.size === "large" ? "md:p-8" : ""}`} flex flex-col`}>
+                    {/* Icon */}
+                    <div className={`w-12 h-12 rounded-xl ${
+                      feature.highlight 
+                        ? "bg-primary/20" 
+                        : "bg-white/10"
+                    } flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      <feature.icon className={`w-6 h-6 ${
+                        feature.highlight ? "text-primary" : "text-primary/80"
+                      }`} />
+                    </div>
+
+                    {/* Highlight badge */}
+                    {feature.highlight && (
+                      <span className="inline-flex self-start items-center gap-1 px-2 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold mb-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                        Key Feature
+                      </span>
+                    )}
+
+                    {/* Content */}
+                    <h3 className={`font-semibold text-foreground mb-2 ${
+                      feature.size === "large" ? "text-xl md:text-2xl" : "text-lg"
+                    }`}>
+                      {feature.title}
+                    </h3>
+                    <p className={`text-muted-foreground leading-relaxed flex-grow ${
+                      feature.size === "large" ? "text-base" : "text-sm"
+                    }`}>
+                      {feature.description}
+                    </p>
+
+                    {/* Feature badges */}
+                    {feature.badges && (
+                      <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
+                        {feature.badges.map((badge) => (
+                          <span 
+                            key={badge}
+                            className="px-2 py-1 rounded-md bg-white/10 text-xs font-medium text-foreground/80"
+                          >
+                            {badge}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Highlight badge */}
-                  {feature.highlight && (
-                    <span className="inline-flex self-start items-center gap-1 px-2 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold mb-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                      Key Feature
-                    </span>
-                  )}
-
-                  {/* Content */}
-                  <h3 className={`font-semibold text-foreground mb-2 ${
-                    feature.size === "large" ? "text-xl md:text-2xl" : "text-lg"
-                  }`}>
-                    {feature.title}
-                  </h3>
-                  <p className={`text-muted-foreground leading-relaxed flex-grow ${
-                    feature.size === "large" ? "text-base" : "text-sm"
-                  }`}>
-                    {feature.description}
-                  </p>
-
-                  {/* Feature badges */}
-                  {feature.badges && (
-                    <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
-                      {feature.badges.map((badge) => (
-                        <span 
-                          key={badge}
-                          className="px-2 py-1 rounded-md bg-white/10 text-xs font-medium text-foreground/80"
-                        >
-                          {badge}
-                        </span>
-                      ))}
+                  {/* Screenshot Phone Mockup */}
+                  {feature.screenshot && (
+                    <div className="sm:w-1/2 flex items-center sm:items-end justify-center overflow-hidden py-4 sm:py-0">
+                      <motion.div 
+                        className="relative w-[100px] sm:w-[120px] lg:w-[140px] sm:translate-y-4"
+                        whileHover={{ y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="rounded-t-[1.5rem] p-1.5 bg-white/10 backdrop-blur-xl border border-white/20 border-b-0 shadow-2xl">
+                          <img 
+                            src={feature.screenshot} 
+                            className="w-full h-auto rounded-t-[1.2rem]" 
+                            alt={feature.title}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                        {/* Subtle glow */}
+                        <div className="absolute inset-0 bg-primary/20 blur-2xl -z-10 opacity-50" />
+                      </motion.div>
                     </div>
                   )}
                 </div>

@@ -216,7 +216,7 @@ const HowItWorks = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
 
-      <div className="container-tight mx-auto relative z-10">
+      <div className="container-tight mx-auto px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -268,7 +268,7 @@ const HowItWorks = () => {
           </p>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            Average check-in time: 47 seconds
+            Average check-in time: less than 5 minutes.
           </div>
         </motion.div>
       </div>

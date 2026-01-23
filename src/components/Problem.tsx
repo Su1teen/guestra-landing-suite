@@ -21,8 +21,8 @@ const solutions = [
 
 const Problem = () => {
   return (
-    <section className="py-32 bg-background-alt overflow-hidden">
-      <div className="container-tight mx-auto">
+    <section id="problem" className="py-32 bg-background-alt overflow-hidden">
+      <div className="container-tight mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -86,7 +86,7 @@ const Problem = () => {
               <div className="mt-8 pt-6 border-t border-red-500/20">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-red-500/70 font-medium">Efficiency Score</span>
-                  <span className="text-red-500 font-semibold">32%</span>
+                  <span className="text-red-500 font-semibold"></span>
                 </div>
                 <div className="mt-2 h-2 bg-red-500/10 rounded-full overflow-hidden">
                   <motion.div 
@@ -114,7 +114,7 @@ const Problem = () => {
                 <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
                   <Check className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="text-2xl font-semibold text-foreground">The Guestra Way</h3>
+                <h3 className="text-2xl font-semibold text-foreground">Guestra</h3>
               </div>
               
               <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -143,7 +143,7 @@ const Problem = () => {
               <div className="mt-8 pt-6 border-t border-primary/20">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-primary/70 font-medium">Efficiency Score</span>
-                  <span className="text-primary font-semibold">97%</span>
+                  <span className="text-primary font-semibold"></span>
                 </div>
                 <div className="mt-2 h-2 bg-primary/10 rounded-full overflow-hidden">
                   <motion.div 
