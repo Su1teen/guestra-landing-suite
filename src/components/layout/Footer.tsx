@@ -24,7 +24,7 @@ const columns = [
   {
     title: "Компания",
     links: [
-      { label: "Пилот с сетью ЛЕС", href: "#pilot" },
+      { label: "О платформе", href: "#platform" },
       { label: "Модель сотрудничества", href: "#model" },
       { label: "Запросить демо", href: "#contact" },
     ],

@@ -19,7 +19,7 @@ export const Revenue = () => (
           eyebrow="POS и дополнительная выручка"
           title={
             <>
-              Гость тратит не только на проживание. <span className="text-white/45">Guestra это видит.</span>
+             <span className="text-white/45"> Guestra </span> видит все услуги которыми пользуется гость.
             </>
           }
           lede="Чеки из ресторана и SPA, трансферы и доп. услуги привязываются к гостю и брони. Вы видите полную ценность гостя и понимаете, какие услуги растут."
@@ -29,7 +29,7 @@ export const Revenue = () => (
           <div className="window-dark p-5 sm:p-6">
             <div className="flex items-center justify-between">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-white/45">Анна Иванова · проживание 18–20 октября</div>
-              <span className="text-[11px] text-white/45">Rosta POS → Guestra</span>
+              <span className="text-[11px] text-white/45">POS → Guestra</span>
             </div>
 
             <div className="mt-5 flex h-3 w-full overflow-hidden rounded-full bg-white/10" role="img" aria-label="Структура выручки по гостю">
@@ -66,7 +66,7 @@ export const Revenue = () => (
             <div className="mt-4 flex items-end justify-between rounded-2xl border border-white/10 bg-white/[0.04] p-4">
               <div>
                 <div className="text-[11px] uppercase tracking-wider text-white/45">Итого по гостю</div>
-                <div className="mt-1 text-xs text-white/50">Доп. услуги — {Math.round(((total - guestRevenue[0].value) / total) * 100)}% выручки</div>
+                <div className="mt-1 text-xs text-white/50">Доп. услуги - {Math.round(((total - guestRevenue[0].value) / total) * 100)}% выручки</div>
               </div>
               <div className="num text-3xl font-semibold tracking-tight">
                 <AnimatedNumber value={total} format={formatTenge} duration={1.6} />
@@ -74,7 +74,7 @@ export const Revenue = () => (
             </div>
 
             <div className="mt-4 grid gap-1.5 sm:grid-cols-2">
-              <SystemEvent label="Чек ресторана привязан к брони" meta="Rosta" dark />
+              <SystemEvent label="Чек ресторана привязан к брони" meta="POS" dark />
               <SystemEvent label="LTV гостя обновлён" meta="Guest 360" dark />
             </div>
           </div>

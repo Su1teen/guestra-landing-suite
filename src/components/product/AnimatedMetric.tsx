@@ -51,30 +51,30 @@ interface AnimatedMetricProps {
 export const AnimatedMetric = ({ label, value, format, delta, deltaTone = "up", dark, size = "md", className }: AnimatedMetricProps) => (
   <div
     className={cn(
-      "rounded-xl border p-4",
+      "flex flex-col justify-between min-h-[88px] rounded-xl border p-3.5 sm:p-4",
       dark ? "border-white/10 bg-white/[0.04]" : "border-border bg-white",
       className,
     )}
   >
-    <div className={cn("text-[11px] font-medium uppercase tracking-wider", dark ? "text-white/50" : "text-muted-foreground")}>
+    <div className={cn("text-[11px] font-medium uppercase tracking-wider leading-tight text-balance", dark ? "text-white/50" : "text-muted-foreground")}>
       {label}
     </div>
-    <div className="mt-2 flex items-baseline gap-2">
+    <div className="mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
       <AnimatedNumber
         value={value}
         format={format}
         className={cn(
           "font-semibold tracking-tight",
-          size === "sm" && "text-lg",
-          size === "md" && "text-2xl",
-          size === "lg" && "text-3xl md:text-4xl",
+          size === "sm" && "text-base sm:text-lg",
+          size === "md" && "text-xl sm:text-2xl",
+          size === "lg" && "text-2xl sm:text-3xl md:text-4xl",
           dark ? "text-white" : "text-foreground",
         )}
       />
       {delta && (
         <span
           className={cn(
-            "num text-xs font-medium",
+            "num text-xs font-semibold whitespace-nowrap",
             deltaTone === "up" && "text-emerald",
             deltaTone === "down" && "text-rose",
             deltaTone === "neutral" && (dark ? "text-white/50" : "text-muted-foreground"),

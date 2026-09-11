@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const layers = [
   {
     title: "Сегодня: ваши системы",
-    items: ["Текущая CRM", "Bnovo", "Rosta", "WhatsApp", "АТС"],
+    items: ["Текущая CRM", "Текущая PMS", "Текущий POS", "WhatsApp", "АТС"],
     tone: "border-border bg-white",
     note: "Ничего не выключаем. Команда продолжает работать в привычных инструментах.",
   },
@@ -16,14 +16,14 @@ const layers = [
     title: "Guestra подключается сверху",
     items: ["AI-продажи", "Автоматизация", "Аналитика", "Revenue"],
     tone: "border-primary/40 bg-primary/5",
-    note: "Появляется единая картина гостя, продажи и операций — без миграции.",
+    note: "Появляется единая картина гостя, продажи и операций - без миграции.",
     highlight: true,
   },
   {
     title: "Затем: собственные модули",
     items: ["Guestra CRM", "Guestra PMS", "Guestra Operations", "Channel Manager"],
     tone: "border-violet/40 bg-violet/5",
-    note: "Заменяете системы по одной — когда вам удобно, без риска для бизнеса.",
+    note: "Заменяете системы по одной - когда вам удобно, без риска для бизнеса.",
   },
 ];
 
@@ -32,9 +32,9 @@ export const NoRipReplace = () => (
     <div className="container-wide">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
         <SectionHeader
-          eyebrow="Без «снести и заменить»"
+          eyebrow="Плавный переход"
           title="Не нужно менять всё сразу."
-          lede="Внедрение новой системы — риск для отеля. Поэтому Guestra начинает как слой поверх текущего стека и постепенно становится его центром."
+          lede="Внедрение новой системы - риск для отеля. Поэтому Guestra начинает как слой поверх текущего стека и постепенно становится его центром."
         />
         <Reveal delay={0.1}>
           <div className="flex flex-col gap-3">

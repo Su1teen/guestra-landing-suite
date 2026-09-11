@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircle, Phone, Globe, CreditCard, Utensils, Sparkles, Star, Database, BedDouble, Layers, BrainCircuit, Workflow, BarChart3, TrendingUp } from "lucide-react";
+import { MessageCircle, Phone, Globe, CreditCard, Utensils, Sparkles, Star, Database, BedDouble, Layers, BrainCircuit, Workflow, BarChart3, TrendingUp, KeyRound, FileSpreadsheet } from "lucide-react";
 import { viewportOnce } from "@/lib/motion";
 import { Logo } from "@/components/layout/Logo";
 
@@ -14,9 +14,11 @@ const sources = [
 
 const systems = [
   { label: "Текущая CRM", icon: Database },
-  { label: "Bnovo PMS", icon: BedDouble },
-  { label: "Rosta POS", icon: Utensils },
-  { label: "SPA · Ресторан", icon: Sparkles },
+  { label: "Текущая PMS", icon: BedDouble },
+  { label: "POS / Ресторан", icon: Utensils },
+  { label: "SPA-комплекс", icon: Sparkles },
+
+  { label: "Отчеты и PowerBI", icon: FileSpreadsheet },
 ];
 
 const core = [
@@ -100,7 +102,7 @@ export const IntegrationGraph = () => (
         </ul>
         <div className="mt-5 flex items-center gap-2 rounded-xl border border-dashed border-white/20 p-3 text-xs text-white/60">
           <Layers className="h-4 w-4 shrink-0 text-violet" />
-          Позже — собственные модули Guestra: CRM, PMS, Operations, Channel Manager
+          Собственные модули Guestra: CRM, PMS, Operations, Channel Manager и многое другое под ваши задачи.
         </div>
       </div>
     </motion.div>

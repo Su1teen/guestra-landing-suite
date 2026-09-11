@@ -98,7 +98,7 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
                   <span className={cn("mt-0.5 shrink-0 text-[10px] font-semibold uppercase", l.who === "ai" ? "text-primary" : "text-muted-foreground")}>
                     {l.who === "ai" ? "AI" : "Гость"}
                   </span>
-                  <span className={cn(i === step - 2 && inCall && "caret")}>{l.text}</span>
+                  <span className={cn("min-w-0 flex-1 break-words", i === step - 2 && inCall && "caret")}>{l.text}</span>
                 </motion.div>
               ))}
             </AnimatePresence>

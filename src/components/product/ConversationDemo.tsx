@@ -78,7 +78,7 @@ const Bubble = ({ side, children, dark, meta }: { side: "guest" | "ai"; children
   >
     <div
       className={cn(
-        "max-w-[86%] whitespace-pre-line rounded-2xl px-3.5 py-2 text-[13px] leading-snug shadow-sm",
+        "max-w-[90%] sm:max-w-[86%] whitespace-pre-line break-words rounded-2xl px-3.5 py-2 text-[13px] leading-snug shadow-sm",
         side === "guest" && (dark ? "rounded-bl-md bg-white/10 text-white" : "rounded-bl-md bg-white text-foreground"),
         side === "ai" && "rounded-br-md bg-[#d9fdd3] text-[#111b21]",
       )}
@@ -122,7 +122,11 @@ export const ChatWindow = ({ script, state, guestName, className, compact }: Cha
 
   useEffect(() => {
     const el = scrollRef.current;
-    if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    if (el?.scrollTo) {
+      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    } else if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
   }, [state.done, state.partial, state.typing, state.sysProgress]);
 
   const current = script[state.done];

@@ -15,7 +15,6 @@ import { Analytics } from "@/components/sections/Analytics";
 import { MultiProperty } from "@/components/sections/MultiProperty";
 import { Integrations } from "@/components/sections/Integrations";
 import { NoRipReplace } from "@/components/sections/NoRipReplace";
-import { Pilot } from "@/components/sections/Pilot";
 import { BusinessModel } from "@/components/sections/BusinessModel";
 import { Roadmap } from "@/components/sections/Roadmap";
 import { CTASection } from "@/components/sections/CTASection";
@@ -39,7 +38,6 @@ const Index = () => (
       <MultiProperty />
       <Integrations />
       <NoRipReplace />
-      <Pilot />
       <BusinessModel />
       <Roadmap />
       <CTASection />

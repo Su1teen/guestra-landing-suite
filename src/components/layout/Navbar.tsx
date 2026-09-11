@@ -74,7 +74,7 @@ export const Navbar = () => {
           </div>
 
           <button
-            className="-mr-2 rounded-full p-2 text-foreground lg:hidden"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-foreground lg:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={open}

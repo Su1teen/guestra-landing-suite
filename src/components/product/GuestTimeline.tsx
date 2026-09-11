@@ -39,7 +39,7 @@ export const GuestTimeline = () => (
       <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.04] p-3">
         <div className="text-[10px] uppercase tracking-wider text-white/45">LTV по сети</div>
         <div className="num mt-1 text-2xl font-semibold">{formatTenge(guest.ltv)}</div>
-        <div className="mt-1 text-[11px] text-white/50">Боровое: 3 проживания · Астана: 1 проживание</div>
+        <div className="mt-1 text-[11px] text-white/50">Объект 01: 3 проживания · Объект 02: 1 проживание</div>
       </div>
     </div>
 

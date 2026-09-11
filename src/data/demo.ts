@@ -4,7 +4,7 @@ export const guest = {
   phone: "+7 701 •• •• 42",
   tags: ["VIP", "Повторный гость"],
   stays: 3,
-  lastVisit: "ЛЕС Боровое",
+  lastVisit: "Объект 01",
   interest: "Домик Forest",
   ltv: 482_000,
   preferences: ["SPA", "Завтрак в домик", "Тихий домик у леса"],
@@ -12,7 +12,7 @@ export const guest = {
 
 export const booking = {
   dates: "18–20 октября",
-  property: "ЛЕС Боровое",
+  property: "Ваш отель",
   category: "Forest House",
   rate: 74_000,
   nights: 2,
@@ -33,7 +33,7 @@ export type ChatStep =
 export const salesScript: ChatStep[] = [
   { kind: "guest", text: "Здравствуйте! Есть домик на выходные на 4 человек?" },
   { kind: "ai", text: "Здравствуйте, Анна! Да, проверяю актуальную доступность." },
-  { kind: "system", events: ["Найден гость", "Проверка Bnovo", "Проверка загрузки", "Получен актуальный тариф"] },
+  { kind: "system", events: ["Найден гость", "Проверка PMS", "Проверка загрузки", "Получен актуальный тариф"] },
   {
     kind: "ai",
     text: "На 18–20 октября доступен Forest House. Стоимость — 74 000 ₸ за ночь.\nМогу также добавить SPA-доступ и завтрак.",
@@ -109,9 +109,9 @@ export const crmLeads: Record<string, { name: string; note: string; sum?: string
 };
 
 export const timeline = [
-  { year: "2024", property: "ЛЕС Боровое", detail: "Forest House · 2 ночи", kind: "Бронь" },
-  { year: "2025", property: "ЛЕС Боровое", detail: "SPA + ресторан · 3 ночи", kind: "Бронь + услуги" },
-  { year: "2026", property: "ЛЕС Астана", detail: "Делюкс · 1 ночь", kind: "Бронь" },
+  { year: "2024", property: "Объект 01", detail: "Forest House · 2 ночи", kind: "Бронь" },
+  { year: "2025", property: "Объект 01", detail: "SPA + ресторан · 3 ночи", kind: "Бронь + услуги" },
+  { year: "2026", property: "Объект 02", detail: "Делюкс · 1 ночь", kind: "Бронь" },
 ];
 
 export const rooms = ["Forest 101", "Forest 102", "Forest 104", "Lake 201", "Lake 202", "Делюкс 305", "Стандарт 310"];
@@ -217,16 +217,16 @@ export const drr = [
 ];
 
 export const portfolio = [
-  { name: "ЛЕС Боровое", rooms: 48, occupancy: 84, revenue: 21_400_000, trend: [42, 48, 55, 51, 63, 70, 74] },
-  { name: "ЛЕС Астана", rooms: 36, occupancy: 79, revenue: 16_900_000, trend: [30, 34, 33, 41, 46, 52, 58] },
-  { name: "ЛЕС Алматы", rooms: 52, occupancy: 76, revenue: 10_300_000, trend: [20, 26, 24, 31, 37, 40, 44] },
+  { name: "Объект 01", rooms: 48, occupancy: 84, revenue: 21_400_000, trend: [42, 48, 55, 51, 63, 70, 74] },
+  { name: "Объект 02", rooms: 36, occupancy: 79, revenue: 16_900_000, trend: [30, 34, 33, 41, 46, 52, 58] },
+  { name: "Объект 03", rooms: 52, occupancy: 76, revenue: 10_300_000, trend: [20, 26, 24, 31, 37, 40, 44] },
 ];
 
 export const integrations = [
   "WhatsApp",
   "CRM",
-  "Bnovo",
-  "Rosta",
+  "PMS",
+  "POS",
   "АТС",
   "Booking.com",
   "Airbnb",

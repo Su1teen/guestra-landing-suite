@@ -31,7 +31,7 @@ export const BookingModal = ({ r, onClose, dark }: { r: Reservation; onClose?: (
     initial={{ opacity: 0, scale: 0.96, y: 8 }}
     animate={{ opacity: 1, scale: 1, y: 0 }}
     exit={{ opacity: 0, scale: 0.96, y: 8 }}
-    className={cn("w-[300px] rounded-2xl border p-4 shadow-2xl", dark ? "border-white/10 bg-ink-2 text-white" : "border-border bg-white")}
+    className={cn("w-[300px] max-w-[calc(100vw-32px)] rounded-2xl border p-4 shadow-2xl", dark ? "border-white/10 bg-ink-2 text-white" : "border-border bg-white")}
     role="dialog"
     aria-label={`Бронь: ${r.guest}`}
   >
@@ -100,7 +100,7 @@ export const PMSChessboard = ({ className }: { className?: string }) => {
   return (
     <div ref={ref}>
       <Window
-        title="Guestra PMS — Шахматка · ЛЕС Боровое"
+        title="Guestra PMS — Шахматка · Ваш отель"
         className={className}
         badge={
           <span className="flex items-center gap-2 text-[11px] text-muted-foreground">

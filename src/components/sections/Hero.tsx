@@ -39,7 +39,7 @@ export const Hero = () => {
             transition={{ duration: 0.7, delay: 0.2, ease }}
             className="lede mx-auto mt-6 max-w-2xl"
           >
-            Guestra объединяет CRM, PMS, продажи, AI, операционные процессы, revenue и аналитику — чтобы команда работала в одной
+            Guestra объединяет CRM, PMS, продажи, AI, операционные процессы, revenue и аналитику - чтобы команда работала в одной
             системе, а руководство видело весь бизнес целиком.
           </motion.p>
           <motion.div

@@ -52,7 +52,7 @@ export const GuestProfile = ({ className, variant = "full", recommendation }: Gu
     ) : (
       <div className="mt-4 space-y-2 border-t border-border pt-4">
         <Row label="Телефон" value={guest.phone} />
-        <Row label="Предыдущие проживания" value={`${guest.stays} · ЛЕС Боровое, ЛЕС Астана`} />
+        <Row label="Предыдущие проживания" value={`${guest.stays} · Объект 01, Объект 02`} />
         <Row
           label="Последние сообщения"
           value={

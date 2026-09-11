@@ -9,9 +9,9 @@ const systems = [
   { label: "PMS", scatter: [28, 52], color: "bg-violet" },
   { label: "POS", scatter: [86, 48], color: "bg-amber" },
   { label: "OTA", scatter: [8, 82], color: "bg-cyan" },
-  { label: "Excel", scatter: [56, 88], color: "bg-emerald" },
+  { label: "Таблицы", scatter: [56, 88], color: "bg-emerald" },
   { label: "АТС", scatter: [50, 14], color: "bg-rose" },
-  { label: "Housekeeping", scatter: [88, 84], color: "bg-primary" },
+  { label: "Уборка", scatter: [88, 84], color: "bg-primary" },
   { label: "SPA", scatter: [34, 26], color: "bg-violet" },
   { label: "Аналитика", scatter: [66, 62], color: "bg-cyan" },
 ];
@@ -46,17 +46,23 @@ const Node = ({
   color: string;
 }) => {
   const [cx, cy] = circle(index, systems.length);
-  const x = useTransform(progress, [0.15, 0.7], [scatter[0], cx]);
-  const y = useTransform(progress, [0.15, 0.7], [scatter[1], cy]);
+  const x = useTransform(progress, (p) => {
+    const t = Math.max(0, Math.min(1, (p - 0.15) / 0.55));
+    return scatter[0] + (cx - scatter[0]) * t;
+  });
+  const y = useTransform(progress, (p) => {
+    const t = Math.max(0, Math.min(1, (p - 0.15) / 0.55));
+    return scatter[1] + (cy - scatter[1]) * t;
+  });
   const left = useTransform(x, (v) => `${v}%`);
   const top = useTransform(y, (v) => `${v}%`);
-  const rotate = useTransform(progress, [0, 0.7], [(index % 2 ? 1 : -1) * (4 + index), 0]);
-  const shadow = useTransform(progress, [0.5, 0.8], ["0 0 0 0 rgba(255,255,255,0)", "0 0 0 1px hsl(var(--primary) / 0.5)"]);
+  const rotate = useTransform(progress, [0, 0.7], [(index % 2 ? 1 : -1) * (4 + index), 0], { clamp: true });
+  const shadow = useTransform(progress, [0.5, 0.8], ["0 0 0 0 rgba(255,255,255,0)", "0 0 0 1px hsl(var(--primary) / 0.5)"], { clamp: true });
 
   return (
     <motion.div
       style={{ left, top, rotate, boxShadow: shadow }}
-      className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-xl border border-white/10 bg-ink-3 px-3 py-1.5 text-xs font-medium text-white shadow-lg"
+      className="absolute z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-xl border border-white/15 bg-ink-2 px-3 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-md"
     >
       <span className={cn("h-2 w-2 rounded-full", color)} aria-hidden />
       {label}
@@ -65,7 +71,7 @@ const Node = ({
 };
 
 const Link = ({ a, b, label, progress }: { a: number; b: number; label: string; progress: MotionValue<number> }) => {
-  const opacity = useTransform(progress, [0.15, 0.45], [1, 0]);
+  const opacity = useTransform(progress, [0.15, 0.45], [1, 0], { clamp: true });
   const [x1, y1] = systems[a].scatter;
   const [x2, y2] = systems[b].scatter;
   return (
@@ -80,29 +86,43 @@ const Link = ({ a, b, label, progress }: { a: number; b: number; label: string; 
 
 const Spoke = ({ index, progress }: { index: number; progress: MotionValue<number> }) => {
   const [cx, cy] = circle(index, systems.length);
-  const opacity = useTransform(progress, [0.6, 0.85], [0, 1]);
-  const len = useTransform(progress, [0.6, 0.9], [0, 1]);
+  const opacity = useTransform(progress, (p) => Math.max(0, Math.min(1, (p - 0.55) / 0.2)));
+  const len = useTransform(progress, (p) => Math.max(0, Math.min(1, (p - 0.55) / 0.25)));
   const x2 = useTransform(len, (v) => 50 + (cx - 50) * v);
   const y2 = useTransform(len, (v) => 50 + (cy - 50) * v);
   return (
-    <motion.line
-      x1={50}
-      y1={50}
-      x2={x2}
-      y2={y2}
-      style={{ opacity }}
-      stroke="hsl(var(--primary))"
-      strokeWidth="0.45"
-      strokeLinecap="round"
-      className="dash-flow"
-    />
+    <g>
+      {/* Базовая линия связи (всегда видна, не создает прерывистых ошмётков) */}
+      <motion.line
+        x1={50}
+        y1={50}
+        x2={x2}
+        y2={y2}
+        style={{ opacity }}
+        stroke="hsl(var(--primary) / 0.35)"
+        strokeWidth="0.5"
+      />
+      {/* Анимированный поток импульсов вдоль линии связи */}
+      <motion.line
+        x1={50}
+        y1={50}
+        x2={x2}
+        y2={y2}
+        style={{ opacity }}
+        stroke="hsl(var(--primary))"
+        strokeWidth="0.5"
+        strokeDasharray="3 4"
+        strokeLinecap="round"
+        className="dash-flow"
+      />
+    </g>
   );
 };
 
 export const ChaosToConnection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 24, mass: 0.4 });
+  const progress = useSpring(scrollYProgress, { stiffness: 55, damping: 30, mass: 0.3 });
 
   const chaosOpacity = useTransform(progress, [0.3, 0.5], [1, 0]);
   const chaosY = useTransform(progress, [0.3, 0.5], [0, -24]);
@@ -117,35 +137,35 @@ export const ChaosToConnection = () => {
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5">
         <div className="grid-bg-dark absolute inset-0" aria-hidden />
 
-        <div className="relative z-10 mx-auto grid h-full w-full max-w-6xl grid-rows-[auto_1fr] gap-6 py-24 md:grid-cols-[0.9fr_1.1fr] md:grid-rows-1 md:items-center md:gap-10">
-          <div className="relative min-h-[150px] md:min-h-0">
-            <motion.div style={{ opacity: chaosOpacity, y: chaosY }} className="absolute inset-x-0 top-0">
+        <div className="relative z-10 mx-auto grid h-full w-full max-w-6xl grid-rows-[auto_1fr] gap-6 py-16 md:grid-cols-[0.9fr_1.1fr] md:grid-rows-1 md:items-center md:gap-10 md:py-24">
+          <div className="relative w-full max-w-lg md:-translate-y-6 lg:-translate-y-10">
+            <motion.div style={{ opacity: chaosOpacity, y: chaosY }} className="w-full">
               <span className="eyebrow">
                 <span className="eyebrow-dot" aria-hidden />
                 Проблема
               </span>
-              <h2 className="headline mt-5">
+              <h2 className="headline mt-4 sm:mt-5">
                 У отеля может быть десять систем. <span className="text-white/45">Но ни одной общей картины.</span>
               </h2>
-              <p className="lede mt-5 max-w-md">
+              <p className="lede mt-3 sm:mt-5 max-w-md">
                 Продажи в WhatsApp и по телефону, брони в PMS, ресторан в POS, отчёты в таблицах. Каждый блок работает — но отдельно.
                 Данные переносят вручную, повторные гости выглядят как новые.
               </p>
             </motion.div>
-            <motion.div style={{ opacity: connectOpacity, y: connectY }} className="absolute inset-x-0 top-0">
+            <motion.div style={{ opacity: connectOpacity, y: connectY }} className="pointer-events-none absolute inset-0 w-full">
               <span className="eyebrow">
                 <span className="eyebrow-dot" aria-hidden />
                 Решение
               </span>
-              <h2 className="headline mt-5">Guestra соединяет их.</h2>
-              <p className="lede mt-5 max-w-md">
+              <h2 className="headline mt-4 sm:mt-5">Guestra соединяет их.</h2>
+              <p className="lede mt-3 sm:mt-5 max-w-md">
                 Все системы подключаются к одному operating layer. Гость, бронь, цена, задача и выручка становятся одной связанной
                 историей — без повторного ввода данных.
               </p>
             </motion.div>
           </div>
 
-          <div className="relative aspect-square w-full min-w-0 max-w-[min(560px,100%)] self-center justify-self-center md:aspect-[4/3.6]">
+          <div className="relative aspect-square w-full min-w-0 max-w-[min(520px,100%)] self-center justify-self-center">
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible" aria-hidden>
               {chaosLinks.map(([a, b, label]) => (
                 <Link key={`${a}-${b}`} a={a} b={b} label={label} progress={progress} />

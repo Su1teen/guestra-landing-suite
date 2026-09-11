@@ -60,20 +60,9 @@ export const CTASection = () => {
                       <Label htmlFor="cta-company">Компания / объект</Label>
                       <Input id="cta-company" name="company" required placeholder="Название отеля или сети" autoComplete="organization" />
                     </div>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="grid gap-1.5">
-                        <Label htmlFor="cta-phone">Телефон</Label>
-                        <Input id="cta-phone" name="phone" type="tel" required placeholder="+7" autoComplete="tel" />
-                      </div>
-                      <div className="grid gap-1.5">
-                        <Label htmlFor="cta-count">Количество объектов</Label>
-                        <select id="cta-count" name="count" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-                          <option>1</option>
-                          <option>2–3</option>
-                          <option>4–10</option>
-                          <option>10+</option>
-                        </select>
-                      </div>
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="cta-phone">Телефон</Label>
+                      <Input id="cta-phone" name="phone" type="tel" required placeholder="+7 701 000 00 00" autoComplete="tel" />
                     </div>
                     <Button type="submit" className="h-11 rounded-full">
                       Отправить заявку

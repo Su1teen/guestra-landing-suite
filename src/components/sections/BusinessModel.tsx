@@ -1,4 +1,4 @@
-import { Layers, Building2, MessageSquare, Cpu, Users, Plug, Scaling } from "lucide-react";
+import { ArrowRight, Layers, Building2, MessageSquare, Cpu, Users, Plug, Scaling, BarChart3, Repeat, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Reveal } from "@/components/shared/Reveal";
@@ -14,6 +14,30 @@ const factors = [
   { icon: Scaling, t: "Масштаб" },
 ];
 
+const steps = [
+  {
+    num: "01",
+    title: "Базовый период",
+    text: "До начала работы фиксируется исходный уровень показателей.",
+  },
+  {
+    num: "02",
+    title: "Согласованные метрики",
+    text: "Собственник и Guestra заранее определяют, какие результаты учитываются.",
+  },
+  {
+    num: "03",
+    title: "Измерение результата",
+    text: "Рост рассчитывается относительно baseline и прозрачно отображается в аналитике.",
+  },
+];
+
+const metrics = [
+  { icon: BarChart3, label: "Прямые бронирования" },
+  { icon: ShoppingCart, label: "Дополнительная выручка" },
+  { icon: Repeat, label: "Повторные гости" },
+];
+
 export const BusinessModel = () => {
   const { open } = useDemoModal();
   return (
@@ -21,8 +45,8 @@ export const BusinessModel = () => {
       <div className="container-wide">
         <SectionHeader
           eyebrow="Модель сотрудничества"
-          title="Платформа + результат."
-          lede="Стоимость зависит от конфигурации отеля, а часть вознаграждения может быть привязана к измеримому результату. Без фиксированного прайс-листа — конфигурация обсуждается на демо."
+          title="Часть стоимости можно связать с результатом."
+          lede="Основная модель Guestra — подписка, зависящая от выбранных модулей и масштаба использования. Дополнительно часть вознаграждения может быть привязана к измеримому приросту бизнеса."
           align="center"
         />
         <div className="mt-12 grid gap-5 lg:grid-cols-2">
@@ -43,18 +67,47 @@ export const BusinessModel = () => {
           <Reveal delay={0.2}>
             <div className="window-dark h-full p-6">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-white/45">02 · Результат</div>
-              <h3 className="mt-2 text-xl font-semibold">Модель, связанная с результатом</h3>
+              <h3 className="mt-2 text-xl font-semibold text-white">Модель, связанная с результатом</h3>
               <p className="mt-2 text-sm text-white/65">
-                Опционально часть вознаграждения привязывается к измеримому прироcту относительно базового периода — например, по прямым бронированиям, доп. выручке или повторным гостям.
+                Опционально часть вознаграждения привязывается к измеримому приросту относительно базового периода.
               </p>
-              <ul className="mt-4 space-y-2 text-sm">
-                {["Базовый период фиксируется до старта", "Метрики согласуются с собственником", "Прозрачный расчёт в аналитике Guestra"].map((t) => (
-                  <li key={t} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
-                    <span className="text-white/80">{t}</span>
-                  </li>
+
+              <div className="mt-5 space-y-3">
+                {steps.map((s) => (
+                  <div key={s.num} className="flex gap-3">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 text-[11px] font-bold text-white">{s.num}</span>
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-white">{s.title}</div>
+                      <div className="mt-0.5 text-xs leading-relaxed text-white/60">{s.text}</div>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
+
+              <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-white/40">Пример метрик</div>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  {metrics.map((m, i) => (
+                    <span key={m.label} className="flex items-center gap-0">
+                      <span className="flex items-center gap-1.5 rounded-lg bg-white/8 px-2.5 py-1.5 text-xs font-medium text-white/80">
+                        <m.icon className="h-3.5 w-3.5 text-primary" />
+                        {m.label}
+                      </span>
+                      {i < metrics.length - 1 && <ArrowRight className="mx-1 h-3 w-3 text-white/25" />}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-white/50">
+                  <span className="rounded-md bg-primary/20 px-2 py-0.5 font-medium text-primary">Базовый период</span>
+                  <ArrowRight className="h-3 w-3 shrink-0 text-white/25" />
+                  <span className="text-white/70">Работа Guestra</span>
+                  <ArrowRight className="h-3 w-3 shrink-0 text-white/25" />
+                  <span className="font-medium text-emerald">Рост результата</span>
+                  <ArrowRight className="h-3 w-3 shrink-0 text-white/25" />
+                  <span className="text-white/70">Performance component</span>
+                </div>
+              </div>
+
               <Button variant="secondary" className="mt-6 h-10 rounded-full bg-white px-5 text-ink hover:bg-white/90" onClick={() => open("demo")}>
                 Обсудить конфигурацию
               </Button>

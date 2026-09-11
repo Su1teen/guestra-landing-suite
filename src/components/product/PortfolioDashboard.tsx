@@ -30,7 +30,7 @@ const totalRooms = portfolio.reduce((s, p) => s + p.rooms, 0);
 
 export const PortfolioDashboard = () => (
   <div className="grid gap-5 lg:grid-cols-[1fr_320px]">
-    <Window dark title="Guestra — Портфель · Сеть ЛЕС" badge={<span className="text-[11px] text-white/50">3 объекта · {totalRooms} номеров</span>}>
+    <Window dark title="Guestra — Портфель · Сеть объектов" badge={<span className="text-[11px] text-white/50">3 объекта · {totalRooms} номеров</span>}>
       <div className="grid gap-3 p-4 sm:grid-cols-3">
         <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3 sm:col-span-3">
           <div className="flex flex-wrap items-end justify-between gap-3">
@@ -108,7 +108,7 @@ export const PortfolioDashboard = () => (
       ))}
       <div className="rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-4 text-sm">
         <span className="font-semibold text-primary">Один гость — одна история.</span>{" "}
-        <span className="text-muted-foreground">Гость, который жил в Боровом, в Астане уже известен: предпочтения, LTV и статус — на уровне сети.</span>
+        <span className="text-muted-foreground">Гость, который жил в Объекте 01, в Объекте 02 уже известен: предпочтения, LTV и статус — на уровне сети.</span>
       </div>
     </div>
   </div>

@@ -11,8 +11,8 @@ import { SystemEvent } from "./SystemEvent";
 const sources = [
   { label: "WhatsApp", icon: MessageCircle, color: "text-whatsapp" },
   { label: "АТС", icon: Phone, color: "text-primary" },
-  { label: "Bnovo PMS", icon: CalendarDays, color: "text-violet" },
-  { label: "Rosta POS", icon: Utensils, color: "text-amber" },
+  { label: "PMS", icon: CalendarDays, color: "text-violet" },
+  { label: "POS", icon: Utensils, color: "text-amber" },
 ];
 
 const Sources = () => (
@@ -93,7 +93,7 @@ export const HeroProductDemo = () => {
 
           <div className="mt-3 space-y-1.5">
             <AnimatePresence>
-              {state.done >= 3 && <SystemEvent key="a" label="Данные получены из Bnovo PMS" meta="0,4 с" />}
+              {state.done >= 3 && <SystemEvent key="a" label="Данные получены из PMS" meta="0,4 с" />}
               {state.done >= 5 && <SystemEvent key="b" label="Бронь создана · CRM обновлена" meta="1,1 с" />}
               {confirmed && <SystemEvent key="c" label="Предоплата получена" meta="сейчас" />}
             </AnimatePresence>
@@ -116,12 +116,12 @@ export const HeroProductDemo = () => {
             initial={{ opacity: 0, y: 16, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8 }}
-            className="pointer-events-none absolute -bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-white shadow-2xl"
+            className="pointer-events-none absolute -bottom-5 left-1/2 z-20 flex max-w-[calc(100vw-32px)] -translate-x-1/2 items-center gap-2 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white shadow-2xl sm:gap-2.5 sm:px-4 sm:text-sm"
           >
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald">
               <Check className="h-3 w-3" strokeWidth={3} />
             </span>
-            Бронь подтверждена · Forest House · 18–20 октября
+            <span className="truncate">Бронь подтверждена · Forest House · 18–20 октября</span>
           </motion.div>
         )}
       </AnimatePresence>

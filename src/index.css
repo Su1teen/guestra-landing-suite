@@ -228,4 +228,22 @@
   @keyframes caret {
     50% { opacity: 0; }
   }
+
+  /* Enhanced reduced-motion for Framer Motion components */
+  @media (prefers-reduced-motion: reduce) {
+    [style*="transform"],
+    [style*="opacity"] {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Improved tablet breakpoints */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .headline {
+      font-size: 2rem;
+    }
+    .headline-xl {
+      font-size: 2.5rem;
+    }
+  }
 }

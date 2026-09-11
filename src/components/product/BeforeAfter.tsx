@@ -29,8 +29,8 @@ export const BeforeAfter = () => {
               aria-selected={side === s}
               onClick={() => setSide(s)}
               className={cn(
-                "rounded-full px-4 py-1.5 text-sm font-medium transition",
-                side === s ? (s === "after" ? "bg-primary text-white" : "bg-foreground text-white") : "text-muted-foreground",
+                "min-h-[44px] flex items-center justify-center rounded-full px-5 py-2 text-sm font-medium transition",
+                side === s ? (s === "after" ? "bg-primary text-white" : "bg-foreground text-white") : "text-muted-foreground hover:text-foreground",
               )}
             >
               {s === "before" ? "Без Guestra" : "С Guestra"}

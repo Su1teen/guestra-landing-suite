@@ -119,24 +119,13 @@ export const DemoModalProvider = ({ children }: { children: React.ReactNode }) =
                       </label>
                       <label className="block">
                         <span className="mb-1.5 block text-xs font-medium text-foreground">Компания / объект</span>
-                        <input required name="company" type="text" autoComplete="organization" placeholder="ЛЕС Боровое" className={inputClass} />
+                        <input required name="company" type="text" autoComplete="organization" placeholder="Название отеля или сети" className={inputClass} />
                       </label>
                       <label className="block">
                         <span className="mb-1.5 block text-xs font-medium text-foreground">Телефон</span>
                         <input required name="phone" type="tel" autoComplete="tel" placeholder="+7 701 000 00 00" className={inputClass} />
                       </label>
-                      <label className="block">
-                        <span className="mb-1.5 block text-xs font-medium text-foreground">Количество объектов</span>
-                        <select required name="properties" defaultValue="" className={inputClass}>
-                          <option value="" disabled>
-                            Выберите
-                          </option>
-                          <option value="1">1 объект</option>
-                          <option value="2-5">2–5 объектов</option>
-                          <option value="6-15">6–15 объектов</option>
-                          <option value="16+">Более 15</option>
-                        </select>
-                      </label>
+
                       <Button type="submit" size="lg" className="mt-2 h-12 w-full rounded-xl text-[15px]">
                         {copy.cta}
                       </Button>

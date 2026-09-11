@@ -21,7 +21,7 @@ const Row = ({ label, pct, value, hint }: { label: string; pct: number; value: n
       <div className="text-sm font-medium">{label}</div>
       {hint && <div className="text-[11px] text-white/45">{hint}</div>}
     </div>
-    <div className="hidden w-28 sm:block">
+    <div className="w-16 sm:w-28">
       <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
         <motion.div
           className={cn("h-full rounded-full", pct >= 0 ? "bg-primary" : "bg-rose")}
@@ -30,11 +30,11 @@ const Row = ({ label, pct, value, hint }: { label: string; pct: number; value: n
         />
       </div>
     </div>
-    <span className={cn("num w-14 text-right text-sm", pct > 0 ? "text-emerald" : pct < 0 ? "text-rose" : "text-white/50")}>
+    <span className={cn("num w-12 text-right text-sm", pct > 0 ? "text-emerald" : pct < 0 ? "text-rose" : "text-white/50")}>
       {pct > 0 ? "+" : ""}
       {pct}%
     </span>
-    <span className="num w-24 text-right text-sm text-white/80">{formatTenge(value)}</span>
+    <span className="num w-20 text-right text-sm text-white/80">{formatTenge(value)}</span>
   </div>
 );
 
@@ -51,7 +51,22 @@ export const DynamicPricingDemo = () => {
     const h = holiday ? 20 : 0;
     const raw = baseRate * (1 + (s + o + p + h) / 100);
     const finalRate = Math.max(floorPrice, Math.round(raw / 500) * 500);
-    return { s, o, p, h, finalRate, floored: raw < floorPrice };
+    let explanation = "Цена сбалансирована с учётом базового сезона и текущего темпа.";
+    if (raw < floorPrice) {
+      explanation = "Применена защитная минимальная цена отеля.";
+    } else if (o >= 15 && holiday) {
+      explanation = `Цена выросла из-за повышенной загрузки (+${o}%) и праздничных дат (+20%).`;
+    } else if (o >= 15) {
+      explanation = `Цена выросла из-за повышенной загрузки (+${o}%).`;
+    } else if (o < 0) {
+      explanation = "Цена снижена для стимулирования спроса при низкой загрузке.";
+    } else if (holiday) {
+      explanation = "Цена повышена с учётом праздничного спроса (+20%).";
+    } else if (p >= 8) {
+      explanation = "Цена скорректирована вверх из-за высокого темпа бронирований.";
+    }
+
+    return { s, o, p, h, finalRate, floored: raw < floorPrice, explanation };
   }, [occupancy, pace, season, holiday]);
 
   const stepValue = (pct: number) => Math.round((baseRate * pct) / 100);
@@ -88,8 +103,8 @@ export const DynamicPricingDemo = () => {
               {calc.floored && <span className="ml-2 text-amber">· применён минимум</span>}
             </div>
           </div>
-          <div className="rounded-xl border border-emerald/30 bg-emerald/10 px-3 py-2 text-xs text-emerald">
-            Цена «день в день» при загрузке ниже 60% автоматически снижается до минимума
+          <div className="rounded-xl border border-emerald/30 bg-emerald/10 px-3 py-2 text-xs text-emerald max-w-xs">
+            {calc.explanation}
           </div>
         </div>
       </div>
@@ -102,7 +117,7 @@ export const DynamicPricingDemo = () => {
             <span className="font-medium">Загрузка на дату</span>
             <span className="num text-muted-foreground">{occupancy}%</span>
           </div>
-          <Slider className="mt-3" value={[occupancy]} min={20} max={100} step={1} onValueChange={([v]) => setOccupancy(v)} aria-label="Загрузка" />
+          <Slider className="mt-3 touch-none" value={[occupancy]} min={20} max={100} step={1} onValueChange={([v]) => setOccupancy(v)} aria-label="Загрузка" />
         </div>
 
         <div className="mt-6">
@@ -110,7 +125,7 @@ export const DynamicPricingDemo = () => {
             <span className="font-medium">Темп бронирований</span>
             <span className="num text-muted-foreground">{pace >= 70 ? "очень высокий" : pace >= 40 ? "высокий" : pace >= 20 ? "средний" : "низкий"}</span>
           </div>
-          <Slider className="mt-3" value={[pace]} min={0} max={100} step={1} onValueChange={([v]) => setPace(v)} aria-label="Темп бронирований" />
+          <Slider className="mt-3 touch-none" value={[pace]} min={0} max={100} step={1} onValueChange={([v]) => setPace(v)} aria-label="Темп бронирований" />
         </div>
 
         <div className="mt-6">
