@@ -15,9 +15,9 @@ export default {
     extend: {
       fontFamily: {
         sans: [
+          "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
-          "Inter",
           "Segoe UI",
           "Roboto",
           "Helvetica Neue",
@@ -60,6 +60,18 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        violet: "hsl(var(--violet))",
+        emerald: "hsl(var(--emerald))",
+        amber: "hsl(var(--amber))",
+        rose: "hsl(var(--rose))",
+        cyan: "hsl(var(--cyan))",
+        whatsapp: "hsl(var(--whatsapp))",
+        ink: {
+          DEFAULT: "hsl(var(--ink))",
+          2: "hsl(var(--ink-2))",
+          3: "hsl(var(--ink-3))",
+          border: "hsl(var(--ink-border))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -77,6 +89,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         xl: "1rem",
         "2xl": "1.5rem",
+        "3xl": "2rem",
       },
       keyframes: {
         "accordion-down": {
@@ -87,10 +100,20 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "pulse-ring": {
+          "0%": { transform: "scale(1)", opacity: "0.6" },
+          "100%": { transform: "scale(2.2)", opacity: "0" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-ring": "pulse-ring 1.8s ease-out infinite",
+        float: "float 6s ease-in-out infinite",
       },
     },
   },
