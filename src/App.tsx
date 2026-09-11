@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DemoModalProvider } from "@/components/layout/DemoModal";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-
+//a
 const queryClient = new QueryClient();
 
 const App = () => (
