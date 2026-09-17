@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Building2, Layers, Users } from "lucide-react";
+import { ArrowUpRight, Building2, Layers, Users } from "lucide-react";
 import { portfolio } from "@/data/demo";
 import { AnimatedNumber, formatTenge } from "./AnimatedMetric";
 import { Window } from "./Window";
@@ -28,9 +29,12 @@ const Spark = ({ data }: { data: number[] }) => {
 const totalRevenue = portfolio.reduce((s, p) => s + p.revenue, 0);
 const totalRooms = portfolio.reduce((s, p) => s + p.rooms, 0);
 
-export const PortfolioDashboard = () => (
+export const PortfolioDashboard = () => {
+  const [selectedIndex, setSelectedIndex] = useState(2);
+  const selected = portfolio[selectedIndex];
+  return (
   <div className="grid gap-5 lg:grid-cols-[1fr_320px]">
-    <Window dark title="Guestra — Портфель · Сеть объектов" badge={<span className="text-[11px] text-white/50">3 объекта · {totalRooms} номеров</span>}>
+    <Window dark title="Guestra - Портфель · Сеть объектов" badge={<span className="text-[11px] text-white/50">3 объекта · {totalRooms} номеров</span>}>
       <div className="grid gap-3 p-4 sm:grid-cols-3">
         <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3 sm:col-span-3">
           <div className="flex flex-wrap items-end justify-between gap-3">
@@ -53,13 +57,16 @@ export const PortfolioDashboard = () => (
           </div>
         </div>
         {portfolio.map((p, i) => (
-          <motion.div
+          <motion.button
             key={p.name}
+            type="button"
+            onClick={() => setSelectedIndex(i)}
+            aria-pressed={selectedIndex === i}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ delay: 0.15 + i * 0.1 }}
-            className="rounded-xl border border-white/10 bg-white/[0.04] p-3"
+            className={`rounded-xl border p-3 text-left transition hover:bg-white/[0.08] ${selectedIndex === i ? "border-primary/60 bg-primary/10" : "border-white/10 bg-white/[0.04]"}`}
           >
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold">{p.name}</span>
@@ -78,8 +85,17 @@ export const PortfolioDashboard = () => (
                 <div className="num text-sm font-medium">{p.occupancy}%</div>
               </div>
             </div>
-          </motion.div>
+            <div className="mt-3 flex justify-between border-t border-white/10 pt-2 text-[11px]"><span className="text-white/45">ADR <b className="num font-medium text-white/85">{formatTenge(p.adr)}</b></span><span className="text-white/45">RevPAR <b className="num font-medium text-white/85">{formatTenge(p.revpar)}</b></span></div>
+          </motion.button>
         ))}
+        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 sm:col-span-3">
+          <div className="flex flex-wrap items-center justify-between gap-2"><span className="text-xs font-semibold uppercase tracking-wider text-white/55">В фокусе · {selected.name}</span><span className="text-[11px] text-white/45">Нажмите на объект выше</span></div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            <div><div className="text-[11px] text-white/45">Выручка / номер в наличии · RevPAR</div><div className="num mt-1 text-lg font-semibold">{formatTenge(selected.revpar)}</div></div>
+            <div><div className="text-[11px] text-white/45">Прямые бронирования</div><div className="num mt-1 text-lg font-semibold">{selected.direct}%</div></div>
+            <div><div className="text-[11px] text-white/45">Что проверить</div><div className="mt-1 flex items-start gap-1 text-xs text-amber"><ArrowUpRight className="mt-0.5 h-3.5 w-3.5 shrink-0" />{selected.issue}</div></div>
+          </div>
+        </div>
       </div>
     </Window>
 
@@ -87,7 +103,7 @@ export const PortfolioDashboard = () => (
       {[
         { icon: Layers, t: "Портфель", d: "Выручка, загрузка и динамика по всей сети на одном экране." },
         { icon: Building2, t: "Объект", d: "Кабинет каждого отеля с собственными KPI и командой." },
-        { icon: Users, t: "Отдел", d: "Продажи, housekeeping, F&B — свои метрики и задачи." },
+        { icon: Users, t: "Отдел", d: "Продажи, housekeeping, F&B - свои метрики и задачи." },
       ].map((l, i) => (
         <motion.div
           key={l.t}
@@ -107,9 +123,10 @@ export const PortfolioDashboard = () => (
         </motion.div>
       ))}
       <div className="rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-4 text-sm">
-        <span className="font-semibold text-primary">Один гость — одна история.</span>{" "}
-        <span className="text-muted-foreground">Гость, который жил в Объекте 01, в Объекте 02 уже известен: предпочтения, LTV и статус — на уровне сети.</span>
+        <span className="font-semibold text-primary">Один гость - одна история.</span>{" "}
+        <span className="text-muted-foreground">Гость, который жил в Объекте 01, в Объекте 02 уже известен: предпочтения, LTV и статус - на уровне сети.</span>
       </div>
     </div>
   </div>
-);
+  );
+};

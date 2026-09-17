@@ -89,7 +89,7 @@ export const HeroProductDemo = () => {
               AI активен
             </span>
           </div>
-          <GuestProfile variant="hero" recommendation="Предложить домик Forest + SPA — гость покупал SPA в двух из трёх визитов." />
+          <GuestProfile variant="hero" recommendation="Предложить домик Forest + SPA - гость покупал SPA в двух из трёх визитов." />
 
           <div className="mt-3 space-y-1.5">
             <AnimatePresence>

@@ -21,7 +21,7 @@ export const useDemoModal = () => {
 const titles: Record<DemoIntent, { title: string; subtitle: string; cta: string }> = {
   demo: {
     title: "Запросить демо",
-    subtitle: "Покажем, как Guestra будет работать в вашем отеле — на ваших процессах и вашем стеке.",
+    subtitle: "Покажем, как Guestra будет работать в вашем отеле - на ваших процессах и вашем стеке.",
     cta: "Запросить демо",
   },
   integration: {

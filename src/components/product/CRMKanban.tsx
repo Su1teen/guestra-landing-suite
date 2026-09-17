@@ -31,7 +31,7 @@ export const CRMKanban = ({ className }: { className?: string }) => {
   return (
     <div ref={ref}>
       <Window
-        title="Guestra CRM — Лиды"
+        title="Guestra CRM - Лиды"
         className={className}
         badge={
           <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">

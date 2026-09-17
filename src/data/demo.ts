@@ -7,6 +7,8 @@ export const guest = {
   lastVisit: "Объект 01",
   interest: "Домик Forest",
   ltv: 482_000,
+  rating: "4,8 / 5",
+  loyalty: "Gold",
   preferences: ["SPA", "Завтрак в домик", "Тихий домик у леса"],
 };
 
@@ -36,7 +38,7 @@ export const salesScript: ChatStep[] = [
   { kind: "system", events: ["Найден гость", "Проверка PMS", "Проверка загрузки", "Получен актуальный тариф"] },
   {
     kind: "ai",
-    text: "На 18–20 октября доступен Forest House. Стоимость — 74 000 ₸ за ночь.\nМогу также добавить SPA-доступ и завтрак.",
+    text: "На 18–20 октября доступен Forest House. Стоимость - 74 000 ₸ за ночь.\nМогу также добавить SPA-доступ и завтрак.",
   },
   { kind: "guest", text: "Да, бронируйте." },
   { kind: "ai", text: "Готово. Отправляю ссылку на предоплату." },
@@ -49,7 +51,7 @@ export const heroScript: ChatStep[] = [
   { kind: "guest", text: "Здравствуйте! Есть домик на выходные на двоих?" },
   { kind: "ai", text: "Здравствуйте, Анна! Рада видеть вас снова. Проверяю Forest House на 18–20 октября." },
   { kind: "system", events: ["Найден гость", "Проверена доступность", "Получен тариф"] },
-  { kind: "ai", text: "Домик Forest свободен — 67 000 ₸ за ночь. Добавить SPA, как в прошлый раз?" },
+  { kind: "ai", text: "Домик Forest свободен - 67 000 ₸ за ночь. Добавить SPA, как в прошлый раз?" },
   { kind: "guest", text: "Да, бронируйте с SPA." },
   { kind: "status", text: "Бронь подтверждена", tone: "success" },
 ];
@@ -132,12 +134,12 @@ export const reservations: Reservation[] = [
   { room: 0, start: 0, nights: 2, guest: "Сергей Л.", rate: "74 000 ₸", source: "Сайт", services: "Завтрак", payment: "Оплачено", tone: "success" },
   { room: 0, start: 4, nights: 2, guest: "Анна Иванова", rate: "74 000 ₸", source: "WhatsApp", services: "SPA, завтрак", payment: "Предоплата", tone: "primary" },
   { room: 1, start: 1, nights: 3, guest: "Асель Т.", rate: "71 000 ₸", source: "WhatsApp", services: "Завтрак", payment: "Предоплата", tone: "primary" },
-  { room: 2, start: 3, nights: 1, guest: "Мария Ким", rate: "68 000 ₸", source: "Booking.com", services: "—", payment: "Ожидает", tone: "warning" },
+  { room: 2, start: 3, nights: 1, guest: "Мария Ким", rate: "68 000 ₸", source: "Booking.com", services: "-", payment: "Ожидает", tone: "warning" },
   { room: 3, start: 0, nights: 3, guest: "Олег Ким", rate: "96 000 ₸", source: "Booking.com", services: "Трансфер", payment: "Оплачено", tone: "success" },
   { room: 3, start: 5, nights: 2, guest: "Айгерим Н.", rate: "98 000 ₸", source: "WhatsApp", services: "SPA", payment: "Предоплата", tone: "violet" },
   { room: 4, start: 2, nights: 2, guest: "Дмитрий С.", rate: "92 000 ₸", source: "Сайт", services: "Ресторан", payment: "Оплачено", tone: "success" },
-  { room: 5, start: 1, nights: 2, guest: "Жанар А.", rate: "42 000 ₸", source: "Звонок", services: "—", payment: "Оплачено", tone: "success" },
-  { room: 6, start: 4, nights: 3, guest: "Тимур Б.", rate: "38 000 ₸", source: "Airbnb", services: "—", payment: "Ожидает", tone: "warning" },
+  { room: 5, start: 1, nights: 2, guest: "Жанар А.", rate: "42 000 ₸", source: "Звонок", services: "-", payment: "Оплачено", tone: "success" },
+  { room: 6, start: 4, nights: 3, guest: "Тимур Б.", rate: "38 000 ₸", source: "Airbnb", services: "-", payment: "Ожидает", tone: "warning" },
 ];
 
 export const pricingFactors = [
@@ -217,9 +219,9 @@ export const drr = [
 ];
 
 export const portfolio = [
-  { name: "Объект 01", rooms: 48, occupancy: 84, revenue: 21_400_000, trend: [42, 48, 55, 51, 63, 70, 74] },
-  { name: "Объект 02", rooms: 36, occupancy: 79, revenue: 16_900_000, trend: [30, 34, 33, 41, 46, 52, 58] },
-  { name: "Объект 03", rooms: 52, occupancy: 76, revenue: 10_300_000, trend: [20, 26, 24, 31, 37, 40, 44] },
+  { name: "Объект 01", rooms: 48, occupancy: 84, revenue: 96_000_000, adr: 81_200, revpar: 68_208, direct: 51, issue: "Проверить смены с высокой долей возвратов", trend: [42, 48, 55, 51, 63, 70, 74] },
+  { name: "Объект 02", rooms: 36, occupancy: 79, revenue: 55_000_000, adr: 64_300, revpar: 50_797, direct: 35, issue: "Прямых броней меньше, чем в Объекте 01", trend: [30, 34, 33, 41, 46, 52, 58] },
+  { name: "Объект 03", rooms: 52, occupancy: 76, revenue: 70_000_000, adr: 58_700, revpar: 44_612, direct: 38, issue: "Низкий RevPAR при самом большом номерном фонде", trend: [20, 26, 24, 31, 37, 40, 44] },
 ];
 
 export const integrations = [

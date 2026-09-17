@@ -248,7 +248,7 @@ const stages: Record<StageKey, StageData> = {
       {
         room: "Домик 108",
         roomType: "Forest House",
-        taskTitle: "Система кондиционирования — слабый поток охлаждения",
+        taskTitle: "Система кондиционирования - слабый поток охлаждения",
         assignee: { name: "Алексей Ковалев", role: "Старший инженер-техник", initials: "АК" },
         channel: "Сигнал от горничной",
         channelIcon: CheckCircle2,
@@ -627,7 +627,7 @@ export const OperationsDashboard = () => {
 
       {/* 2. Основное окно операционного центра */}
       <Window
-        title="Guestra Operations — Управление операциями"
+        title="Guestra Operations - Управление операциями"
         badge={
           <span className="flex items-center gap-1.5 text-xs text-emerald font-medium">
             <span className="h-2 w-2 rounded-full bg-emerald animate-pulse" />

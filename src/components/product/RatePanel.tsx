@@ -35,7 +35,7 @@ export const RatePanel = ({ className }: { className?: string }) => (
     <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.04] p-2.5">
       <div className="text-[10px] uppercase tracking-wider text-white/45">Причина изменения</div>
       <div className="mt-0.5 text-xs">
-        <span className="num font-semibold text-emerald">+15%</span> — высокая загрузка на выходные
+        <span className="num font-semibold text-emerald">+15%</span> - высокая загрузка на выходные
       </div>
     </div>
 
