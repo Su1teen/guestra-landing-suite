@@ -21,7 +21,7 @@ const Row = ({ label, pct, value, hint }: { label: string; pct: number; value: n
       <div className="text-sm font-medium">{label}</div>
       {hint && <div className="text-[11px] text-white/45">{hint}</div>}
     </div>
-    <div className="w-16 sm:w-28">
+    <div className="hidden w-28 sm:block">
       <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
         <motion.div
           className={cn("h-full rounded-full", pct >= 0 ? "bg-primary" : "bg-rose")}
@@ -72,15 +72,15 @@ export const DynamicPricingDemo = () => {
   const stepValue = (pct: number) => Math.round((baseRate * pct) / 100);
 
   return (
-    <div className="grid gap-5 lg:grid-cols-[1fr_420px]">
-      <div className="window-dark p-5 sm:p-6">
+    <div className="grid min-w-0 gap-5 lg:grid-cols-[1fr_420px]">
+      <div className="window-dark min-w-0 p-5 sm:p-6">
         <div className="flex items-center justify-between">
           <div>
             <div className="text-[11px] font-semibold uppercase tracking-wider text-white/45">Forest House · 18 октября (Сб)</div>
             <div className="mt-1 text-sm text-white/70">Как формируется цена</div>
           </div>
           <Pill tone="primary" dot>
-            пересчёт каждые 15 минут
+            пример расчёта
           </Pill>
         </div>
 
@@ -103,13 +103,13 @@ export const DynamicPricingDemo = () => {
               {calc.floored && <span className="ml-2 text-amber">· применён минимум</span>}
             </div>
           </div>
-          <div className="rounded-xl border border-emerald/30 bg-emerald/10 px-3 py-2 text-xs text-emerald max-w-xs">
+          <div className="max-w-sm rounded-xl border border-emerald/30 bg-emerald/10 px-4 py-3 text-sm leading-relaxed text-emerald">
             {calc.explanation}
           </div>
         </div>
       </div>
 
-      <div className="window p-5 sm:p-6">
+      <div className="window min-w-0 p-5 text-foreground sm:p-6">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Попробуйте изменить спрос</div>
 
         <div className="mt-5">

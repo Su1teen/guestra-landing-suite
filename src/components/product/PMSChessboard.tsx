@@ -54,7 +54,7 @@ export const BookingModal = ({ r, onClose, dark }: { r: Reservation; onClose?: (
       <div>
         <dt className="opacity-50">Даты</dt>
         <dd className="font-medium">
-          {days[r.start]} — {days[Math.min(r.start + r.nights, days.length - 1)]}
+          {days[r.start]} - {days[Math.min(r.start + r.nights, days.length - 1)]}
         </dd>
       </div>
       <div>
@@ -100,7 +100,7 @@ export const PMSChessboard = ({ className }: { className?: string }) => {
   return (
     <div ref={ref}>
       <Window
-        title="Guestra PMS — Шахматка · Ваш отель"
+        title="Guestra PMS - Шахматка · Ваш отель"
         className={className}
         badge={
           <span className="flex items-center gap-2 text-[11px] text-muted-foreground">

@@ -10,7 +10,7 @@ export const Roadmap = () => (
     <div className="container-wide relative">
       <SectionHeader
         eyebrow="Путь к Hotel OS"
-        title="От интеграционного слоя — к операционной системе отеля."
+        title="От интеграционного слоя - к операционной системе отеля."
         lede="Guestra растёт вместе с отелем: сначала связывает системы, затем автоматизирует, оптимизирует и постепенно становится единой платформой."
       />
       <ol className="relative mt-14 grid gap-4 md:grid-cols-5">

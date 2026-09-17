@@ -7,7 +7,7 @@ export const MultiProperty = () => (
     <div className="container-wide">
       <SectionHeader
         eyebrow="Для сетей и групп"
-        title="Один отель или сеть — одна система."
+        title="Один отель или сеть - одна система."
         lede="Портфель, объект, отдел. Управляйте несколькими объектами из одного кабинета, а гости узнаются на уровне всей сети."
       />
       <Reveal delay={0.1} className="mt-12">

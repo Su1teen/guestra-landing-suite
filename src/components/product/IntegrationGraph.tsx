@@ -84,7 +84,7 @@ export const IntegrationGraph = () => (
           <Logo light />
           <span className="rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-[11px]">Интеграционный слой</span>
         </div>
-        <p className="mt-3 text-sm text-white/70">Guestra получает события из всех каналов и систем, связывает их с гостем и запускает действия.</p>
+        <p className="mt-3 text-sm text-white/70">При подключении Guestra связывает доступные события с гостем, бронью и действиями команды.</p>
         <ul className="mt-5 grid gap-2 sm:grid-cols-2">
           {core.map((c, i) => (
             <motion.li
@@ -116,7 +116,7 @@ export const IntegrationGraph = () => (
           <Node key={s.label} {...s} i={i} side="r" />
         ))}
       </ul>
-      <p className="mt-4 text-xs text-white/50">Остаются и работают. Guestra синхронизирует данные через API в обе стороны.</p>
+      <p className="mt-4 text-xs text-white/50">Направление обмена и состав данных зависят от доступного API.</p>
     </div>
   </div>
 );

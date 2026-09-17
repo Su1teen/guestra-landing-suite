@@ -21,7 +21,7 @@ export const CTASection = () => {
             <Reveal>
               <h2 className="headline text-white">Покажем, как Guestra будет работать в вашем отеле.</h2>
               <p className="mt-5 max-w-lg text-lg text-white/80">
-                На демо разберём ваш текущий стек, путь гостя и покажем сценарии на примере вашего объекта — от WhatsApp до аналитики собственника.
+                На демо разберём ваш текущий стек, путь гостя и покажем сценарии на примере вашего объекта - от WhatsApp до аналитики собственника.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button size="lg" className="h-12 rounded-full bg-white px-6 text-ink hover:bg-white/90" onClick={() => open("demo")}>

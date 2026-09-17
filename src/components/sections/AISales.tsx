@@ -37,10 +37,10 @@ export const AISales = () => {
               eyebrow="AI-агент продаж"
               title={
                 <>
-                  Это не чат-бот. <span className="text-white/45">Это AI-агент, который умеет продавать и бронировать.</span>
+                  AI ведёт диалог <span className="text-white/45"> от первого обращения до бронирования. </span>
                 </>
               }
-              lede="AI отвечает, проверяет наличие в PMS, находит актуальную цену, создаёт бронь и отправляет ссылку на предоплату. Менеджер подключается только там, где нужен человек."
+              lede="В демонстрационном сценарии AI проверяет наличие и тариф, предлагает номер, создаёт бронь и передаёт сложный запрос менеджеру. Каждое действие видно рядом с диалогом."
             />
 
             <Reveal delay={0.15} className="mt-8">
@@ -60,7 +60,7 @@ export const AISales = () => {
                 Посмотреть AI в действии
               </Button>
               <Button variant="outline" className="h-11 rounded-full border-white/15 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white" asChild>
-                <a href="#voice">Voice AI для звонков</a>
+                <a href="/ai#voice">Voice AI для звонков</a>
               </Button>
             </Reveal>
           </div>

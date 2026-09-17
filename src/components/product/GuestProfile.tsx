@@ -79,6 +79,8 @@ export const GuestProfile = ({ className, variant = "full", recommendation }: Gu
         />
         <Row label="Доп. услуги" value="SPA, завтрак, трансфер" />
         <Row label="Предпочтения" value={guest.preferences.join(", ")} />
+        <Row label="Рейтинг гостя" value={`${guest.rating} · внутренняя оценка`} />
+        <Row label="Программа лояльности" value={guest.loyalty} />
         <Row label="LTV" value={<span className="num text-sm font-semibold text-foreground">{formatTenge(guest.ltv)}</span>} />
         <Row label="Следующее действие" value={<Pill tone="primary">Отправить предложение</Pill>} />
       </div>

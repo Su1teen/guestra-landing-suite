@@ -12,8 +12,8 @@ export const VoiceAI = () => {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeader
             eyebrow="Voice AI"
-            title="Каждый звонок становится лидом. Даже когда менеджер занят."
-            lede="Voice AI отвечает на входящие звонки через вашу АТС, уточняет даты и состав гостей, а итог разговора сразу попадает в CRM со следующим действием."
+            title="Звонок остаётся в работе, когда менеджер занят."
+            lede="Сценарий Voice AI: принять входящий звонок через АТС, уточнить даты и состав гостей, передать итог в CRM и назначить следующее действие сотруднику."
           />
           <Reveal delay={0.1}>
             <Button className="h-11 rounded-full px-6" onClick={() => open("voice")}>
