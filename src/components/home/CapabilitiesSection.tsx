@@ -10,7 +10,7 @@ export const CapabilitiesSection = () => (
         <SectionHeader
           eyebrow="Вся платформа"
           title="Всё, что умеет Guestra"
-          lede={`${capabilityCount} возможностей в пяти направлениях работы отеля. Всё, кроме отмеченного, работает сейчас.`}
+          lede={`${capabilityCount} возможность в пяти направлениях работы отеля. Откройте нужный раздел. Функции в разработке отмечены отдельно.`}
         />
         <p className="flex shrink-0 items-center gap-2 text-sm text-muted-foreground"><StatusBadge /> — в разработке</p>
       </div>

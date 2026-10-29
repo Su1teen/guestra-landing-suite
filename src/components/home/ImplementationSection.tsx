@@ -1,13 +1,13 @@
-import { ArrowRight, FileClock, KeyRound, Layers3, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { implementationSteps } from "@/data/implementation";
 
 const trust = [
-  { icon: KeyRound, title: "Права по роли и объекту", text: "Каждый сотрудник видит только то, что нужно для его работы." },
-  { icon: FileClock, title: "История изменений", text: "Смена тарифа, брони, возврат и права доступа остаются в журнале." },
-  { icon: ShieldCheck, title: "AI работает через проверки", text: "Каждое действие агента проходит правила системы, как действие сотрудника." },
-  { icon: Layers3, title: "Объекты разделены", text: "Данные каждого объекта и сети изолированы друг от друга." },
+  { title: "Права по роли и объекту", text: "Каждый сотрудник видит только то, что нужно для его работы." },
+  { title: "История изменений", text: "Смена тарифа, брони, возврат и права доступа остаются в журнале." },
+  { title: "AI работает через проверки", text: "Каждое действие агента проходит правила системы, как действие сотрудника." },
+  { title: "Объекты разделены", text: "Данные каждого объекта и сети изолированы друг от друга." },
 ];
 
 export const ImplementationSection = () => (
@@ -31,12 +31,11 @@ export const ImplementationSection = () => (
             Как проходит внедрение <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="hidden rounded-3xl border border-border bg-background-alt p-6 sm:p-8 md:block">
+        <div className="implementation-trust p-6 sm:p-8">
           <p className="eyebrow">Данные и доступ</p>
           <ul className="mt-6 space-y-5">
             {trust.map((item) => (
               <li key={item.title} className="flex gap-3.5">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-primary shadow-sm"><item.icon className="h-4 w-4" /></span>
                 <div>
                   <h3 className="text-sm font-semibold">{item.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.text}</p>

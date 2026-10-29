@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { X, MessageCircle, Globe, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { reservations, rooms, type Reservation } from "@/data/demo";
 import { Pill } from "./Pill";
 import { Window } from "./Window";
 import { SystemEvent } from "./SystemEvent";
-import { useStepper } from "@/hooks/use-stepper";
 
 const days = ["14 окт", "15 окт", "16 окт", "17 окт", "18 окт", "19 окт", "20 окт", "21 окт"];
 const weekday = ["Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн", "Вт"];
@@ -89,8 +88,8 @@ export const BookingModal = ({ r, onClose, dark }: { r: Reservation; onClose?: (
 
 export const PMSChessboard = ({ className, summary = true }: { className?: string; summary?: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-10% 0px -10% 0px" });
   const [selected, setSelected] = useState<number | null>(null);
+  const [moved, setMoved] = useState(false);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [CELL, setCell] = useState(MIN_CELL + 20);
   useEffect(() => {
@@ -102,11 +101,14 @@ export const PMSChessboard = ({ className, summary = true }: { className?: strin
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-  // auto-demo: 0 idle → 1 drag Анна from 18 to 17 → 2 open modal → 3 close
-  const step = useStepper(3, inView, { intervals: [2200, 1800, 3600], loopPause: 2500 });
-  const shift = step >= 1 ? -1 : 0;
-  const autoOpen = step === 2 && selected === null;
-  const active = selected !== null ? reservations[selected] : autoOpen ? reservations[1] : null;
+  const shift = moved ? -1 : 0;
+  const active = selected !== null ? { ...reservations[selected], start: reservations[selected].start + (selected === 1 ? shift : 0) } : null;
+  useEffect(() => {
+    if (selected === null) return;
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") setSelected(null); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [selected]);
 
   return (
     <div ref={ref}>
@@ -121,6 +123,7 @@ export const PMSChessboard = ({ className, summary = true }: { className?: strin
         }
         bodyClassName="relative"
       >
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-white px-4 py-2 text-[11px] text-muted-foreground"><span>Демонстрация шахматки</span><button type="button" aria-pressed={moved} onClick={() => { setMoved((v) => !v); setSelected(null); }} className="min-h-9 rounded-md border border-border px-3 font-medium text-primary">{moved ? "Вернуть даты" : "Показать перенос брони"}</button></div>
         {summary && (
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1 border-b border-border bg-background-alt/60 px-4 py-2 text-[11px] text-muted-foreground">
             <span className="font-semibold uppercase tracking-wider">Свободно на 18 окт</span>
@@ -129,7 +132,7 @@ export const PMSChessboard = ({ className, summary = true }: { className?: strin
             ))}
           </div>
         )}
-        <div ref={scrollerRef} className="scrollbar-none overflow-x-auto">
+        <div ref={scrollerRef} className="overflow-x-auto" role="region" aria-label="Шахматка бронирований" tabIndex={0}>
           <div style={{ width: LABEL + CELL * days.length }} className="relative select-none text-xs">
             <div className="sticky top-0 z-10 flex border-b border-border bg-white">
               <div className="shrink-0 border-r border-border px-3 py-2 font-semibold text-muted-foreground" style={{ width: LABEL }}>
@@ -161,6 +164,7 @@ export const PMSChessboard = ({ className, summary = true }: { className?: strin
                 const start = r.start + (isAnna ? shift : 0);
                 return (
                   <motion.button
+                    initial={false}
                     key={i}
                     type="button"
                     onClick={() => setSelected(selected === i ? null : i)}
@@ -176,7 +180,7 @@ export const PMSChessboard = ({ className, summary = true }: { className?: strin
                     whileHover={{ y: -1 }}
                   >
                     <span className="truncate">{r.guest}</span>
-                    {isAnna && step === 1 && <span className="ml-auto shrink-0 rounded bg-primary px-1 text-[9px] text-white">перенос</span>}
+                    {isAnna && moved && <span className="ml-auto shrink-0 rounded bg-primary px-1 text-[9px] text-white">перенос</span>}
                   </motion.button>
                 );
               })}

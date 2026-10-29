@@ -8,7 +8,7 @@ type RevealProps = HTMLMotionProps<"div"> & {
 export const Reveal = ({ delay = 0, children, ...props }: RevealProps) => (
   <motion.div
     variants={fadeUp}
-    initial="hidden"
+    initial={false}
     whileInView="show"
     viewport={viewportOnce}
     transition={{ delay }}

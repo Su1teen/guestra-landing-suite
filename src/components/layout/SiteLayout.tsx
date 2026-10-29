@@ -36,7 +36,7 @@ export const SiteLayout = () => {
     <>
       <a href="#content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg">К содержанию</a>
       <Navbar />
-      <div id="content"><Outlet /></div>
+      <div id="content" data-page={pathname}><Outlet /></div>
       <Footer />
       <MobileCTA />
     </>

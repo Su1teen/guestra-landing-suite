@@ -88,14 +88,13 @@ const factors = [
 
 export const PricingPage = () => (
   <main>
-    <section className="relative overflow-hidden border-b border-border bg-background-alt pb-16 pt-28 md:pb-20 md:pt-36">
-      <div className="grid-bg absolute inset-0 opacity-70" aria-hidden />
+    <section className="pricing-intro relative border-b border-border pb-16 pt-28 md:pb-20 md:pt-36">
       <div className="container-wide relative grid gap-12 px-5 sm:px-8 lg:grid-cols-[1fr_520px] lg:gap-16">
         <div>
           <p className="eyebrow">Цены</p>
           <h1 className="mt-5 text-balance text-[2.2rem] font-semibold leading-[1.06] tracking-[-0.03em] sm:text-5xl lg:text-[3.4rem]">Стоимость считаем под ваш отель</h1>
           <p className="lede mt-6 max-w-xl">Цена зависит от номерного фонда, набора модулей и числа объектов. Оставьте заявку, и мы пришлём расчёт с составом работ по внедрению.</p>
-          <dl className="mt-10 grid gap-6 sm:grid-cols-2">
+          <dl className="pricing-factors mt-10 grid gap-6 sm:grid-cols-2">
             {factors.map((f) => (
               <div key={f.title}>
                 <dt className="font-semibold">{f.title}</dt>
@@ -104,7 +103,7 @@ export const PricingPage = () => (
             ))}
           </dl>
         </div>
-        <div className="rounded-3xl border border-border bg-white p-6 shadow-[0_30px_80px_-40px_rgba(16,24,40,0.35)] sm:p-8">
+        <div className="rounded-2xl border border-border bg-white p-6 sm:p-8">
           <h2 className="text-2xl font-semibold tracking-tight">Получить расчёт</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Укажите номерной фонд, чтобы расчёт был точнее.</p>
           <LeadForm intent="pricing" submitLabel="Получить расчёт" className="mt-6" />
@@ -137,10 +136,9 @@ export const UpdatesPage = () => (
     />
     <section className="section bg-background">
       <div className="container-tight">
-        <ol className="relative border-l border-border">
+        <ol className="updates-timeline">
           {updates.map((u) => (
-            <li key={u.title} className="relative pb-10 pl-8 last:pb-0">
-              <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-primary ring-1 ring-primary/30" aria-hidden />
+            <li key={u.title}>
               <div className="flex flex-wrap items-center gap-2 text-xs">
                 <time className="num text-muted-foreground">{u.date}</time>
                 <span className="rounded-full bg-background-alt px-2 py-0.5 font-semibold">{u.product}</span>
@@ -169,7 +167,7 @@ export const UpdatesPage = () => (
 /* ─── Политика конфиденциальности ─────────────────────────────── */
 
 export const PrivacyPage = () => (
-  <main className="bg-background px-5 pb-24 pt-28 sm:px-8 md:pt-36">
+  <main className="document-page px-5 pb-24 pt-28 sm:px-8 md:pt-36">
     <article className="container-tight max-w-3xl">
       <p className="eyebrow">Документы</p>
       <h1 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">Политика конфиденциальности</h1>

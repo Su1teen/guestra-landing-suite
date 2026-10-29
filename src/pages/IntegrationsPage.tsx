@@ -48,6 +48,8 @@ const IntegrationsPage = () => (
       eyebrow="Интеграции"
       title="Каналы, оплаты и данные, с которыми работает Guestra"
       description="Мессенджеры и телефония подключаются к AI-администратору и CRM, календари площадок — к шахматке, бухгалтерия получает выгрузку из PMS. Ниже — что работает сейчас и что в разработке."
+      visualCaption="Схема подключения каналов и модулей"
+      visual={<div className="integration-overview"><div className="integration-channels"><span>WhatsApp</span><span>Telegram</span><span>Телефония</span></div><span className="integration-connector" aria-hidden>↓</span><div className="integration-core"><span>AI-администратор</span><strong>CRM</strong><p>Входящие · обращения · гости</p></div><span className="integration-connector" aria-hidden>↓</span><div className="integration-pms"><strong>PMS</strong><p>Наличие · цены · брони · оплаты</p></div></div>}
       secondary={{ label: "Как проходит внедрение", href: "/implementation" }}
     />
 

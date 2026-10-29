@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { Mic, Phone, PhoneIncoming, Sparkles } from "lucide-react";
+import { Mic, Phone, PhoneIncoming, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useStepper } from "@/hooks/use-stepper";
 import { voiceSummary, voiceTranscript } from "@/data/demo";
@@ -24,9 +24,11 @@ const Waveform = ({ active }: { active: boolean }) => (
 
 export const VoiceCallDemo = ({ className }: { className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15% 0px -15% 0px" });
+  const inView = useInView(ref, { once: true, margin: "-15% 0px -15% 0px" });
+  const [playback, setPlayback] = useState({ running: true, key: 0 });
   // 0 incoming, 1 answered, 2..5 transcript lines, 6 summary
-  const step = useStepper(6, inView, { intervals, loopPause: 4500 });
+  const step = useStepper(6, inView && playback.running, { intervals, loop: false, restartKey: playback.key });
+  const playing = playback.running && step < 6;
   const inCall = step >= 1 && step < 6;
 
   return (
@@ -42,7 +44,7 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
         <div className="mt-8 flex flex-col items-center">
           <div className="relative">
             {step === 0 && <span className="absolute inset-0 animate-pulse-ring rounded-full bg-emerald/40" aria-hidden />}
-            <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary to-violet text-2xl font-semibold">
+            <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-semibold">
               И
             </div>
           </div>
@@ -51,7 +53,7 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
         </div>
 
         <div className="mt-6 flex justify-center">
-          <Waveform active={inCall} />
+          <Waveform active={inCall && playing} />
         </div>
 
         <div className="mt-6 flex items-center justify-center gap-3">
@@ -67,8 +69,9 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
         </div>
 
         <div className="mt-6 flex items-center justify-center gap-1.5 text-[11px] text-white/60">
-          <Sparkles className="h-3 w-3 text-primary" /> Отвечает голосовой агент Guestra
+          Отвечает голосовой агент Guestra
         </div>
+        <button type="button" onClick={() => setPlayback((p) => playing ? { ...p, running: false } : { running: true, key: p.key + 1 })} className="mt-5 flex min-h-10 items-center justify-center gap-2 rounded-md border border-white/25 text-xs text-white">{playing ? <><Pause className="h-3 w-3" />Пауза</> : <><Play className="h-3 w-3" />Показать разговор с начала</>}</button>
       </div>
 
       <div className="flex flex-col gap-3">

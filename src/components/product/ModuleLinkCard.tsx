@@ -13,7 +13,7 @@ export const ModuleTag = ({ modules, className }: { modules: string[]; className
 );
 
 export const ModuleLinkCard = ({ link, className }: { link: ModuleLink; className?: string }) => (
-  <article className={cn("flex h-full flex-col rounded-2xl border border-border bg-white p-5 transition hover:border-primary/25 hover:shadow-[0_20px_50px_-30px_rgba(16,24,40,0.35)]", className)}>
+  <article className={cn("module-link-article flex h-full flex-col p-5", className)}>
     <ModuleTag modules={link.modules} />
     <h3 className="mt-3 text-[17px] font-semibold leading-snug">{link.title}</h3>
     <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{link.text}</p>

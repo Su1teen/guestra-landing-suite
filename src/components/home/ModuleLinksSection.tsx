@@ -1,32 +1,37 @@
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Plus, Minus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { Reveal } from "@/components/shared/Reveal";
-import { ModuleLinkCard } from "@/components/product/ModuleLinkCard";
+import { ModuleTag } from "@/components/product/ModuleLinkCard";
 import { moduleLinks } from "@/data/moduleLinks";
 
-export const ModuleLinksSection = () => (
-  <section id="how" className="section scroll-mt-16 bg-background-alt">
-    <div className="container-wide">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <SectionHeader
-          eyebrow="Как модули работают вместе"
-          title="От сообщения гостя до отчёта собственника"
-          lede="Продажи, бронирования, службы и финансы в Guestra работают на одних данных. Действие в одном модуле сразу видно в остальных, без пересылок и ручного переноса."
-        />
-        <Link to="/platform" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary hover:underline">
-          Весь путь брони <ArrowRight className="h-4 w-4" />
-        </Link>
+/** All six scenarios remain in the document; one receives focus at a time. */
+export const ModuleLinksSection = () => {
+  const [active, setActive] = useState(0);
+  const Fragment = moduleLinks[active].Fragment;
+  return (
+    <section id="how" className="section workflow-section scroll-mt-20">
+      <div className="container-wide">
+        <div className="section-heading-row">
+          <SectionHeader eyebrow="Как модули работают вместе" title="От сообщения гостя до отчёта собственника" lede="Продажи, бронирования, службы и финансы в Guestra работают на одних данных. Действие в одном модуле сразу видно в остальных, без пересылок и ручного переноса." />
+          <Link to="/platform" className="text-link">Весь путь брони <ArrowRight className="h-4 w-4" /></Link>
+        </div>
+        <div className="workflow-layout">
+          <div className="workflow-list">
+            {moduleLinks.slice(0, 6).map((link, i) => (
+              <div key={link.title} className="workflow-item" data-active={active === i}>
+                <h3><button type="button" aria-expanded={active === i} aria-controls={`workflow-${i}`} onClick={() => setActive(i)}><span className="num">0{i + 1}</span>{link.title}{active === i ? <Minus /> : <Plus />}</button></h3>
+                <div id={`workflow-${i}`} hidden={active !== i} className="workflow-description"><p>{link.text}</p><div className="workflow-mobile-visual"><link.Fragment /></div></div>
+              </div>
+            ))}
+          </div>
+          <div className="workflow-visual" aria-hidden="true">
+            <div className="stage-caption"><span>Связь модулей</span><span className="num">0{active + 1} / 06</span></div>
+            <div key={active} className="workflow-scene"><ModuleTag modules={moduleLinks[active].modules} /><h3>{moduleLinks[active].title}</h3><Fragment /></div>
+            <span className="workflow-footnote">Демонстрация на условных данных</span>
+          </div>
+        </div>
       </div>
-      {/* На телефоне — лента с прокруткой, на планшете и десктопе — сетка. */}
-      <div className="scrollbar-none -mx-5 mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8 md:mx-0 md:mt-12 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
-        {moduleLinks.slice(0, 6).map((link, i) => (
-          <Reveal key={link.title} delay={(i % 3) * 0.06} className="w-[84%] shrink-0 snap-start md:w-auto">
-            <ModuleLinkCard link={link} className="h-full" />
-          </Reveal>
-        ))}
-      </div>
-      <p className="mt-3 text-xs text-muted-foreground md:hidden">Листайте вбок, чтобы увидеть все связки.</p>
-    </div>
-  </section>
-);
+    </section>
+  );
+};

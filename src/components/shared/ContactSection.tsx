@@ -16,7 +16,7 @@ export const ContactSection = ({
   title = "Покажем Guestra на примере вашего отеля",
   text = "Онлайн, около часа. Разберём ваши сценарии: переписку с гостями, шахматку, задачи служб и отчёты. Честно скажем, что подключим сразу, а что потребует времени.",
 }: ContactSectionProps) => (
-  <section id="contact" className="section scroll-mt-16 bg-background-alt">
+  <section id="contact" className="contact-section section scroll-mt-20">
     <div className="container-wide">
       <div className="grid gap-12 lg:grid-cols-[1fr_520px] lg:gap-16">
         <div>
@@ -38,7 +38,7 @@ export const ContactSection = ({
             <a href={mailtoHref("Вопрос о Guestra")} className="font-medium text-primary underline-offset-2 hover:underline">{SALES_EMAIL}</a>
           </p>
         </div>
-        <div className="rounded-3xl border border-border bg-white p-6 shadow-[0_30px_80px_-40px_rgba(16,24,40,0.35)] sm:p-8">
+        <div className="contact-form rounded-2xl bg-white p-6 sm:p-8">
           {faq && (
             <>
               <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>

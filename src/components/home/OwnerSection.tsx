@@ -6,7 +6,7 @@ import { OwnerControlCenter } from "@/components/product/OwnerControlCenter";
 import { TeamActivity } from "@/components/product/TeamActivity";
 
 export const OwnerSection = () => (
-  <section id="owner" className="section bg-background">
+  <section id="owner" className="home-owner section">
     <div className="container-wide">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeader
@@ -18,9 +18,9 @@ export const OwnerSection = () => (
           Кабинет собственника <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-      <div className="mt-12 grid gap-5 lg:grid-cols-[1.45fr_1fr]">
+      <div className="owner-stage mt-12 grid gap-5 lg:grid-cols-[1.45fr_1fr]">
         <Reveal delay={0.05} className="min-w-0"><OwnerControlCenter className="h-full" /></Reveal>
-        <Reveal delay={0.12} className="hidden min-w-0 md:block"><TeamActivity className="h-full" /></Reveal>
+        <Reveal delay={0.12} className="min-w-0"><TeamActivity className="h-full" /></Reveal>
       </div>
     </div>
   </section>

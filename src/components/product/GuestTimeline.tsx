@@ -19,7 +19,7 @@ export const GuestTimeline = () => (
     <div className="window-dark p-5">
       <div className="text-[11px] font-semibold uppercase tracking-wider text-white/55">Профиль гостя</div>
       <div className="mt-3 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-violet text-sm font-semibold">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-sm font-semibold">
           {guest.initials}
         </div>
         <div>

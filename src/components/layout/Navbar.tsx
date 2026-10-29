@@ -19,7 +19,7 @@ const mainLinks = [
 ];
 
 const linkClass = ({ isActive }: { isActive: boolean }) => cn(
-  "rounded-full px-3.5 py-2 text-sm font-medium transition hover:bg-muted hover:text-foreground",
+  "rounded-md px-3.5 py-2 text-sm font-medium transition hover:bg-muted hover:text-foreground",
   isActive ? "text-primary" : "text-foreground/70",
 );
 
@@ -40,11 +40,22 @@ export const Navbar = () => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        document.getElementById("mobile-menu-toggle")?.focus();
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="site-header fixed inset-x-0 top-0 z-50">
       <nav
-        className={cn("transition-colors duration-300", scrolled || open ? "border-b border-border/70 bg-white/90 backdrop-blur-xl" : "border-b border-transparent bg-white/70 backdrop-blur-md")}
+        className={cn("transition-colors duration-300", scrolled || open ? "border-b border-border bg-background/95 backdrop-blur-xl" : "border-b border-transparent bg-background/95")}
         aria-label="Основная навигация"
       >
         <div className="container-wide flex h-16 items-center justify-between px-5 sm:px-8">
@@ -53,7 +64,7 @@ export const Navbar = () => {
           <NavigationMenu className="hidden lg:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="rounded-full bg-transparent px-3.5 text-foreground/70 hover:bg-muted hover:text-foreground data-[state=open]:bg-muted">
+                <NavigationMenuTrigger className="rounded-md bg-transparent px-3.5 text-foreground/70 hover:bg-muted hover:text-foreground data-[state=open]:bg-muted">
                   Платформа
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -90,11 +101,11 @@ export const Navbar = () => {
           </NavigationMenu>
 
           <div className="hidden items-center gap-2 lg:flex">
-            <Button className="rounded-full px-5" onClick={() => openDemo("demo")}>Запросить демо</Button>
+            <Button className="rounded-md px-5" onClick={(event) => openDemo("demo", event.currentTarget)}>Запросить демо</Button>
           </div>
           <button
             className="-mr-2 flex h-11 w-11 items-center justify-center rounded-full text-foreground lg:hidden"
-            onClick={() => setOpen((v) => !v)} aria-label={open ? "Закрыть меню" : "Открыть меню"} aria-expanded={open}
+            id="mobile-menu-toggle" aria-controls="mobile-menu" onClick={() => setOpen((v) => !v)} aria-label={open ? "Закрыть меню" : "Открыть меню"} aria-expanded={open}
           >{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
         </div>
       </nav>
@@ -103,7 +114,7 @@ export const Navbar = () => {
         {open && (
           <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}
             className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-border bg-white px-5 pb-6 pt-4 shadow-xl lg:hidden">
-            <nav aria-label="Мобильная навигация" className="container-wide">
+            <nav id="mobile-menu" aria-label="Мобильная навигация" className="container-wide">
               <p className="px-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Платформа</p>
               <div className="mt-2 grid gap-0.5 sm:grid-cols-2">
                 {productNav.map((item) => <Link key={item.href} to={item.href} className="rounded-xl px-3 py-2.5 transition hover:bg-muted">
@@ -114,7 +125,7 @@ export const Navbar = () => {
               <div className="grid gap-0.5 sm:grid-cols-2">
                 {[...platformLinks, ...mainLinks].map((link) => <Link key={link.href} to={link.href} className="rounded-xl px-3 py-2.5 text-sm font-medium transition hover:bg-muted">{link.label}</Link>)}
               </div>
-              <Button className="mt-5 h-12 w-full rounded-xl" onClick={() => { setOpen(false); openDemo("demo"); }}>Запросить демо</Button>
+              <Button className="mt-5 h-12 w-full rounded-xl" onClick={(event) => { setOpen(false); openDemo("demo", event.currentTarget); }}>Запросить демо</Button>
             </nav>
           </motion.div>
         )}

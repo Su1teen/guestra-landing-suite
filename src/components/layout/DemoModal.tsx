@@ -5,7 +5,7 @@ import { LeadForm } from "@/components/shared/LeadForm";
 import type { LeadIntent } from "@/lib/lead";
 
 interface DemoModalContextValue {
-  open: (intent?: LeadIntent) => void;
+  open: (intent?: LeadIntent, trigger?: HTMLElement) => void;
   close: () => void;
 }
 
@@ -48,19 +48,28 @@ export const DemoModalProvider = ({ children }: { children: React.ReactNode }) =
   const dialogRef = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
 
-  const open = useCallback((next: LeadIntent = "demo") => {
-    returnFocus.current = document.activeElement as HTMLElement | null;
+  const open = useCallback((next: LeadIntent = "demo", trigger?: HTMLElement) => {
+    returnFocus.current = trigger ?? document.activeElement as HTMLElement | null;
     setFormKey((k) => k + 1);
     setIntent(next);
   }, []);
   const close = useCallback(() => {
     setIntent(null);
-    returnFocus.current?.focus?.();
   }, []);
 
   useEffect(() => {
     if (!intent) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      if (e.key !== "Tab") return;
+      const controls = dialogRef.current?.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([tabindex="-1"]),select,textarea');
+      const visible = Array.from(controls ?? []).filter((el) => el.getClientRects().length > 0);
+      const first = visible[0];
+      const last = visible[visible.length - 1];
+      if (!first || !last) return;
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
     document.addEventListener("keydown", onKey);
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -77,7 +86,11 @@ export const DemoModalProvider = ({ children }: { children: React.ReactNode }) =
   return (
     <DemoModalContext.Provider value={value}>
       {children}
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => {
+        const trigger = returnFocus.current;
+        if (trigger?.isConnected) trigger.focus();
+        else document.getElementById("mobile-menu-toggle")?.focus();
+      }}>
         {intent && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={close} className="fixed inset-0 z-[90] bg-ink/60 backdrop-blur-sm" />

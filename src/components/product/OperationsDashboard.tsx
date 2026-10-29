@@ -4,7 +4,6 @@ import {
   Check,
   ClipboardList,
   Bell,
-  Sparkles,
   Users,
   Wrench,
   LogOut,
@@ -119,7 +118,7 @@ const stages: Record<StageKey, StageData> = {
   housekeeping: {
     label: "Уборка",
     badgeCount: 14,
-    icon: Sparkles,
+    icon: ClipboardList,
     color: "text-amber",
     department: "Служба уборки",
     counters: [
@@ -376,7 +375,7 @@ const BookingTrigger = ({ visible }: { visible: boolean }) => {
           Бронь запускает работу отеля
         </div>
         <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Sparkles className="h-3.5 w-3.5 text-primary" /> задачи создаются автоматически
+          задачи создаются автоматически
         </span>
       </div>
       <div className="grid gap-2.5 sm:grid-cols-[1.1fr_auto_1.2fr] items-center">
@@ -442,7 +441,7 @@ const StageTabsBar = ({
             className={cn(
               "flex shrink-0 items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold transition-all shadow-sm min-h-[36px]",
               isActive
-                ? "bg-primary text-white shadow-primary/20 scale-[1.02]"
+                ? "bg-primary text-white "
                 : "bg-white text-muted-foreground hover:bg-background-alt hover:text-foreground border border-border/80"
             )}
           >

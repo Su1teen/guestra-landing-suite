@@ -149,7 +149,7 @@ export const DynamicPricingDemo = () => {
         <label className="mt-6 flex cursor-pointer items-center justify-between rounded-xl border border-border p-3 text-sm">
           <span className="font-medium">Наурыз на эти даты</span>
           <input type="checkbox" className="peer sr-only" checked={holiday} onChange={(e) => setHoliday(e.target.checked)} />
-          <span className={cn("relative h-6 w-11 rounded-full transition", holiday ? "bg-primary" : "bg-muted")}>
+          <span className={cn("relative h-6 w-11 shrink-0 rounded-full transition peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-primary", holiday ? "bg-primary" : "bg-muted")}>
             <span className={cn("absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition", holiday ? "left-[22px]" : "left-0.5")} />
           </span>
         </label>
