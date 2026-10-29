@@ -23,3 +23,6 @@ export const stagger = (delay = 0.08, delayChildren = 0): Variants => ({
 });
 
 export const viewportOnce = { once: true, margin: "-80px" } as const;
+
+export const prefersReducedMotion = () =>
+  typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;

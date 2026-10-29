@@ -4,7 +4,7 @@ export const Logo = ({ className, light }: { className?: string; light?: boolean
   <span className={cn("flex items-center gap-2.5", className)}>
     <span className="relative flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-lg" aria-hidden>
       <img
-        src="/logo.png"
+        src="/logo-64.png"
         alt=""
         width={28}
         height={28}

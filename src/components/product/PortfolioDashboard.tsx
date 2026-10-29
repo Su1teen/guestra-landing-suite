@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Building2, Layers, Users } from "lucide-react";
 import { portfolio } from "@/data/demo";
-import { AnimatedNumber, formatTenge } from "./AnimatedMetric";
+import { AnimatedNumber, formatMillions, formatTenge } from "./AnimatedMetric";
 import { Window } from "./Window";
 import { viewportOnce } from "@/lib/motion";
 
@@ -34,23 +34,23 @@ export const PortfolioDashboard = () => {
   const selected = portfolio[selectedIndex];
   return (
   <div className="grid gap-5 lg:grid-cols-[1fr_320px]">
-    <Window dark title="Guestra - Портфель · Сеть объектов" badge={<span className="text-[11px] text-white/50">3 объекта · {totalRooms} номеров</span>}>
+    <Window title="Guestra · Сеть объектов" badge={<span className="text-[11px] text-muted-foreground">3 объекта · {totalRooms} номеров</span>}>
       <div className="grid gap-3 p-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3 sm:col-span-3">
+        <div className="rounded-xl border border-border bg-background-alt/60 p-3 sm:col-span-3">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <div className="text-[10px] uppercase tracking-wider text-white/45">Выручка сети · месяц</div>
+              <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Выручка сети · месяц</div>
               <div className="num mt-1 text-3xl font-semibold tracking-tight">
-                <AnimatedNumber value={totalRevenue} format={formatTenge} duration={1.6} />
+                <AnimatedNumber value={totalRevenue} format={formatMillions} duration={1.6} />
               </div>
             </div>
             <div className="flex gap-6 text-xs">
               <div>
-                <div className="text-white/45">Ср. загрузка</div>
+                <div className="text-muted-foreground">Ср. загрузка</div>
                 <div className="num text-lg font-semibold">80%</div>
               </div>
               <div>
-                <div className="text-white/45">Повторные гости в сети</div>
+                <div className="text-muted-foreground">Повторные гости в сети</div>
                 <div className="num text-lg font-semibold">31%</div>
               </div>
             </div>
@@ -66,34 +66,34 @@ export const PortfolioDashboard = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ delay: 0.15 + i * 0.1 }}
-            className={`rounded-xl border p-3 text-left transition hover:bg-white/[0.08] ${selectedIndex === i ? "border-primary/60 bg-primary/10" : "border-white/10 bg-white/[0.04]"}`}
+            className={`rounded-xl border p-3 text-left transition hover:border-primary/30 hover:bg-white ${selectedIndex === i ? "border-primary/50 bg-primary/5 ring-2 ring-primary/10" : "border-border bg-background-alt/60"}`}
           >
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold">{p.name}</span>
-              <span className="num text-[11px] text-white/45">{p.rooms} ном.</span>
+              <span className="num text-[11px] text-muted-foreground">{p.rooms} ном.</span>
             </div>
             <Spark data={p.trend} />
             <div className="mt-2 flex items-end justify-between">
               <div>
-                <div className="text-[10px] text-white/45">Выручка</div>
+                <div className="text-[10px] text-muted-foreground">Выручка</div>
                 <div className="num text-sm font-medium">
-                  <AnimatedNumber value={p.revenue} format={formatTenge} />
+                  <AnimatedNumber value={p.revenue} format={formatMillions} />
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-[10px] text-white/45">Загрузка</div>
+                <div className="text-[10px] text-muted-foreground">Загрузка</div>
                 <div className="num text-sm font-medium">{p.occupancy}%</div>
               </div>
             </div>
-            <div className="mt-3 flex justify-between border-t border-white/10 pt-2 text-[11px]"><span className="text-white/45">ADR <b className="num font-medium text-white/85">{formatTenge(p.adr)}</b></span><span className="text-white/45">RevPAR <b className="num font-medium text-white/85">{formatTenge(p.revpar)}</b></span></div>
+            <div className="mt-3 flex justify-between border-t border-border pt-2 text-[11px]"><span className="text-muted-foreground">ADR <b className="num font-medium text-foreground">{formatTenge(p.adr)}</b></span><span className="text-muted-foreground">RevPAR <b className="num font-medium text-foreground">{formatTenge(p.revpar)}</b></span></div>
           </motion.button>
         ))}
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 sm:col-span-3">
-          <div className="flex flex-wrap items-center justify-between gap-2"><span className="text-xs font-semibold uppercase tracking-wider text-white/55">В фокусе · {selected.name}</span><span className="text-[11px] text-white/45">Нажмите на объект выше</span></div>
+        <div className="rounded-xl border border-border bg-background-alt/60 p-4 sm:col-span-3">
+          <div className="flex flex-wrap items-center justify-between gap-2"><span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">В фокусе · {selected.name}</span><span className="text-[11px] text-muted-foreground">Нажмите на объект выше</span></div>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            <div><div className="text-[11px] text-white/45">Выручка / номер в наличии · RevPAR</div><div className="num mt-1 text-lg font-semibold">{formatTenge(selected.revpar)}</div></div>
-            <div><div className="text-[11px] text-white/45">Прямые бронирования</div><div className="num mt-1 text-lg font-semibold">{selected.direct}%</div></div>
-            <div><div className="text-[11px] text-white/45">Что проверить</div><div className="mt-1 flex items-start gap-1 text-xs text-amber"><ArrowUpRight className="mt-0.5 h-3.5 w-3.5 shrink-0" />{selected.issue}</div></div>
+            <div><div className="text-[11px] text-muted-foreground">Выручка / номер в наличии · RevPAR</div><div className="num mt-1 text-lg font-semibold">{formatTenge(selected.revpar)}</div></div>
+            <div><div className="text-[11px] text-muted-foreground">Прямые бронирования</div><div className="num mt-1 text-lg font-semibold">{selected.direct}%</div></div>
+            <div><div className="text-[11px] text-muted-foreground">Что проверить</div><div className="mt-1 flex items-start gap-1 text-xs text-[hsl(28_80%_36%)]"><ArrowUpRight className="mt-0.5 h-3.5 w-3.5 shrink-0" />{selected.issue}</div></div>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ export const PortfolioDashboard = () => {
       {[
         { icon: Layers, t: "Портфель", d: "Выручка, загрузка и динамика по всей сети на одном экране." },
         { icon: Building2, t: "Объект", d: "Кабинет каждого отеля с собственными KPI и командой." },
-        { icon: Users, t: "Отдел", d: "Продажи, housekeeping, F&B - свои метрики и задачи." },
+        { icon: Users, t: "Отдел", d: "Продажи, уборка, ресторан: свои показатели и задачи." },
       ].map((l, i) => (
         <motion.div
           key={l.t}
@@ -123,8 +123,8 @@ export const PortfolioDashboard = () => {
         </motion.div>
       ))}
       <div className="rounded-2xl border border-dashed border-primary/40 bg-primary/5 p-4 text-sm">
-        <span className="font-semibold text-primary">Один гость - одна история.</span>{" "}
-        <span className="text-muted-foreground">Гость, который жил в Объекте 01, в Объекте 02 уже известен: предпочтения, LTV и статус - на уровне сети.</span>
+        <span className="font-semibold text-primary">Один гость — одна история.</span>{" "}
+        <span className="text-muted-foreground">Гость, который жил в Объекте 01, в Объекте 02 уже знаком: предпочтения, история трат и статус хранятся на уровне сети.</span>
       </div>
     </div>
   </div>

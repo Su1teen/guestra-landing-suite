@@ -1,73 +1,47 @@
-# Welcome to your Lovable project
+# guestra.org
 
-## Project info
+Маркетинговый сайт Guestra: PMS, CRM и AI-администратор для отелей. React 18, TypeScript, Vite, Tailwind, framer-motion. Деплой — Cloudflare Workers со статическими ассетами.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Команды
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm install
+npm run dev        # разработка, http://localhost:8080
+npm run build      # клиентская сборка + SSR-сборка + пререндер всех страниц в dist/
+npm test           # vitest: маршруты, форма заявки, Worker
+npm run lint
+npm run typecheck
+node scripts/serve-dist.mjs   # проверить dist/ так, как его отдаёт Cloudflare
+npm run og         # перегенерировать превью для соцсетей (нужен Python и Pillow)
 ```
 
-**Edit a file directly in GitHub**
+## Как устроено
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- `src/routes.tsx` — единый список страниц с заголовками и описаниями. Его используют роутер, метаданные, пререндер и sitemap. Новая страница добавляется только здесь.
+- `src/data/` — содержание: `capabilities.ts` (карта возможностей со статусами), `moduleLinks.tsx` (связки модулей), `demo.ts` (демо-данные панелей), `faq.ts`, `updates.ts`, `navigation.ts`.
+- `src/components/product/` — интерфейсные демо: шахматка, входящие CRM, AI-чат, ценообразование, кабинет собственника и др. Подписи и статусы повторяют реальные CRM и PMS Guestra.
+- `src/components/home/` — секции главной, `src/components/page/PageBlocks.tsx` — общие блоки продуктовых страниц.
+- `src/entry-server.tsx` и `scripts/prerender.mjs` — пререндер. Каждая страница собирается в `dist/<route>.html` со своими title, description, OG-превью и JSON-LD; неизвестные адреса получают `dist/404.html` с кодом 404.
+- `worker/` — Cloudflare Worker. Обрабатывает только `/api/*`, остальное отдаёт статика.
 
-**Use GitHub Codespaces**
+## Статусы функций
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Функции в разработке отмечаются полем `status: "soon"` в `src/data/capabilities.ts` и компонентом `StatusBadge`. Когда функция выходит, достаточно убрать статус и добавить запись в `src/data/updates.ts`.
 
-## What technologies are used for this project?
+## Заявки с сайта
 
-This project is built with:
+Все формы отправляют `POST /api/lead`. Worker проверяет поля, отсекает спам (скрытое поле и слишком быстрая отправка) и отправляет письмо на `LEAD_TO` (по умолчанию `sales@guestra.org`). Если отправка не удалась, форма показывает ошибку и адрес почты.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Нужна одна из настроек:
 
-## How can I deploy this project?
+1. **Cloudflare Email Routing** (по умолчанию). В зоне guestra.org включить Email Routing, подтвердить адрес назначения для `LEAD_TO` и разрешить отправку с `LEAD_FROM` (`noreply@guestra.org`). Binding `SEND_EMAIL` уже описан в `wrangler.toml`.
+2. **Resend.** `wrangler secret put RESEND_API_KEY` — при наличии ключа письма уходят через Resend, домен отправителя должен быть подтверждён там.
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Деплой
 
-## Can I connect a custom domain to my Lovable project?
+```bash
+npm run build
+npx wrangler deploy
+```
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+`wrangler.toml` отдаёт `dist/` как статику (`html_handling = "auto-trailing-slash"`, `not_found_handling = "404-page"`) и запускает Worker только для `/api/*`.

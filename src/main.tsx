@@ -1,5 +1,9 @@
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import "@fontsource-variable/inter";
 import App from "./App.tsx";
 import "./index.css";
 
-createRoot(document.getElementById("root")!).render(<App />);
+const root = document.getElementById("root")!;
+// Страницы пререндерятся при сборке: если разметка уже есть, React подхватывает её.
+if (root.firstElementChild) hydrateRoot(root, <App />);
+else createRoot(root).render(<App />);

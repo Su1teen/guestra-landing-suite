@@ -4,6 +4,7 @@ import { Check, Phone, Sparkles, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ChatStep } from "@/data/demo";
 import { SystemEventList } from "./SystemEvent";
+import { prefersReducedMotion } from "@/lib/motion";
 
 export interface ChatState {
   done: number;
@@ -22,6 +23,10 @@ export const useChatScript = (script: ChatStep[], active: boolean, { loop = true
 
   useEffect(() => {
     if (!active) return;
+    if (prefersReducedMotion()) {
+      setState({ ...initial, done: script.length });
+      return;
+    }
     let cancelled = false;
     const wait = (ms: number) => sleep(ms / speed);
 
@@ -31,8 +36,8 @@ export const useChatScript = (script: ChatStep[], active: boolean, { loop = true
         setState({ ...initial, cycle });
         for (let i = 0; i < script.length && !cancelled; i++) {
           const step = script[i];
-          if (step.kind === "guest") {
-            await wait(i === 0 ? 500 : 1100);
+          if (step.kind === "guest" || step.kind === "staff") {
+            await wait(i === 0 ? 500 : 1300);
           } else if (step.kind === "ai") {
             setState((s) => ({ ...s, typing: true }));
             await wait(1000);
@@ -69,25 +74,27 @@ export const useChatScript = (script: ChatStep[], active: boolean, { loop = true
   return state;
 };
 
-const Bubble = ({ side, children, dark, meta }: { side: "guest" | "ai"; children: React.ReactNode; dark?: boolean; meta?: string }) => (
+const Bubble = ({ side, children, dark, meta, author }: { side: "guest" | "ai" | "staff"; children: React.ReactNode; dark?: boolean; meta?: string; author?: string }) => (
   <motion.div
     initial={{ opacity: 0, y: 10, scale: 0.98 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
     transition={{ duration: 0.3 }}
-    className={cn("flex", side === "ai" ? "justify-end" : "justify-start")}
+    className={cn("flex", side === "guest" ? "justify-start" : "justify-end")}
   >
     <div
       className={cn(
         "max-w-[90%] sm:max-w-[86%] whitespace-pre-line break-words rounded-2xl px-3.5 py-2 text-[13px] leading-snug shadow-sm",
         side === "guest" && (dark ? "rounded-bl-md bg-white/10 text-white" : "rounded-bl-md bg-white text-foreground"),
         side === "ai" && "rounded-br-md bg-[#d9fdd3] text-[#111b21]",
+        side === "staff" && "rounded-br-md bg-[#e7f0ff] text-[#111b21] ring-1 ring-primary/20",
       )}
     >
+      {author && <span className="mb-0.5 block text-[10px] font-semibold text-primary">{author}</span>}
       {children}
       {meta && (
         <span className="mt-1 flex items-center justify-end gap-1 text-[10px] text-black/45">
           {meta}
-          {side === "ai" && <Check className="h-3 w-3 text-[#53bdeb]" strokeWidth={3} />}
+          {side !== "guest" && <Check className="h-3 w-3 text-[#53bdeb]" strokeWidth={3} />}
         </span>
       )}
     </div>
@@ -130,7 +137,11 @@ export const ChatWindow = ({ script, state, guestName, className, compact }: Cha
   }, [state.done, state.partial, state.typing, state.sysProgress]);
 
   const current = script[state.done];
-  const times = ["10:41", "10:41", "10:42", "10:42", "10:43", "10:43", "10:44", "10:44", "10:47"];
+  const times = ["10:41", "10:41", "10:42", "10:42", "10:43", "10:43", "10:44", "10:44", "10:45", "10:45", "10:46", "10:52"];
+  const staffActive = script.slice(0, state.done).reduce<boolean>((on, step) => {
+    if (step.kind === "status" && step.tone === "neutral") return step.text.includes("взял");
+    return on;
+  }, false);
 
   return (
     <div className={cn("flex flex-col overflow-hidden rounded-2xl border border-border bg-[#efeae2] shadow-[0_24px_60px_-24px_rgba(16,24,40,0.3)]", className)}>
@@ -144,7 +155,7 @@ export const ChatWindow = ({ script, state, guestName, className, compact }: Cha
         <div className="min-w-0 flex-1">
           <div className="truncate text-sm font-medium">{guestName}</div>
           <div className="flex items-center gap-1 text-[11px] text-white/70">
-            <Sparkles className="h-3 w-3" /> AI-агент Guestra отвечает
+            {staffActive ? <>Отвечает администратор</> : <><Sparkles className="h-3 w-3" /> Отвечает AI-администратор</>}
           </div>
         </div>
         <Video className="h-4 w-4 text-white/70" />
@@ -165,9 +176,9 @@ export const ChatWindow = ({ script, state, guestName, className, compact }: Cha
         </div>
         <AnimatePresence initial={false}>
           {script.slice(0, state.done).map((step, i) => {
-            if (step.kind === "guest" || step.kind === "ai") {
+            if (step.kind === "guest" || step.kind === "ai" || step.kind === "staff") {
               return (
-                <Bubble key={`${state.cycle}-${i}`} side={step.kind} meta={times[i]}>
+                <Bubble key={`${state.cycle}-${i}`} side={step.kind} meta={times[i]} author={step.kind === "staff" ? step.author : undefined}>
                   {step.text}
                 </Bubble>
               );
@@ -189,7 +200,9 @@ export const ChatWindow = ({ script, state, guestName, className, compact }: Cha
                 <span
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold",
-                    step.tone === "success" ? "bg-emerald text-white" : "bg-amber/90 text-white",
+                    step.tone === "success" && "bg-emerald text-white",
+                    step.tone === "warning" && "bg-amber/90 text-white",
+                    step.tone === "neutral" && "bg-white/90 text-black/60 shadow-sm",
                   )}
                 >
                   {step.tone === "success" && <Check className="h-3 w-3" strokeWidth={3} />}

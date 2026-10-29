@@ -63,7 +63,7 @@ const stages: Record<StageKey, StageData> = {
     badgeCount: 12,
     icon: CalendarCheck,
     color: "text-primary",
-    department: "Служба приема и подготовки номеров",
+    department: "Служба приёма и подготовки номеров",
     counters: [
       { label: "Прибытий сегодня", value: 12, tone: "primary" },
       { label: "Особые пожелания", value: 3, tone: "violet" },
@@ -100,11 +100,11 @@ const stages: Record<StageKey, StageData> = {
         priority: "Стандарт",
       },
       {
-        room: "Делюкс 305",
-        roomType: "Люкс с террасой",
+        room: "A-Frame 301",
+        roomType: "A-Frame с террасой",
         taskTitle: "VIP-гость: подготовка фруктовой корзины и мини-бара",
         assignee: { name: "Айбек Толеу", role: "Служба питания (F&B)", initials: "АТ" },
-        channel: "Ресепшн",
+        channel: "Ресепшен",
         channelIcon: Phone,
         timeInfo: "Заезд в 16:30 · Заказ передан на кухню",
         status: "Новая задача",
@@ -121,7 +121,7 @@ const stages: Record<StageKey, StageData> = {
     badgeCount: 14,
     icon: Sparkles,
     color: "text-amber",
-    department: "Служба хаускипинга и чистоты",
+    department: "Служба уборки",
     counters: [
       { label: "К уборке сегодня", value: 12, tone: "primary" },
       { label: "В процессе уборки", value: 3, tone: "warning" },
@@ -130,7 +130,7 @@ const stages: Record<StageKey, StageData> = {
     ],
     tasks: [
       {
-        room: "Домик 104",
+        room: "Forest 103",
         roomType: "Forest House",
         taskTitle: "Генеральная уборка после выезда гостя",
         assignee: { name: "Марина Смирнова", role: "Горничная", initials: "МС" },
@@ -172,7 +172,7 @@ const stages: Record<StageKey, StageData> = {
         priority: "Стандарт",
       },
     ],
-    timeline: ["Выезд гостя", "Авто-создание задачи", "Уборка номера", "Инспекция качества", "Статус: Чист в PMS"],
+    timeline: ["Выезд гостя", "Задача создана автоматически", "Уборка номера", "Инспекция качества", "Статус: Чист в PMS"],
   },
   service: {
     label: "Сервис",
@@ -183,22 +183,22 @@ const stages: Record<StageKey, StageData> = {
     counters: [
       { label: "Активные запросы", value: 5, tone: "primary" },
       { label: "Выполнено сегодня", value: 18, tone: "success" },
-      { label: "Превышение SLA", value: 0, tone: "success" },
+      { label: "Вне срока", value: 0, tone: "success" },
       { label: "Среднее время ответа", value: 6, tone: "violet", suffix: " мин" },
     ],
     tasks: [
       {
-        room: "Делюкс 305",
-        roomType: "Люкс с террасой",
-        taskTitle: "«Можно принести дополнительное теплое одеяло?»",
+        room: "A-Frame 301",
+        roomType: "A-Frame с террасой",
+        taskTitle: "«Можно принести дополнительное тёплое одеяло?»",
         assignee: { name: "Служба обслуживания", role: "Дежурный этажа", initials: "СО" },
         channel: "WhatsApp гостя",
         channelIcon: MessageCircle,
-        timeInfo: "SLA: 08:32 мин осталось · Норматив: 15 мин",
+        timeInfo: "Срок: 08:32 мин осталось · Норматив: 15 мин",
         status: "Принято в работу",
         tone: "primary",
         progress: 55,
-        checkpoints: ["Запрос принят AI-ботом ✓", "Назначен дежурный ✓", "Доставка в номер"],
+        checkpoints: ["Запрос принят AI-администратором ✓", "Назначен дежурный ✓", "Доставка в номер"],
         priority: "Высокий",
       },
       {
@@ -208,7 +208,7 @@ const stages: Record<StageKey, StageData> = {
         assignee: { name: "Служба F&B", role: "Курьер ресторана", initials: "РМ" },
         channel: "QR-меню в номере",
         channelIcon: QrCode,
-        timeInfo: "SLA: 12:15 мин осталось · Норматив: 30 мин",
+        timeInfo: "Срок: 12:15 мин осталось · Норматив: 30 мин",
         status: "В доставке",
         tone: "warning",
         progress: 80,
@@ -248,7 +248,7 @@ const stages: Record<StageKey, StageData> = {
       {
         room: "Домик 108",
         roomType: "Forest House",
-        taskTitle: "Система кондиционирования - слабый поток охлаждения",
+        taskTitle: "Кондиционер: слабое охлаждение",
         assignee: { name: "Алексей Ковалев", role: "Старший инженер-техник", initials: "АК" },
         channel: "Сигнал от горничной",
         channelIcon: CheckCircle2,
@@ -304,7 +304,7 @@ const stages: Record<StageKey, StageData> = {
     ],
     tasks: [
       {
-        room: "Домик 104",
+        room: "Forest 103",
         roomType: "Forest House",
         taskTitle: "Анна Иванова · Выезд в 14:00 · Быстрый расчет через WhatsApp",
         assignee: { name: "Администратор стойки", role: "Расчетная группа", initials: "АС" },
@@ -322,7 +322,7 @@ const stages: Record<StageKey, StageData> = {
         roomType: "Домик у озера",
         taskTitle: "Олег Ким · Выезд в 12:00 · Сверка мини-бара и счета",
         assignee: { name: "Динара Мусина", role: "Администратор", initials: "ДМ" },
-        channel: "Ресепшн",
+        channel: "Ресепшен",
         channelIcon: Phone,
         timeInfo: "Ожидание проверки номера горничной",
         status: "Ожидает расчёта",
@@ -336,7 +336,7 @@ const stages: Record<StageKey, StageData> = {
         roomType: "Forest House",
         taskTitle: "Сергей Л. · Выезд в 11:00 · Счет оплачен · Оценка 5/5",
         assignee: { name: "Служба заботы о гостях", role: "Авто-сценарий", initials: "СЗ" },
-        channel: "Guest 360",
+        channel: "Профиль гостя",
         channelIcon: CheckCircle2,
         timeInfo: "Запущен сценарий повторного бронирования",
         status: "Завершено",
@@ -627,7 +627,7 @@ export const OperationsDashboard = () => {
 
       {/* 2. Основное окно операционного центра */}
       <Window
-        title="Guestra Operations - Управление операциями"
+        title="Guestra PMS · Операции"
         badge={
           <span className="flex items-center gap-1.5 text-xs text-emerald font-medium">
             <span className="h-2 w-2 rounded-full bg-emerald animate-pulse" />

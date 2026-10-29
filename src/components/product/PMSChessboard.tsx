@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { X, MessageCircle, Globe, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ import { useStepper } from "@/hooks/use-stepper";
 
 const days = ["14 окт", "15 окт", "16 окт", "17 окт", "18 окт", "19 окт", "20 окт", "21 окт"];
 const weekday = ["Вт", "Ср", "Чт", "Пт", "Сб", "Вс", "Пн", "Вт"];
-const CELL = 96;
+const MIN_CELL = 88;
 const ROW = 52;
 const LABEL = 132;
 
@@ -54,7 +54,7 @@ export const BookingModal = ({ r, onClose, dark }: { r: Reservation; onClose?: (
       <div>
         <dt className="opacity-50">Даты</dt>
         <dd className="font-medium">
-          {days[r.start]} - {days[Math.min(r.start + r.nights, days.length - 1)]}
+          {days[r.start]} – {days[Math.min(r.start + r.nights, days.length - 1)]}
         </dd>
       </div>
       <div>
@@ -81,16 +81,27 @@ export const BookingModal = ({ r, onClose, dark }: { r: Reservation; onClose?: (
       </div>
     </dl>
     <div className="mt-3 grid gap-1.5">
-      <SystemEvent label="Housekeeping уведомлён" dark={dark} meta="авто" />
-      <SystemEvent label="Гость в Guest 360" dark={dark} meta="связан" />
+      <SystemEvent label="Уборка к заезду запланирована" dark={dark} meta="авто" />
+      <SystemEvent label="Профиль гостя обновлён" dark={dark} meta="CRM" />
     </div>
   </motion.div>
 );
 
-export const PMSChessboard = ({ className }: { className?: string }) => {
+export const PMSChessboard = ({ className, summary = true }: { className?: string; summary?: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: "-10% 0px -10% 0px" });
   const [selected, setSelected] = useState<number | null>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [CELL, setCell] = useState(MIN_CELL + 20);
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const update = () => setCell(Math.max(MIN_CELL, Math.floor((el.clientWidth - LABEL) / days.length)));
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   // auto-demo: 0 idle → 1 drag Анна from 18 to 17 → 2 open modal → 3 close
   const step = useStepper(3, inView, { intervals: [2200, 1800, 3600], loopPause: 2500 });
   const shift = step >= 1 ? -1 : 0;
@@ -100,7 +111,7 @@ export const PMSChessboard = ({ className }: { className?: string }) => {
   return (
     <div ref={ref}>
       <Window
-        title="Guestra PMS - Шахматка · Ваш отель"
+        title="Guestra PMS · Шахматка"
         className={className}
         badge={
           <span className="flex items-center gap-2 text-[11px] text-muted-foreground">
@@ -110,7 +121,15 @@ export const PMSChessboard = ({ className }: { className?: string }) => {
         }
         bodyClassName="relative"
       >
-        <div className="scrollbar-none overflow-x-auto">
+        {summary && (
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1 border-b border-border bg-background-alt/60 px-4 py-2 text-[11px] text-muted-foreground">
+            <span className="font-semibold uppercase tracking-wider">Свободно на 18 окт</span>
+            {[["Forest", 2], ["Lake", 2], ["A-Frame", 1], ["Sky", 0]].map(([cat, free]) => (
+              <span key={cat as string} className="num">{cat} <b className={cn("font-semibold", free ? "text-emerald" : "text-rose")}>{free}</b></span>
+            ))}
+          </div>
+        )}
+        <div ref={scrollerRef} className="scrollbar-none overflow-x-auto">
           <div style={{ width: LABEL + CELL * days.length }} className="relative select-none text-xs">
             <div className="sticky top-0 z-10 flex border-b border-border bg-white">
               <div className="shrink-0 border-r border-border px-3 py-2 font-semibold text-muted-foreground" style={{ width: LABEL }}>

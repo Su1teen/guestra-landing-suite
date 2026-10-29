@@ -1,9 +1,9 @@
 import { useState, useMemo } from "react";
-import { Area, AreaChart, Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { cn } from "@/lib/utils";
 import { channelMix, revenueByUnit } from "@/data/demo";
-import { AnimatedMetric, AnimatedNumber, formatTenge } from "./AnimatedMetric";
+import { AnimatedMetric, AnimatedNumber, formatMillions, formatTenge } from "./AnimatedMetric";
 import { Window } from "./Window";
+import { BarList, DonutChart, TrendChart } from "./MiniCharts";
 
 const ranges = ["Сегодня", "Неделя", "Месяц", "Квартал"] as const;
 const properties = ["Все объекты", "Объект 01", "Объект 02", "Объект 03"] as const;
@@ -30,26 +30,26 @@ const propertyStates: Record<string, PropertyState> = {
   "Все объекты": {
     revenue: 221_000_000, occupancy: 80, adr: 68_500, revpar: 54_800,
     direct: 43, repeat: 31, ancillary: 24,
-    revenueDelta: "+18,4%", occupancyDelta: "+6 п.п.", adrDelta: "+9,2%",
-    revparDelta: "+15,8%", directDelta: "+11 п.п.", repeatDelta: "+7 п.п.", ancillaryDelta: "+24%",
+    revenueDelta: "+12,8%", occupancyDelta: "+6 п.п.", adrDelta: "+9,2%",
+    revparDelta: "+15,8%", directDelta: "+11 п.п.", repeatDelta: "+7 п.п.", ancillaryDelta: "+4 п.п.",
   },
   "Объект 01": {
     revenue: 96_000_000, occupancy: 84, adr: 81_200, revpar: 68_208,
     direct: 51, repeat: 37, ancillary: 29,
     revenueDelta: "+22,1%", occupancyDelta: "+8 п.п.", adrDelta: "+11,5%",
-    revparDelta: "+19,2%", directDelta: "+14 п.п.", repeatDelta: "+9 п.п.", ancillaryDelta: "+29%",
+    revparDelta: "+19,2%", directDelta: "+14 п.п.", repeatDelta: "+9 п.п.", ancillaryDelta: "+5 п.п.",
   },
   "Объект 02": {
     revenue: 55_000_000, occupancy: 79, adr: 64_300, revpar: 50_797,
     direct: 35, repeat: 25, ancillary: 18,
     revenueDelta: "+12,8%", occupancyDelta: "+3 п.п.", adrDelta: "+6,1%",
-    revparDelta: "+10,4%", directDelta: "+7 п.п.", repeatDelta: "+4 п.п.", ancillaryDelta: "+18%",
+    revparDelta: "+10,4%", directDelta: "+7 п.п.", repeatDelta: "+4 п.п.", ancillaryDelta: "+3 п.п.",
   },
   "Объект 03": {
     revenue: 70_000_000, occupancy: 76, adr: 58_700, revpar: 44_612,
     direct: 38, repeat: 22, ancillary: 15,
     revenueDelta: "+9,4%", occupancyDelta: "+4 п.п.", adrDelta: "+5,3%",
-    revparDelta: "+8,7%", directDelta: "+5 п.п.", repeatDelta: "+3 п.п.", ancillaryDelta: "+15%",
+    revparDelta: "+8,7%", directDelta: "+5 п.п.", repeatDelta: "+3 п.п.", ancillaryDelta: "+2 п.п.",
   },
 };
 
@@ -108,8 +108,6 @@ const drrData: Record<string, { label: string; revenue: number; occupancy: numbe
   ],
 };
 
-const tooltipStyle = { borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12, boxShadow: "0 8px 24px rgba(15,23,42,.08)" };
-
 export const OwnerDashboard = () => {
   const [range, setRange] = useState<(typeof ranges)[number]>("Месяц");
   const [property, setProperty] = useState<(typeof properties)[number]>("Все объекты");
@@ -125,7 +123,7 @@ export const OwnerDashboard = () => {
     { label: "RevPAR", value: state.revpar, delta: state.revparDelta, format: "tenge" as const },
     { label: "Прямые брони", value: state.direct, delta: state.directDelta, format: "pct" as const },
     { label: "Повторные", value: state.repeat, delta: state.repeatDelta, format: "pct" as const },
-    { label: "Доп. выручка", value: state.ancillary, delta: state.ancillaryDelta, format: "pctDelta" as const },
+    { label: "Доля допуслуг", value: state.ancillary, delta: state.ancillaryDelta, format: "pct" as const },
   ], [state, range]);
 
   const fmtKpi = (format: string) => format === "millions"
@@ -134,7 +132,7 @@ export const OwnerDashboard = () => {
 
   return (
     <Window
-      title="Guestra Analytics - Кабинет собственника"
+      title="Guestra · Кабинет собственника"
       badge={
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex rounded-lg bg-background-alt p-0.5" role="tablist" aria-label="Период">
@@ -171,7 +169,7 @@ export const OwnerDashboard = () => {
               key={k.label}
               label={k.label}
               value={k.value}
-              format={k.format === "pctDelta" ? (n) => `+${Math.round(n)}%` : fmtKpi(k.format)}
+              format={fmtKpi(k.format)}
               delta={k.delta}
               size="sm"
               className={cn(
@@ -190,21 +188,7 @@ export const OwnerDashboard = () => {
               <span className="text-[11px] text-muted-foreground">млн ₸ · %</span>
             </div>
             <div className="mt-3 h-44">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={trend} margin={{ left: -20, right: 0, top: 6, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="rev" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.35} />
-                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="m" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                  <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                  <Tooltip contentStyle={tooltipStyle} formatter={(v: number, n) => [n === "v" ? `${v} млн ₸` : `${v}%`, n === "v" ? "Выручка" : "Прямые"]} />
-                  <Area type="monotone" dataKey="v" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#rev)" />
-                  <Area type="monotone" dataKey="d" stroke="hsl(var(--violet))" strokeWidth={2} strokeDasharray="4 4" fill="transparent" />
-                </AreaChart>
-              </ResponsiveContainer>
+              <TrendChart data={trend} />
             </div>
           </div>
 
@@ -212,15 +196,7 @@ export const OwnerDashboard = () => {
             <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Выручка по направлениям</div>
             <div className="mt-2 flex items-center gap-3">
               <div className="h-32 w-32 shrink-0">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie data={revenueByUnit} dataKey="value" innerRadius={38} outerRadius={56} paddingAngle={3} stroke="none">
-                      {revenueByUnit.map((r) => (
-                        <Cell key={r.label} fill={r.color} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
+                <DonutChart data={revenueByUnit} />
               </div>
               <ul className="flex-1 space-y-1.5 text-xs">
                 {revenueByUnit.map((r) => (
@@ -236,19 +212,8 @@ export const OwnerDashboard = () => {
 
           <div className="rounded-xl border border-border p-4">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Каналы бронирований</div>
-            <div className="mt-3 h-32">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={channelMix} layout="vertical" margin={{ left: 0, right: 8, top: 0, bottom: 0 }}>
-                  <XAxis type="number" hide />
-                  <YAxis type="category" dataKey="label" width={70} tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                  <Tooltip contentStyle={tooltipStyle} formatter={(v: number) => [`${v}%`, "Доля"]} cursor={{ fill: "hsl(var(--background-alt))" }} />
-                  <Bar dataKey="value" radius={[0, 6, 6, 0]} barSize={14}>
-                    {channelMix.map((c) => (
-                      <Cell key={c.label} fill={c.color} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="mt-4">
+              <BarList data={channelMix} />
             </div>
           </div>
         </div>
@@ -256,8 +221,8 @@ export const OwnerDashboard = () => {
         {/* DRR Table */}
         <div className="rounded-xl border border-border">
           <div className="flex items-center justify-between px-4 py-3">
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">DRR - ежедневный отчёт</div>
-            <span className="text-[11px] text-muted-foreground">демонстрационные данные</span>
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Ежедневный отчёт (DRR)</div>
+            <span className="text-[11px] text-muted-foreground">все объекты</span>
           </div>
           <div className="scrollbar-none overflow-x-auto">
             <table className="w-full min-w-[520px] text-xs">
@@ -274,7 +239,7 @@ export const OwnerDashboard = () => {
                   <tr key={d.label} className="border-b border-border/60 last:border-0">
                     <td className="px-4 py-2.5 font-medium">{d.label}</td>
                     <td className="num px-4 py-2.5 text-right">
-                      <AnimatedNumber value={d.revenue} format={formatTenge} />
+                      <AnimatedNumber value={d.revenue} format={d.revenue >= 10_000_000 ? formatMillions : formatTenge} />
                     </td>
                     <td className="num px-4 py-2.5 text-right">{d.occupancy}%</td>
                     <td className="num px-4 py-2.5 text-right">{formatTenge(d.adr)}</td>

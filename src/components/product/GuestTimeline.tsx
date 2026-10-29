@@ -17,7 +17,7 @@ const channels = [
 export const GuestTimeline = () => (
   <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
     <div className="window-dark p-5">
-      <div className="text-[11px] font-semibold uppercase tracking-wider text-white/45">Одна сущность</div>
+      <div className="text-[11px] font-semibold uppercase tracking-wider text-white/55">Профиль гостя</div>
       <div className="mt-3 flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-violet text-sm font-semibold">
           {guest.initials}
@@ -37,13 +37,13 @@ export const GuestTimeline = () => (
         ))}
       </div>
       <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.04] p-3">
-        <div className="text-[10px] uppercase tracking-wider text-white/45">LTV по сети</div>
+        <div className="text-[10px] uppercase tracking-wider text-white/55">Выручка от гостя в сети</div>
         <div className="num mt-1 text-2xl font-semibold">{formatTenge(guest.ltv)}</div>
         <div className="mt-1 text-[11px] text-white/50">Объект 01: 3 проживания · Объект 02: 1 проживание</div>
       </div>
       <div className="mt-2 grid grid-cols-2 gap-2">
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><div className="text-[10px] text-white/45">Рейтинг гостя</div><div className="num mt-1 text-sm font-semibold">{guest.rating}</div><div className="mt-0.5 text-[10px] text-white/45">Внутренняя оценка</div></div>
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><div className="text-[10px] text-white/45">Лояльность</div><div className="mt-1 text-sm font-semibold">{guest.loyalty}</div><div className="mt-0.5 text-[10px] text-white/45">Статус в сети</div></div>
+        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><div className="text-[10px] text-white/55">Отмены и неявки</div><div className="num mt-1 text-sm font-semibold">0</div><div className="mt-0.5 text-[10px] text-white/55">за все визиты</div></div>
+        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3"><div className="text-[10px] text-white/55">Лояльность</div><div className="mt-1 text-sm font-semibold">{guest.loyalty}</div><div className="mt-0.5 text-[10px] text-white/55">Статус в сети</div></div>
       </div>
     </div>
 

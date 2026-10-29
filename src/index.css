@@ -102,7 +102,7 @@
   }
 
   .section {
-    @apply px-5 py-20 sm:px-8 md:py-28 lg:py-36;
+    @apply px-5 py-16 sm:px-8 md:py-28 lg:py-32;
   }
 
   .container-wide {
@@ -115,6 +115,15 @@
 
   .eyebrow {
     @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary;
+  }
+
+  .module-tag {
+    @apply flex flex-wrap items-center text-[10.5px] font-semibold uppercase tracking-[0.14em] text-primary;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ink .module-tag {
+    color: hsl(222 100% 76%);
   }
 
   .eyebrow-dot {

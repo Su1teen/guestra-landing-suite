@@ -24,14 +24,14 @@ const toneBar: Record<string, string> = {
 export const CRMKanban = ({ className }: { className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: "-15% 0px -15% 0px" });
-  // animates "Анна Иванова" moving from "Ожидается предоплата" → "Подтверждено"
+  // animates "Анна Иванова" moving from "Ожидает оплаты" → "Подтверждено"
   const step = useStepper(2, inView, { intervals: [2600, 3200], loopPause: 2600 });
   const annaConfirmed = step === 1;
 
   return (
     <div ref={ref}>
       <Window
-        title="Guestra CRM - Лиды"
+        title="Guestra CRM · Обращения"
         className={className}
         badge={
           <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
@@ -43,10 +43,10 @@ export const CRMKanban = ({ className }: { className?: string }) => {
           <div className="grid min-w-[980px] grid-cols-6 gap-3 p-3">
             {crmColumns.map((col) => {
               let leads = crmLeads[col.title] ?? [];
-              if (col.title === "Ожидается предоплата" && annaConfirmed) leads = leads.filter((l) => l.name !== "Анна Иванова");
+              if (col.title === "Ожидает оплаты" && annaConfirmed) leads = leads.filter((l) => l.name !== "Анна Иванова");
               if (col.title === "Подтверждено" && annaConfirmed)
                 leads = [{ name: "Анна Иванова", note: "Forest House, 18–20 окт", sum: "148 000 ₸", channel: "WhatsApp" }, ...leads];
-              const count = col.title === "Ожидается предоплата" ? col.count - (annaConfirmed ? 1 : 0) : col.title === "Подтверждено" ? col.count + (annaConfirmed ? 1 : 0) : col.count;
+              const count = col.title === "Ожидает оплаты" ? col.count - (annaConfirmed ? 1 : 0) : col.title === "Подтверждено" ? col.count + (annaConfirmed ? 1 : 0) : col.count;
 
               return (
                 <div key={col.title} className="flex flex-col rounded-xl bg-background-alt/80 p-2">
