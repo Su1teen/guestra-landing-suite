@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCheck, Clock3, Link2, MessageCircle, Phone, Send, Sparkles, Star, UserRound } from "lucide-react";
+import { CheckCheck, Clock3, Link2, MessageCircle, Phone, Send, Star, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Window } from "./Window";
 
@@ -21,7 +21,7 @@ export const InboxPreview = ({ className }: { className?: string }) => {
   const [active, setActive] = useState(0);
   const c = conversations[active];
   return (
-    <Window title="Guestra CRM · Входящие" className={className} badge={<span className="hidden items-center gap-1 text-[11px] text-muted-foreground sm:flex"><Sparkles className="h-3 w-3 text-violet" /> AI ведёт 11 из 14</span>}>
+    <Window title="Guestra CRM · Входящие" className={className} badge={<span className="hidden items-center gap-1 text-[11px] text-muted-foreground sm:flex">AI ведёт 11 из 14</span>}>
       <div className="grid sm:grid-cols-[1fr_1.05fr]">
         <ul className="divide-y divide-border/70 border-b border-border sm:border-b-0 sm:border-r">
           {conversations.map((item, i) => (
@@ -149,7 +149,7 @@ const managers = [
 
 export const SalesPerformance = ({ className }: { className?: string }) => (
   <Window title="Аналитика · Продажи за октябрь" className={className} bodyClassName="p-0">
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" role="region" aria-label="Аналитика продаж" tabIndex={0}>
       <table className="w-full min-w-[460px] text-xs">
         <thead className="bg-background-alt text-[10px] uppercase tracking-wider text-muted-foreground">
           <tr>

@@ -12,15 +12,11 @@ export const Window = ({ title, dark, badge, className, bodyClassName, children,
     {title !== undefined && (
       <div
         className={cn(
-          "flex h-10 items-center gap-3 border-b px-4",
+          "product-window-toolbar flex min-h-11 items-center gap-3 border-b px-4 py-2",
           dark ? "border-white/10 bg-white/[0.03]" : "border-border/70 bg-background-alt/70",
         )}
       >
-        <div className="flex gap-1.5" aria-hidden>
-          <span className={cn("h-2.5 w-2.5 rounded-full", dark ? "bg-white/15" : "bg-foreground/10")} />
-          <span className={cn("h-2.5 w-2.5 rounded-full", dark ? "bg-white/15" : "bg-foreground/10")} />
-          <span className={cn("h-2.5 w-2.5 rounded-full", dark ? "bg-white/15" : "bg-foreground/10")} />
-        </div>
+        <span className={cn("window-mark", dark && "window-mark-light")} aria-hidden>G</span>
         <span className={cn("truncate text-xs font-medium", dark ? "text-white/60" : "text-muted-foreground")}>
           {title}
         </span>

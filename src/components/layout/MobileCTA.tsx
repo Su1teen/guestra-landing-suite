@@ -32,7 +32,7 @@ export const MobileCTA = () => {
         <a href={mailtoHref()} tabIndex={visible ? 0 : -1} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border text-foreground" aria-label="Написать на почту">
           <Mail className="h-4 w-4" />
         </a>
-        <button type="button" tabIndex={visible ? 0 : -1} onClick={() => open("demo")} className="h-11 flex-1 rounded-xl bg-primary text-sm font-semibold text-white">
+        <button type="button" tabIndex={visible ? 0 : -1} onClick={(event) => open("demo", event.currentTarget)} className="h-11 flex-1 rounded-xl bg-primary text-sm font-semibold text-white">
           Запросить демо
         </button>
       </div>

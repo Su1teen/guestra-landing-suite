@@ -1,3 +1,4 @@
+@import "./design.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,50 +7,50 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --background-alt: 220 33% 98%;
-    --foreground: 224 44% 9%;
+    --background: 42 33% 97%;
+    --background-alt: 40 24% 92%;
+    --foreground: 218 38% 17%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 44% 9%;
+    --card-foreground: 218 38% 17%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 44% 9%;
+    --popover-foreground: 218 38% 17%;
 
-    --primary: 222 100% 55%;
+    --primary: 219 61% 39%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 222 100% 48%;
+    --primary-hover: 219 57% 31%;
 
-    --secondary: 220 33% 97%;
-    --secondary-foreground: 224 44% 9%;
+    --secondary: 40 24% 92%;
+    --secondary-foreground: 218 38% 17%;
 
-    --muted: 220 20% 95%;
-    --muted-foreground: 222 12% 46%;
+    --muted: 40 16% 90%;
+    --muted-foreground: 216 12% 39%;
 
-    --accent: 222 100% 97%;
-    --accent-foreground: 222 100% 50%;
+    --accent: 218 33% 93%;
+    --accent-foreground: 219 61% 35%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 16% 91%;
-    --input: 220 16% 91%;
-    --ring: 222 100% 55%;
+    --border: 40 16% 81%;
+    --input: 40 16% 81%;
+    --ring: 219 61% 39%;
 
-    --radius: 0.875rem;
+    --radius: 0.5rem;
 
-    /* Vivid accent palette */
-    --violet: 258 90% 62%;
-    --emerald: 158 72% 42%;
-    --amber: 36 95% 55%;
-    --rose: 346 84% 58%;
-    --cyan: 190 90% 45%;
+    /* Product status colors, separate from the marketing surfaces. */
+    --violet: 259 25% 43%;
+    --emerald: 161 42% 30%;
+    --amber: 29 67% 36%;
+    --rose: 349 48% 42%;
+    --cyan: 193 47% 32%;
     --whatsapp: 142 70% 45%;
 
     /* Dark surfaces */
-    --ink: 224 44% 6%;
-    --ink-2: 224 38% 9%;
-    --ink-3: 224 30% 13%;
-    --ink-border: 224 24% 18%;
+    --ink: 219 45% 17%;
+    --ink-2: 219 39% 21%;
+    --ink-3: 219 32% 25%;
+    --ink-border: 219 25% 33%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -75,7 +76,6 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
-    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -102,11 +102,11 @@
   }
 
   .section {
-    @apply px-5 py-16 sm:px-8 md:py-28 lg:py-32;
+    @apply px-5 py-16 sm:px-8 md:py-24 lg:py-28;
   }
 
   .container-wide {
-    @apply mx-auto w-full max-w-[1280px];
+    @apply mx-auto w-full max-w-[1360px];
   }
 
   .container-tight {
@@ -114,7 +114,7 @@
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary;
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary;
   }
 
   .module-tag {
@@ -123,7 +123,7 @@
   }
 
   .ink .module-tag {
-    color: hsl(222 100% 76%);
+    color: #bfd0e8;
   }
 
   .eyebrow-dot {
@@ -131,7 +131,7 @@
   }
 
   .headline {
-    @apply text-balance text-3xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-4xl md:text-5xl;
+    @apply text-balance text-3xl font-medium leading-[1.1] tracking-[-0.04em] sm:text-4xl md:text-[2.8rem];
   }
 
   .headline-xl {
@@ -148,11 +148,11 @@
 
   /* Product window surfaces */
   .window {
-    @apply rounded-2xl border border-border/80 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04),0_24px_60px_-24px_rgba(16,24,40,0.25)];
+    @apply rounded-2xl border border-border/80 bg-white text-foreground shadow-[0_2px_3px_rgba(27,41,62,0.03),0_16px_36px_-22px_rgba(27,41,62,0.24)];
   }
 
   .window-dark {
-    @apply rounded-2xl border border-white/10 bg-[hsl(var(--ink-2))] text-white shadow-[0_24px_80px_-24px_rgba(0,0,0,0.6)];
+    @apply rounded-2xl border border-white/15 bg-[hsl(var(--ink-2))] text-white shadow-[0_16px_36px_-22px_rgba(27,41,62,0.3)];
   }
 
   .glass {
@@ -169,11 +169,11 @@
   }
 
   .ink .eyebrow {
-    color: hsl(222 100% 72%);
+    color: #bfd0e8;
   }
 
   .ink .eyebrow-dot {
-    background-color: hsl(222 100% 72%);
+    background-color: #bfd0e8;
   }
 
   .ink h1, .ink h2, .ink h3, .ink h4 {
@@ -184,25 +184,12 @@
     color: hsl(220 15% 70%);
   }
 
-  .grid-bg {
-    background-image:
-      linear-gradient(to right, hsl(var(--border) / 0.7) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.7) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-  }
+  .grid-bg { background: none; }
 
-  .grid-bg-dark {
-    background-image:
-      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  }
+  .grid-bg-dark { background: none; }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(100deg, hsl(var(--primary)), hsl(var(--violet)));
+    color: hsl(var(--primary));
   }
 
   .scrollbar-none {

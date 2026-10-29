@@ -13,22 +13,23 @@ interface PageIntroProps {
   title: React.ReactNode;
   description: string;
   visual?: React.ReactNode;
+  visualCaption?: string;
   /** side — визуал справа от текста; below — широкий визуал под текстом. */
   layout?: "side" | "below";
   secondary?: { label: string; href: string };
 }
 
-export const PageIntro = ({ eyebrow, title, description, visual, layout = "side", secondary }: PageIntroProps) => {
+export const PageIntro = ({ eyebrow, title, description, visual, visualCaption = "Пример интерфейса · условные данные", layout = "side", secondary }: PageIntroProps) => {
   const { open } = useDemoModal();
   const text = (
-    <div className={cn(layout === "below" && "max-w-3xl")}>
+    <div className={cn("intro-copy", layout === "below" && "intro-copy-wide")}>
       <p className="eyebrow">{eyebrow}</p>
-      <h1 className={cn("mt-5 text-balance text-[2.2rem] font-semibold leading-[1.06] tracking-[-0.03em] sm:text-5xl", visual && layout === "side" ? "lg:text-[2.85rem]" : "lg:text-[3.4rem]")}>{title}</h1>
+      <h1>{title}</h1>
       <p className="lede mt-6 max-w-2xl">{description}</p>
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Button size="lg" className="h-12 rounded-full px-7" onClick={() => open("demo")}>Запросить демо</Button>
+        <Button size="lg" className="h-12 rounded-lg px-7" onClick={(event) => open("demo", event.currentTarget)}>Запросить демо</Button>
         {secondary && (
-          <Button asChild size="lg" variant="outline" className="h-12 rounded-full px-7">
+          <Button asChild size="lg" variant="outline" className="h-12 rounded-lg px-7">
             <Link to={secondary.href}>{secondary.label}<ArrowRight className="h-4 w-4" /></Link>
           </Button>
         )}
@@ -37,18 +38,17 @@ export const PageIntro = ({ eyebrow, title, description, visual, layout = "side"
   );
 
   return (
-    <section className="relative overflow-hidden border-b border-border bg-background-alt pb-16 pt-28 md:pb-20 md:pt-36">
-      <div className="grid-bg absolute inset-0 -z-0 opacity-70" aria-hidden />
-      <div className="container-wide relative px-5 sm:px-8">
+    <section className={cn("page-intro", !visual && "page-intro-text", layout === "below" && "page-intro-wide")}>
+      <div className="container-wide">
         {visual && layout === "side" ? (
-          <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
+          <div className="intro-layout">
             {text}
-            <div className="min-w-0">{visual}</div>
+            <div className="intro-visual product-stage"><span className="stage-label">Guestra / {eyebrow}</span>{visual}<p className="demo-caption">{visualCaption}</p></div>
           </div>
         ) : (
           <>
             {text}
-            {visual && <div className="mt-14 min-w-0">{visual}</div>}
+            {visual && <div className="intro-visual product-stage"><span className="stage-label">Guestra / {eyebrow}</span>{visual}<p className="demo-caption">{visualCaption}</p></div>}
           </>
         )}
       </div>
@@ -68,7 +68,7 @@ interface PageSectionProps {
 }
 
 export const PageSection = ({ id, eyebrow, title, lede, tone = "default", aside, className, children }: PageSectionProps) => (
-  <section id={id} className={cn("section scroll-mt-16", tone === "alt" && "bg-background-alt", tone === "default" && "bg-background", tone === "ink" && "ink", className)}>
+  <section id={id} className={cn("page-section section scroll-mt-20", tone === "alt" && "bg-background-alt", tone === "default" && "bg-background", tone === "ink" && "ink", className)}>
     <div className="container-wide">
       <div className={cn("grid gap-6", aside && "lg:grid-cols-[1fr_auto] lg:items-end")}>
         <Reveal className="max-w-3xl">
@@ -85,14 +85,14 @@ export const PageSection = ({ id, eyebrow, title, lede, tone = "default", aside,
 
 /** Две колонки: текст с пунктами и интерфейс. */
 export const Split = ({ children, visual, reverse }: { children: React.ReactNode; visual: React.ReactNode; reverse?: boolean }) => (
-  <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+  <div className="product-split grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
     <div className={cn(reverse && "lg:order-2")}>{children}</div>
-    <Reveal delay={0.08} className={cn("min-w-0", reverse && "lg:order-1")}>{visual}</Reveal>
+    <Reveal delay={0.08} className={cn("product-stage min-w-0", reverse && "lg:order-1")}>{visual}</Reveal>
   </div>
 );
 
 export const Points = ({ items, dark }: { items: { title: string; text: string }[]; dark?: boolean }) => (
-  <ol className="space-y-6">
+  <ol className="editorial-points space-y-6">
     {items.map((item, i) => (
       <li key={item.title} className="grid grid-cols-[28px_1fr] gap-3">
         <span className={cn("num pt-0.5 text-sm font-semibold", dark ? "text-[hsl(222_100%_76%)]" : "text-primary")}>{String(i + 1).padStart(2, "0")}</span>
@@ -158,7 +158,7 @@ export const NextModule = ({ href }: { href: string }) => {
   const item = productNav.find((p) => p.href === href);
   if (!item) return null;
   return (
-    <section className="border-t border-border bg-background px-5 py-12 sm:px-8">
+    <section className="next-module px-5 py-12 sm:px-8">
       <Link to={item.href} className="container-wide group flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <span className="text-sm text-muted-foreground">Следующий модуль</span>
         <span className="flex items-center gap-3 text-2xl font-semibold tracking-tight transition group-hover:text-primary">

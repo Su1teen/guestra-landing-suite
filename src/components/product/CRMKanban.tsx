@@ -1,11 +1,10 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { MessageCircle, Phone, Globe, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { MessageCircle, Phone, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { crmColumns, crmLeads } from "@/data/demo";
 import { Pill } from "./Pill";
 import { Window } from "./Window";
-import { useStepper } from "@/hooks/use-stepper";
 
 const channelIcon = (c: string) => {
   if (c === "WhatsApp") return <MessageCircle className="h-3 w-3 text-whatsapp" />;
@@ -22,24 +21,21 @@ const toneBar: Record<string, string> = {
 };
 
 export const CRMKanban = ({ className }: { className?: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15% 0px -15% 0px" });
-  // animates "Анна Иванова" moving from "Ожидает оплаты" → "Подтверждено"
-  const step = useStepper(2, inView, { intervals: [2600, 3200], loopPause: 2600 });
-  const annaConfirmed = step === 1;
+  const [annaConfirmed, setAnnaConfirmed] = useState(false);
 
   return (
-    <div ref={ref}>
+    <div>
       <Window
         title="Guestra CRM · Обращения"
         className={className}
         badge={
           <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-            <Sparkles className="h-3 w-3 text-primary" /> AI ведёт 14 диалогов
+            AI ведёт 14 диалогов
           </span>
         }
       >
-        <div className="scrollbar-none overflow-x-auto">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 text-xs"><span className="text-muted-foreground">Пример перехода обращения после оплаты</span><button type="button" aria-pressed={annaConfirmed} onClick={() => setAnnaConfirmed((v) => !v)} className="min-h-10 rounded-md border border-border px-3 font-medium text-primary">{annaConfirmed ? "С начала" : "Показать получение оплаты"}</button></div>
+        <div className="overflow-x-auto" role="region" aria-label="Статусы обращений" tabIndex={0}>
           <div className="grid min-w-[980px] grid-cols-6 gap-3 p-3">
             {crmColumns.map((col) => {
               let leads = crmLeads[col.title] ?? [];

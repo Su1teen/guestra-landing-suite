@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircle, Phone, ShoppingBag, Sparkles, Star } from "lucide-react";
+import { MessageCircle, Phone, ShoppingBag, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { guest } from "@/data/demo";
 import { Pill } from "./Pill";
@@ -94,8 +94,7 @@ export const GuestProfile = ({ className, variant = "full", recommendation }: Gu
       className="mt-4 flex items-start gap-2.5 rounded-xl border border-primary/20 bg-primary/[0.05] p-3"
     >
       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary text-white">
-        <Sparkles className="h-3 w-3" />
-      </span>
+        </span>
       <div>
         <div className="text-[10px] font-semibold uppercase tracking-wider text-primary">Подсказка для администратора</div>
         <p className="mt-0.5 text-xs leading-snug text-foreground">

@@ -1,4 +1,4 @@
-import { BookOpen, Check, Sparkles } from "lucide-react";
+import { BookOpen, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Window } from "./Window";
 
@@ -78,7 +78,7 @@ export const AIAnalystConcept = ({ className }: { className?: string }) => (
       Почему в прошлые выходные упал RevPAR в Объекте 02?
     </div>
     <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-border bg-background-alt px-3.5 py-3 text-sm">
-      <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-violet"><Sparkles className="h-3 w-3" /> Разбор</p>
+      <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-violet">Разбор</p>
       <ul className="mt-2 space-y-1.5 text-[13px] leading-snug">
         <li>Загрузка в субботу 64% против 81% неделей раньше.</li>
         <li>4 отмены за сутки до заезда, все из одного корпоративного запроса.</li>

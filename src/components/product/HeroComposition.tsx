@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, CheckCheck, Clock3, MessageCircle, Sparkles, TrendingUp } from "lucide-react";
+import { Check, CheckCheck, Clock3, MessageCircle, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { prefersReducedMotion } from "@/lib/motion";
 import { Window } from "./Window";
@@ -49,7 +49,7 @@ const MiniChessboard = ({ step }: { step: number }) => (
   >
     <div className="text-xs">
       <div className="flex border-b border-border bg-white">
-        <div className="w-[92px] shrink-0 border-r border-border px-3 py-2 font-semibold text-muted-foreground sm:w-[120px]">Номер</div>
+        <div className="w-[108px] shrink-0 border-r border-border px-3 py-2 font-semibold text-muted-foreground">Номер</div>
         <div className="grid flex-1 grid-cols-7">
           {days.map((day, i) => (
             <div key={day.d} className={cn("border-r border-border/60 py-1.5 text-center last:border-r-0", (i === 1 || i === 2) && "bg-amber/[0.06]")}>
@@ -61,7 +61,7 @@ const MiniChessboard = ({ step }: { step: number }) => (
       </div>
       {rooms.map((room, ri) => (
         <div key={room} className="flex h-10 border-b border-border/60 last:border-b-0 sm:h-11">
-          <div className="flex w-[92px] shrink-0 items-center gap-2 border-r border-border px-3 font-medium sm:w-[120px]">
+          <div className="flex w-[108px] shrink-0 items-center gap-2 border-r border-border px-3 font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden />
             <span className="truncate">{room}</span>
           </div>
@@ -87,7 +87,7 @@ const MiniChessboard = ({ step }: { step: number }) => (
                       className={cn(
                         "transition-colors duration-500",
                         step >= FINAL
-                          ? "border-primary bg-primary text-white shadow-md shadow-primary/30"
+                          ? "border-primary bg-primary text-white"
                           : "border-dashed border-amber bg-amber/15 text-[hsl(28_80%_34%)]",
                       )}
                     >
@@ -110,7 +110,7 @@ export const ChatCard = ({ step }: { step: number }) => (
       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold">АИ</span>
       <div className="min-w-0 flex-1 leading-tight">
         <div className="truncate text-[13px] font-medium">Анна Иванова</div>
-        <div className="flex items-center gap-1 text-[10px] text-white/70"><Sparkles className="h-2.5 w-2.5" /> Отвечает AI-администратор</div>
+        <div className="flex items-center gap-1 text-[10px] text-white/70">Отвечает AI-администратор</div>
       </div>
       <MessageCircle className="h-4 w-4 text-white/70" aria-hidden />
     </div>
@@ -168,14 +168,14 @@ export const HeroComposition = () => {
   }, []);
 
   return (
-    <div className="relative" aria-label="Пример: обращение в WhatsApp становится бронью в шахматке и попадает в выручку дня" role="img">
-      <div className="lg:pl-[220px] lg:pr-6">
+    <div className="hero-composition" aria-label="Пример: обращение в WhatsApp становится бронью в шахматке и попадает в выручку дня" role="img">
+      <div className="hero-board">
         <MiniChessboard step={step} />
       </div>
-      <div className="relative z-10 -mt-10 ml-auto mr-2 w-[min(340px,92%)] sm:-mt-16 lg:absolute lg:bottom-[-36px] lg:left-0 lg:mt-0 lg:w-[330px]">
+      <div className="hero-chat">
         <ChatCard step={step} />
       </div>
-      <div className="absolute -top-8 right-[-12px] z-10 hidden xl:block">
+      <div className="hero-today">
         <TodayCard step={step} />
       </div>
     </div>

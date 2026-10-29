@@ -1,0 +1,482 @@
+[
+  {
+    "size": 320,
+    "path": "/",
+    "content": 305,
+    "h1": 1,
+    "title": "Guestra — PMS, CRM и AI-администратор для отелей",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/ai",
+    "content": 305,
+    "h1": 1,
+    "title": "AI-администратор для отеля — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/crm",
+    "content": 305,
+    "h1": 1,
+    "title": "CRM для отеля: входящие, обращения и оплаты — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/pms",
+    "content": 305,
+    "h1": 1,
+    "title": "PMS для отеля и загородного комплекса — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/revenue-management",
+    "content": 305,
+    "h1": 1,
+    "title": "Управление доходами и динамические цены — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/operations",
+    "content": 305,
+    "h1": 1,
+    "title": "Операции отеля: уборка, техслужба, просьбы гостей — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/owner",
+    "content": 305,
+    "h1": 1,
+    "title": "Кабинет собственника отеля — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/platform",
+    "content": 305,
+    "h1": 1,
+    "title": "Как работает Guestra — путь брони через всю систему",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/integrations",
+    "content": 305,
+    "h1": 1,
+    "title": "Интеграции — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/security",
+    "content": 305,
+    "h1": 1,
+    "title": "Безопасность данных — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/implementation",
+    "content": 305,
+    "h1": 1,
+    "title": "Внедрение Guestra в отеле",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/pricing",
+    "content": 305,
+    "h1": 1,
+    "title": "Стоимость Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/updates",
+    "content": 305,
+    "h1": 1,
+    "title": "Что нового в Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/privacy",
+    "content": 305,
+    "h1": 1,
+    "title": "Политика конфиденциальности — Guestra",
+    "w": 305
+  },
+  {
+    "size": 320,
+    "path": "/404.html",
+    "content": 305,
+    "h1": 1,
+    "title": "Страница не найдена — Guestra",
+    "w": 305
+  },
+  {
+    "size": 768,
+    "path": "/",
+    "content": 753,
+    "h1": 1,
+    "title": "Guestra — PMS, CRM и AI-администратор для отелей",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/ai",
+    "content": 753,
+    "h1": 1,
+    "title": "AI-администратор для отеля — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/crm",
+    "content": 753,
+    "h1": 1,
+    "title": "CRM для отеля: входящие, обращения и оплаты — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/pms",
+    "content": 753,
+    "h1": 1,
+    "title": "PMS для отеля и загородного комплекса — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/revenue-management",
+    "content": 753,
+    "h1": 1,
+    "title": "Управление доходами и динамические цены — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/operations",
+    "content": 753,
+    "h1": 1,
+    "title": "Операции отеля: уборка, техслужба, просьбы гостей — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/owner",
+    "content": 753,
+    "h1": 1,
+    "title": "Кабинет собственника отеля — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/platform",
+    "content": 753,
+    "h1": 1,
+    "title": "Как работает Guestra — путь брони через всю систему",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/integrations",
+    "content": 753,
+    "h1": 1,
+    "title": "Интеграции — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/security",
+    "content": 753,
+    "h1": 1,
+    "title": "Безопасность данных — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/implementation",
+    "content": 753,
+    "h1": 1,
+    "title": "Внедрение Guestra в отеле",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/pricing",
+    "content": 753,
+    "h1": 1,
+    "title": "Стоимость Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/updates",
+    "content": 753,
+    "h1": 1,
+    "title": "Что нового в Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/privacy",
+    "content": 753,
+    "h1": 1,
+    "title": "Политика конфиденциальности — Guestra",
+    "w": 753
+  },
+  {
+    "size": 768,
+    "path": "/404.html",
+    "content": 753,
+    "h1": 1,
+    "title": "Страница не найдена — Guestra",
+    "w": 753
+  },
+  {
+    "size": 1024,
+    "path": "/",
+    "content": 1009,
+    "h1": 1,
+    "title": "Guestra — PMS, CRM и AI-администратор для отелей",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/ai",
+    "content": 1009,
+    "h1": 1,
+    "title": "AI-администратор для отеля — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/crm",
+    "content": 1009,
+    "h1": 1,
+    "title": "CRM для отеля: входящие, обращения и оплаты — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/pms",
+    "content": 1009,
+    "h1": 1,
+    "title": "PMS для отеля и загородного комплекса — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/revenue-management",
+    "content": 1009,
+    "h1": 1,
+    "title": "Управление доходами и динамические цены — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/operations",
+    "content": 1009,
+    "h1": 1,
+    "title": "Операции отеля: уборка, техслужба, просьбы гостей — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/owner",
+    "content": 1009,
+    "h1": 1,
+    "title": "Кабинет собственника отеля — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/platform",
+    "content": 1009,
+    "h1": 1,
+    "title": "Как работает Guestra — путь брони через всю систему",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/integrations",
+    "content": 1009,
+    "h1": 1,
+    "title": "Интеграции — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/security",
+    "content": 1009,
+    "h1": 1,
+    "title": "Безопасность данных — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/implementation",
+    "content": 1009,
+    "h1": 1,
+    "title": "Внедрение Guestra в отеле",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/pricing",
+    "content": 1009,
+    "h1": 1,
+    "title": "Стоимость Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/updates",
+    "content": 1009,
+    "h1": 1,
+    "title": "Что нового в Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/privacy",
+    "content": 1009,
+    "h1": 1,
+    "title": "Политика конфиденциальности — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1024,
+    "path": "/404.html",
+    "content": 1009,
+    "h1": 1,
+    "title": "Страница не найдена — Guestra",
+    "w": 1009
+  },
+  {
+    "size": 1440,
+    "path": "/",
+    "content": 1425,
+    "h1": 1,
+    "title": "Guestra — PMS, CRM и AI-администратор для отелей",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/ai",
+    "content": 1425,
+    "h1": 1,
+    "title": "AI-администратор для отеля — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/crm",
+    "content": 1425,
+    "h1": 1,
+    "title": "CRM для отеля: входящие, обращения и оплаты — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/pms",
+    "content": 1425,
+    "h1": 1,
+    "title": "PMS для отеля и загородного комплекса — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/revenue-management",
+    "content": 1425,
+    "h1": 1,
+    "title": "Управление доходами и динамические цены — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/operations",
+    "content": 1425,
+    "h1": 1,
+    "title": "Операции отеля: уборка, техслужба, просьбы гостей — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/owner",
+    "content": 1425,
+    "h1": 1,
+    "title": "Кабинет собственника отеля — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/platform",
+    "content": 1425,
+    "h1": 1,
+    "title": "Как работает Guestra — путь брони через всю систему",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/integrations",
+    "content": 1425,
+    "h1": 1,
+    "title": "Интеграции — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/security",
+    "content": 1425,
+    "h1": 1,
+    "title": "Безопасность данных — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/implementation",
+    "content": 1425,
+    "h1": 1,
+    "title": "Внедрение Guestra в отеле",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/pricing",
+    "content": 1425,
+    "h1": 1,
+    "title": "Стоимость Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/updates",
+    "content": 1425,
+    "h1": 1,
+    "title": "Что нового в Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/privacy",
+    "content": 1425,
+    "h1": 1,
+    "title": "Политика конфиденциальности — Guestra",
+    "w": 1425
+  },
+  {
+    "size": 1440,
+    "path": "/404.html",
+    "content": 1425,
+    "h1": 1,
+    "title": "Страница не найдена — Guestra",
+    "w": 1425
+  }
+]

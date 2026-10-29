@@ -1,4 +1,4 @@
-import { ArrowRight, CalendarClock, Check, CheckCircle2, Clock3, MapPin, MessageCircle, Sparkles, UserRound } from "lucide-react";
+import { ArrowRight, CalendarClock, Check, CheckCircle2, Clock3, MapPin, MessageCircle, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /** Маленькие фрагменты интерфейса для карточек «связок». Без «хрома» окна, только суть экрана. */
@@ -29,7 +29,7 @@ export const Handoff = () => (
   <Frame>
     <div className="flex items-center justify-between">
       <span className="flex items-center gap-1.5 font-medium"><UserRound className="h-3.5 w-3.5 text-primary" /> Отвечает: Айдана</span>
-      <span className="flex items-center gap-1 text-muted-foreground"><Sparkles className="h-3 w-3 text-violet" /> AI на паузе</span>
+      <span className="flex items-center gap-1 text-muted-foreground">AI на паузе</span>
     </div>
     <div className="mt-2.5 flex gap-2">
       <span className="flex-1 rounded-md bg-primary px-2 py-1.5 text-center font-medium text-white">Взять диалог</span>

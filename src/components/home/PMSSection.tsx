@@ -6,6 +6,7 @@ import { PMSChessboard } from "@/components/product/PMSChessboard";
 import { GuestProfile } from "@/components/product/GuestProfile";
 import { FrontDeskToday } from "@/components/product/FrontDeskToday";
 import { FolioCard } from "@/components/product/FolioCard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const more = ["Группы и квоты", "Корпоративные клиенты", "Услуги по слотам", "Касса и депозиты", "Ночной аудит", "Тарифные планы"];
 
@@ -23,16 +24,20 @@ export const PMSSection = () => (
         </Link>
       </div>
 
-      <Reveal delay={0.05} className="mt-12">
+      <Reveal delay={0.05} className="home-pms-stage mt-12">
         <PMSChessboard />
+        <p className="mt-4 text-xs text-muted-foreground">Нажмите на бронь, чтобы открыть карточку. На узком экране шахматку можно прокручивать.</p>
       </Reveal>
-      <p className="mt-3 text-xs text-muted-foreground">Нажмите на бронь, чтобы открыть карточку.</p>
 
-      <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        <Reveal delay={0.05}><FrontDeskToday className="h-full" /></Reveal>
-        <Reveal delay={0.1} className="hidden lg:block"><GuestProfile className="h-full" /></Reveal>
-        <Reveal delay={0.15} className="hidden md:block"><FolioCard className="h-full" /></Reveal>
-      </div>
+      <Tabs defaultValue="desk" className="pms-workspace mt-7">
+        <TabsList className="h-auto w-full justify-start gap-1 bg-transparent p-0">
+          <TabsTrigger value="desk">Ресепшен</TabsTrigger><TabsTrigger value="guest">Профиль гостя</TabsTrigger><TabsTrigger value="folio">Фолио</TabsTrigger>
+        </TabsList>
+        <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">Заезды и выезды, история гостя и расчёты по проживанию — рядом с шахматкой. Выберите экран, чтобы посмотреть подробнее.</p>
+          <div className="min-w-0"><TabsContent value="desk"><FrontDeskToday /></TabsContent><TabsContent value="guest"><GuestProfile /></TabsContent><TabsContent value="folio"><FolioCard /></TabsContent></div>
+        </div>
+      </Tabs>
 
       <div className="mt-8 flex flex-wrap items-center gap-2 text-sm">
         <span className="mr-1 text-muted-foreground">Ещё в PMS:</span>

@@ -28,7 +28,7 @@ export const Pricing = ({ withLink = true }: { withLink?: boolean }) => (
       <Reveal delay={0.05} className="mt-12">
         <DynamicPricingDemo />
       </Reveal>
-      <dl className="mt-10 hidden gap-6 border-t border-border pt-8 md:grid md:grid-cols-3">
+      <dl className="mt-10 grid gap-6 border-t border-border pt-8 md:grid-cols-3">
         {notes.map((note) => (
           <div key={note.title}>
             <dt className="text-sm font-semibold">{note.title}</dt>

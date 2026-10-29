@@ -17,7 +17,7 @@ interface AnimatedNumberProps {
 
 /**
  * Число всегда отрисовано в итоговом значении (в том числе при пререндере и без JS).
- * При появлении на экране оно мягко «докручивается» с 85% до итога, а при смене значения — от предыдущего.
+ * Анимация применяется только после изменения пользователем фильтра или значения.
  */
 export const AnimatedNumber = ({ value, format = (n) => Math.round(n).toLocaleString("ru-RU"), duration = 1.2, className }: AnimatedNumberProps) => {
   const ref = useRef<HTMLSpanElement>(null);
@@ -27,7 +27,7 @@ export const AnimatedNumber = ({ value, format = (n) => Math.round(n).toLocaleSt
   useEffect(() => {
     if (!inView || !ref.current) return;
     const node = ref.current;
-    const from = prev.current ?? value * 0.85;
+    const from = prev.current ?? value;
     prev.current = value;
     if (prefersReducedMotion() || from === value) {
       node.textContent = format(value);

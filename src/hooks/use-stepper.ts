@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 /**
  * Cycles 0..total (inclusive) while active. Each step waits `intervals[i]` ms
@@ -7,12 +8,13 @@ import { useEffect, useState } from "react";
 export const useStepper = (
   total: number,
   active: boolean,
-  { interval = 900, intervals, loopPause = 3500, loop = true }: { interval?: number; intervals?: number[]; loopPause?: number; loop?: boolean } = {},
+  { interval = 900, intervals, loopPause = 3500, loop = true, restartKey = 0 }: { interval?: number; intervals?: number[]; loopPause?: number; loop?: boolean; restartKey?: number } = {},
 ) => {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
     if (!active) return;
+    if (prefersReducedMotion()) { setStep(total); return; }
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout>;
 
@@ -32,7 +34,7 @@ export const useStepper = (
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [active, total, interval, intervals, loopPause, loop]);
+  }, [active, total, interval, intervals, loopPause, loop, restartKey]);
 
   return step;
 };

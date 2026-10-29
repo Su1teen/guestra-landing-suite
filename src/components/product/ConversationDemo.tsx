@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { Check, Phone, Sparkles, Video } from "lucide-react";
+import { Check, Phone, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ChatStep } from "@/data/demo";
 import { SystemEventList } from "./SystemEvent";
@@ -18,8 +18,8 @@ const initial: ChatState = { done: 0, partial: null, typing: false, sysProgress:
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
-export const useChatScript = (script: ChatStep[], active: boolean, { loop = true, speed = 1 } = {}) => {
-  const [state, setState] = useState<ChatState>(initial);
+export const useChatScript = (script: ChatStep[], active: boolean, { loop = true, speed = 1, initialComplete = false, playbackKey = 0 } = {}) => {
+  const [state, setState] = useState<ChatState>(() => initialComplete ? { ...initial, done: script.length } : initial);
 
   useEffect(() => {
     if (!active) return;
@@ -61,7 +61,8 @@ export const useChatScript = (script: ChatStep[], active: boolean, { loop = true
           if (cancelled) return;
           setState((s) => ({ ...s, done: i + 1, partial: null, typing: false, sysProgress: 0 }));
         }
-        await wait(loop ? 4200 : 1e9);
+        if (!loop) break;
+        await wait(4200);
         cycle += 1;
       }
     })();
@@ -69,7 +70,7 @@ export const useChatScript = (script: ChatStep[], active: boolean, { loop = true
     return () => {
       cancelled = true;
     };
-  }, [script, active, loop, speed]);
+  }, [script, active, loop, speed, playbackKey]);
 
   return state;
 };
@@ -122,15 +123,16 @@ interface ChatWindowProps {
   guestName: string;
   className?: string;
   compact?: boolean;
+  playing?: boolean;
 }
 
-export const ChatWindow = ({ script, state, guestName, className, compact }: ChatWindowProps) => {
+export const ChatWindow = ({ script, state, guestName, className, compact, playing = true }: ChatWindowProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
     if (el?.scrollTo) {
-      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+      el.scrollTo({ top: el.scrollHeight, behavior: prefersReducedMotion() ? "auto" : "smooth" });
     } else if (el) {
       el.scrollTop = el.scrollHeight;
     }
@@ -155,7 +157,7 @@ export const ChatWindow = ({ script, state, guestName, className, compact }: Cha
         <div className="min-w-0 flex-1">
           <div className="truncate text-sm font-medium">{guestName}</div>
           <div className="flex items-center gap-1 text-[11px] text-white/70">
-            {staffActive ? <>Отвечает администратор</> : <><Sparkles className="h-3 w-3" /> Отвечает AI-администратор</>}
+            {staffActive ? <>Отвечает администратор</> : <>Отвечает AI-администратор</>}
           </div>
         </div>
         <Video className="h-4 w-4 text-white/70" />
@@ -217,7 +219,7 @@ export const ChatWindow = ({ script, state, guestName, className, compact }: Cha
               <span className="caret">{state.partial}</span>
             </Bubble>
           )}
-          {state.typing && <Typing key={`${state.cycle}-typing`} />}
+          {state.typing && playing && <Typing key={`${state.cycle}-typing`} />}
           {current?.kind === "system" && state.sysProgress > 0 && (
             <motion.div key={`${state.cycle}-sys`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="my-0.5 px-1">
               <SystemEventList events={current.events} progress={state.sysProgress} className="mx-auto max-w-[260px]" />
