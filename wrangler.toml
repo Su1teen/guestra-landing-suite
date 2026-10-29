@@ -1,6 +1,24 @@
 name = "guestra-landing-suite"
 compatibility_date = "2026-09-11"
+main = "worker/index.ts"
 
 [assets]
 directory = "./dist"
-not_found_handling = "single-page-application"
+binding = "ASSETS"
+# Страницы пререндерятся в dist/<route>.html; несуществующие адреса получают dist/404.html с кодом 404.
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
+# Worker вызывается только для API, остальное отдаётся как статика.
+run_worker_first = ["/api/*"]
+
+[vars]
+# Куда приходят заявки с сайта.
+LEAD_TO = "sales@guestra.org"
+# Отправитель: адрес на домене с включённым Cloudflare Email Routing.
+LEAD_FROM = "noreply@guestra.org"
+
+# Отправка писем через Cloudflare Email Routing.
+# Получатель должен быть подтверждённым адресом назначения в Email Routing зоны guestra.org.
+# Альтернатива: секрет RESEND_API_KEY (wrangler secret put RESEND_API_KEY) — тогда письмо уходит через Resend.
+[[send_email]]
+name = "SEND_EMAIL"

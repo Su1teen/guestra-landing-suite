@@ -1,19 +1,26 @@
 import { Hero } from "@/components/sections/Hero";
-import { ControlSection, PlatformSection, SecuritySection } from "@/components/sections/HomeSections";
-import { HomePMSSection } from "@/components/sections/HomePMSSection";
+import { ModuleLinksSection } from "@/components/home/ModuleLinksSection";
+import { AISection } from "@/components/home/AISection";
+import { PMSSection } from "@/components/home/PMSSection";
 import { Pricing } from "@/components/sections/Pricing";
-import { AISales } from "@/components/sections/AISales";
-import { CTASection } from "@/components/sections/CTASection";
+import { OwnerSection } from "@/components/home/OwnerSection";
+import { CapabilitiesSection } from "@/components/home/CapabilitiesSection";
+import { ImplementationSection } from "@/components/home/ImplementationSection";
+import { ContactSection } from "@/components/shared/ContactSection";
+import { homeFaq } from "@/data/faq";
 
-const Index = () => <main>
-  <Hero />
-  <ControlSection />
-  <Pricing dark />
-  <HomePMSSection />
-  <PlatformSection />
-  <AISales />
-  <SecuritySection />
-  <CTASection />
-</main>;
+const Index = () => (
+  <main>
+    <Hero />
+    <ModuleLinksSection />
+    <AISection />
+    <PMSSection />
+    <Pricing />
+    <OwnerSection />
+    <CapabilitiesSection />
+    <ImplementationSection />
+    <ContactSection faq={homeFaq} />
+  </main>
+);
 
 export default Index;

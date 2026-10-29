@@ -7,116 +7,101 @@ export const guest = {
   lastVisit: "Объект 01",
   interest: "Домик Forest",
   ltv: 482_000,
-  rating: "4,8 / 5",
   loyalty: "Gold",
   preferences: ["SPA", "Завтрак в домик", "Тихий домик у леса"],
-};
-
-export const booking = {
-  dates: "18–20 октября",
-  property: "Ваш отель",
-  category: "Forest House",
-  rate: 74_000,
-  nights: 2,
-  adults: 2,
-  status: "Подтверждено",
-  payment: "Предоплата получена",
-  channel: "WhatsApp",
-  manager: "Айдана",
-  ai: "Активен",
 };
 
 export type ChatStep =
   | { kind: "guest"; text: string }
   | { kind: "ai"; text: string }
+  | { kind: "staff"; text: string; author: string }
   | { kind: "system"; events: string[] }
-  | { kind: "status"; text: string; tone: "success" | "warning" };
+  | { kind: "status"; text: string; tone: "success" | "warning" | "neutral" };
 
+/** Сценарий AI-администратора: повторяет реальный жизненный цикл обращения в Guestra CRM. */
 export const salesScript: ChatStep[] = [
-  { kind: "guest", text: "Здравствуйте! Есть домик на выходные на 4 человек?" },
-  { kind: "ai", text: "Здравствуйте, Анна! Да, проверяю актуальную доступность." },
-  { kind: "system", events: ["Найден гость", "Проверка PMS", "Проверка загрузки", "Получен актуальный тариф"] },
-  {
-    kind: "ai",
-    text: "На 18–20 октября доступен Forest House. Стоимость - 74 000 ₸ за ночь.\nМогу также добавить SPA-доступ и завтрак.",
-  },
-  { kind: "guest", text: "Да, бронируйте." },
-  { kind: "ai", text: "Готово. Отправляю ссылку на предоплату." },
-  { kind: "system", events: ["Создана бронь", "CRM обновлена", "Отправлена ссылка"] },
-  { kind: "status", text: "Предоплата ожидается", tone: "warning" },
-  { kind: "status", text: "Бронь подтверждена", tone: "success" },
-];
-
-export const heroScript: ChatStep[] = [
-  { kind: "guest", text: "Здравствуйте! Есть домик на выходные на двоих?" },
-  { kind: "ai", text: "Здравствуйте, Анна! Рада видеть вас снова. Проверяю Forest House на 18–20 октября." },
-  { kind: "system", events: ["Найден гость", "Проверена доступность", "Получен тариф"] },
-  { kind: "ai", text: "Домик Forest свободен - 67 000 ₸ за ночь. Добавить SPA, как в прошлый раз?" },
-  { kind: "guest", text: "Да, бронируйте с SPA." },
-  { kind: "status", text: "Бронь подтверждена", tone: "success" },
+  { kind: "guest", text: "Здравствуйте! Есть домик на 18–20 октября? Нас четверо." },
+  { kind: "ai", text: "Здравствуйте, Анна! Рады, что вы снова с нами. Проверяю свободные домики." },
+  { kind: "system", events: ["Гость узнан · 3 визита", "Наличие проверено в PMS", "Цена из тарифа"] },
+  { kind: "ai", text: "Forest House на четверых свободен: 74 000 ₸ за ночь, за две ночи 148 000 ₸. В прошлый раз вы брали SPA, добавить?" },
+  { kind: "guest", text: "Да. И можно заехать в 11, а не в 14?" },
+  { kind: "status", text: "Администратор Айдана взяла диалог", tone: "neutral" },
+  { kind: "staff", author: "Айдана, ресепшен", text: "Анна, ранний заезд в 11:00 подтверждаю, без доплаты. Дальше вам поможет AI." },
+  { kind: "status", text: "Диалог возвращён AI", tone: "neutral" },
+  { kind: "ai", text: "Отправляю ссылку на предоплату 50%. Домик держу за вами до 18:40." },
+  { kind: "system", events: ["КП отправлено", "Номер удержан до 18:40", "Ссылка на оплату"] },
+  { kind: "status", text: "Ожидает оплаты", tone: "warning" },
+  { kind: "status", text: "Оплата получена · бронь подтверждена", tone: "success" },
 ];
 
 export const allSystemEvents = [
-  "Найден гость",
-  "Проверена доступность",
-  "Получен актуальный тариф",
-  "Выбрана категория",
-  "Создана бронь",
-  "Отправлена ссылка",
-  "Предоплата получена",
+  "Гость узнан по истории",
+  "Наличие проверено в PMS",
+  "Цена взята из тарифа",
+  "Диалог у администратора",
+  "КП отправлено",
+  "Номер удержан до оплаты",
+  "Оплата получена",
+  "Бронь в шахматке, напоминания запланированы",
 ];
+
+/** Сколько действий из allSystemEvents выполнено к шагу сценария. */
+export const salesProgress = (done: number) => {
+  const map = [0, 0, 0, 3, 3, 3, 4, 4, 4, 4, 6, 7, 8];
+  return map[Math.min(done, map.length - 1)];
+};
 
 export const voiceTranscript = [
   { who: "ai", text: "Здравствуйте! Подскажите, пожалуйста, даты вашего проживания." },
-  { who: "guest", text: "Добрый день, хотели бы на 18–20 октября, нас четверо." },
-  { who: "ai", text: "Отлично. Есть коттедж Forest на четырёх гостей. Отправить предложение в WhatsApp?" },
+  { who: "guest", text: "Добрый день, хотели бы на 25–27 октября, нас четверо." },
+  { who: "ai", text: "На эти даты свободен Forest House на четверых, 74 000 ₸ за ночь. Отправить предложение в WhatsApp?" },
   { who: "guest", text: "Да, давайте." },
 ] as const;
 
 export const voiceSummary = {
   guest: "Илья",
-  interest: "Коттедж Forest",
-  dates: "18–20 октября",
+  interest: "Forest House",
+  dates: "25–27 октября",
   guests: 4,
-  intent: "Высокий интерес",
-  nextAction: "Отправить предложение",
+  intent: "Тёплое обращение",
+  nextAction: "КП в WhatsApp",
 };
 
 export const crmColumns = [
-  { title: "Новые обращения", count: 6, tone: "primary" as const },
-  { title: "В работе", count: 4, tone: "violet" as const },
-  { title: "Предложение", count: 3, tone: "warning" as const },
-  { title: "Ожидается предоплата", count: 2, tone: "warning" as const },
+  { title: "Новый запрос", count: 6, tone: "primary" as const },
+  { title: "Клиент думает", count: 4, tone: "violet" as const },
+  { title: "Готов оплатить", count: 3, tone: "warning" as const },
+  { title: "Ожидает оплаты", count: 2, tone: "warning" as const },
   { title: "Подтверждено", count: 9, tone: "success" as const },
-  { title: "Потеряно", count: 1, tone: "danger" as const },
+  { title: "Закрыто", count: 1, tone: "danger" as const },
 ];
 
 export const crmLeads: Record<string, { name: string; note: string; sum?: string; channel: string }[]> = {
-  "Новые обращения": [
+  "Новый запрос": [
     { name: "Илья Петров", note: "Коттедж Forest, 4 гостя", channel: "Звонок" },
     { name: "Мария Ким", note: "Семейный номер, 3 ночи", channel: "WhatsApp" },
     { name: "Дмитрий С.", note: "Корпоратив, 20 чел.", channel: "Сайт" },
   ],
-  "В работе": [
+  "Клиент думает": [
     { name: "Айгерим Н.", note: "SPA-уикенд", sum: "128 000 ₸", channel: "WhatsApp" },
-    { name: "Олег Ким", note: "Домик Lake, 2 ночи", sum: "96 000 ₸", channel: "Booking.com" },
+    { name: "Олег Ким", note: "Домик Lake, 2 ночи", sum: "192 000 ₸", channel: "Telegram" },
   ],
-  Предложение: [{ name: "Асель Т.", note: "Forest + завтрак", sum: "154 000 ₸", channel: "WhatsApp" }],
-  "Ожидается предоплата": [{ name: "Анна Иванова", note: "Forest House, 18–20 окт", sum: "148 000 ₸", channel: "WhatsApp" }],
+  "Готов оплатить": [{ name: "Асель Т.", note: "Forest + завтрак", sum: "154 000 ₸", channel: "WhatsApp" }],
+  "Ожидает оплаты": [{ name: "Анна Иванова", note: "Forest House, 18–20 окт", sum: "148 000 ₸", channel: "WhatsApp" }],
   Подтверждено: [
     { name: "Сергей Л.", note: "Lake House, 3 ночи", sum: "201 000 ₸", channel: "Сайт" },
     { name: "Жанар А.", note: "Стандарт, 1 ночь", sum: "42 000 ₸", channel: "Звонок" },
   ],
-  Потеряно: [{ name: "Тимур Б.", note: "Нет дат", channel: "WhatsApp" }],
+  Закрыто: [{ name: "Тимур Б.", note: "Причина: нет нужных дат", channel: "WhatsApp" }],
 };
 
 export const timeline = [
   { year: "2024", property: "Объект 01", detail: "Forest House · 2 ночи", kind: "Бронь" },
   { year: "2025", property: "Объект 01", detail: "SPA + ресторан · 3 ночи", kind: "Бронь + услуги" },
-  { year: "2026", property: "Объект 02", detail: "Делюкс · 1 ночь", kind: "Бронь" },
+  { year: "2026", property: "Объект 02", detail: "Городской номер · 1 ночь", kind: "Бронь" },
 ];
 
-export const rooms = ["Forest 101", "Forest 102", "Forest 104", "Lake 201", "Lake 202", "Делюкс 305", "Стандарт 310"];
+export const rooms = ["Forest 101", "Forest 102", "Forest 103", "Lake 201", "Lake 202", "A-Frame 301", "Sky 401"];
 
 export type Reservation = {
   room: number;
@@ -142,60 +127,8 @@ export const reservations: Reservation[] = [
   { room: 6, start: 4, nights: 3, guest: "Тимур Б.", rate: "38 000 ₸", source: "Airbnb", services: "-", payment: "Ожидает", tone: "warning" },
 ];
 
-export const pricingFactors = [
-  { label: "Сезон", pct: 10 },
-  { label: "Загрузка 82%", pct: 15 },
-  { label: "Высокий темп бронирований", pct: 8 },
-  { label: "Праздничные даты", pct: 20 },
-];
-
 export const baseRate = 60_000;
 export const floorPrice = 50_000;
-
-export const housekeeping = {
-  summary: [
-    { label: "К уборке", value: 12, tone: "primary" as const },
-    { label: "В процессе", value: 3, tone: "warning" as const },
-    { label: "Готовы", value: 7, tone: "success" as const },
-    { label: "Проверка", value: 2, tone: "violet" as const },
-  ],
-  tasks: [
-    { room: "Домик 104", type: "Уборка после выезда", time: "13:25", status: "Проверка супервайзером", tone: "violet" as const },
-    { room: "Lake 201", type: "Уборка после выезда", time: "13:40", status: "В процессе", tone: "warning" as const },
-    { room: "Forest 102", type: "Подготовка к заезду", time: "14:00", status: "Готов", tone: "success" as const },
-    { room: "Делюкс 305", type: "Запрос гостя: полотенца", time: "14:10", status: "Новая", tone: "primary" as const },
-  ],
-};
-
-export const journey = [
-  "Бронь создана",
-  "Предзаезд",
-  "Housekeeping",
-  "Заезд",
-  "Запрос гостя",
-  "Сервисная задача",
-  "Выезд",
-  "Уборка",
-  "Отзыв",
-  "Лояльность",
-];
-
-export const guestRevenue = [
-  { label: "Проживание", value: 148_000, color: "hsl(var(--primary))" },
-  { label: "Ресторан", value: 31_500, color: "hsl(var(--violet))" },
-  { label: "SPA", value: 24_000, color: "hsl(var(--emerald))" },
-  { label: "Трансфер", value: 8_000, color: "hsl(var(--amber))" },
-];
-
-export const ownerKpis = [
-  { label: "Выручка", value: 48_600_000, delta: "+18,4%", format: "tenge" },
-  { label: "Загрузка", value: 82, delta: "+6 п.п.", format: "pct" },
-  { label: "ADR", value: 74_500, delta: "+9,2%", format: "tenge" },
-  { label: "RevPAR", value: 61_090, delta: "+15,8%", format: "tenge" },
-  { label: "Прямые бронирования", value: 43, delta: "+11 п.п.", format: "pct" },
-  { label: "Повторные гости", value: 31, delta: "+7 п.п.", format: "pct" },
-  { label: "Доп. выручка", value: 24, delta: "рост", format: "pctDelta" },
-] as const;
 
 export const revenueByUnit = [
   { label: "Номера", value: 68, color: "hsl(var(--primary))" },
@@ -211,38 +144,9 @@ export const channelMix = [
   { label: "Телефон", value: 9, color: "hsl(var(--amber))" },
 ];
 
-export const drr = [
-  { label: "Сегодня", revenue: 1_620_000, occupancy: 84, adr: 76_200 },
-  { label: "Вчера", revenue: 1_480_000, occupancy: 79, adr: 73_900 },
-  { label: "Этот месяц", revenue: 38_400_000, occupancy: 82, adr: 74_500 },
-  { label: "Этот квартал", revenue: 112_900_000, occupancy: 78, adr: 72_100 },
-];
-
 export const portfolio = [
   { name: "Объект 01", rooms: 48, occupancy: 84, revenue: 96_000_000, adr: 81_200, revpar: 68_208, direct: 51, issue: "Проверить смены с высокой долей возвратов", trend: [42, 48, 55, 51, 63, 70, 74] },
   { name: "Объект 02", rooms: 36, occupancy: 79, revenue: 55_000_000, adr: 64_300, revpar: 50_797, direct: 35, issue: "Прямых броней меньше, чем в Объекте 01", trend: [30, 34, 33, 41, 46, 52, 58] },
   { name: "Объект 03", rooms: 52, occupancy: 76, revenue: 70_000_000, adr: 58_700, revpar: 44_612, direct: 38, issue: "Низкий RevPAR при самом большом номерном фонде", trend: [20, 26, 24, 31, 37, 40, 44] },
 ];
 
-export const integrations = [
-  "WhatsApp",
-  "CRM",
-  "PMS",
-  "POS",
-  "АТС",
-  "Booking.com",
-  "Airbnb",
-  "Сайт",
-  "Оплата",
-  "Ресторан",
-  "SPA",
-  "Отзывы",
-];
-
-export const roadmap = [
-  { stage: "01", title: "Подключение", en: "Connect", items: ["CRM", "PMS", "POS", "WhatsApp"] },
-  { stage: "02", title: "Автоматизация", en: "Automate", items: ["AI-продажи", "Follow-up", "Voice AI", "Операции"] },
-  { stage: "03", title: "Оптимизация", en: "Optimize", items: ["Dynamic Pricing", "Revenue-аналитика", "Аналитика"] },
-  { stage: "04", title: "Собственные модули", en: "Own", items: ["Guestra CRM", "Guestra PMS", "Guestra Operations"] },
-  { stage: "05", title: "Hotel OS", en: "Hotel OS", items: ["Всё связано в одной системе"] },
-];

@@ -1,8 +1,12 @@
 import { useEffect, useRef } from "react";
 import { animate, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { prefersReducedMotion } from "@/lib/motion";
 
-export const formatTenge = (n: number) => `${Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ")} ₸`;
+export const formatTenge = (n: number) => `${Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ")}\u00a0₸`;
+
+/** Крупные суммы округляются до миллионов, чтобы анимация не показывала «220 994 849 ₸». */
+export const formatMillions = (n: number) => `${(n / 1_000_000).toLocaleString("ru-RU", { maximumFractionDigits: 1 })}\u00a0млн\u00a0₸`;
 
 interface AnimatedNumberProps {
   value: number;
@@ -11,28 +15,37 @@ interface AnimatedNumberProps {
   className?: string;
 }
 
+/**
+ * Число всегда отрисовано в итоговом значении (в том числе при пререндере и без JS).
+ * При появлении на экране оно мягко «докручивается» с 85% до итога, а при смене значения — от предыдущего.
+ */
 export const AnimatedNumber = ({ value, format = (n) => Math.round(n).toLocaleString("ru-RU"), duration = 1.2, className }: AnimatedNumberProps) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
-  const prev = useRef(0);
+  const prev = useRef<number | null>(null);
 
   useEffect(() => {
     if (!inView || !ref.current) return;
     const node = ref.current;
-    const controls = animate(prev.current, value, {
+    const from = prev.current ?? value * 0.85;
+    prev.current = value;
+    if (prefersReducedMotion() || from === value) {
+      node.textContent = format(value);
+      return;
+    }
+    const controls = animate(from, value, {
       duration,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (v) => {
         node.textContent = format(v);
       },
     });
-    prev.current = value;
     return () => controls.stop();
   }, [inView, value, duration, format]);
 
   return (
     <span ref={ref} className={cn("num", className)}>
-      {format(inView ? value : 0)}
+      {format(value)}
     </span>
   );
 };

@@ -21,7 +21,7 @@ interface GuestProfileProps {
 export const GuestProfile = ({ className, variant = "full", recommendation }: GuestProfileProps) => (
   <div className={cn("window p-4", className)}>
     <div className="flex items-start gap-3">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-violet text-sm font-semibold text-white">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-sm font-semibold text-white">
         {guest.initials}
       </div>
       <div className="min-w-0 flex-1">
@@ -79,9 +79,9 @@ export const GuestProfile = ({ className, variant = "full", recommendation }: Gu
         />
         <Row label="Доп. услуги" value="SPA, завтрак, трансфер" />
         <Row label="Предпочтения" value={guest.preferences.join(", ")} />
-        <Row label="Рейтинг гостя" value={`${guest.rating} · внутренняя оценка`} />
-        <Row label="Программа лояльности" value={guest.loyalty} />
-        <Row label="LTV" value={<span className="num text-sm font-semibold text-foreground">{formatTenge(guest.ltv)}</span>} />
+        <Row label="Отмены и неявки" value="нет" />
+        <Row label="Лояльность" value={guest.loyalty} />
+        <Row label="Выручка от гостя" value={<span className="num text-sm font-semibold text-foreground">{formatTenge(guest.ltv)}</span>} />
         <Row label="Следующее действие" value={<Pill tone="primary">Отправить предложение</Pill>} />
       </div>
     )}
@@ -91,15 +91,15 @@ export const GuestProfile = ({ className, variant = "full", recommendation }: Gu
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.4 }}
-      className="mt-4 flex items-start gap-2.5 rounded-xl border border-primary/20 bg-gradient-to-br from-primary/[0.06] to-violet/[0.06] p-3"
+      className="mt-4 flex items-start gap-2.5 rounded-xl border border-primary/20 bg-primary/[0.05] p-3"
     >
       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-primary text-white">
         <Sparkles className="h-3 w-3" />
       </span>
       <div>
-        <div className="text-[10px] font-semibold uppercase tracking-wider text-primary">Рекомендация AI</div>
+        <div className="text-[10px] font-semibold uppercase tracking-wider text-primary">Подсказка для администратора</div>
         <p className="mt-0.5 text-xs leading-snug text-foreground">
-          {recommendation ?? "Гость уже трижды покупал SPA. Предложить SPA-пакет к бронированию?"}
+          {recommendation ?? "Анна трижды брала SPA. Предложить пакет к новой брони?"}
         </p>
       </div>
     </motion.div>

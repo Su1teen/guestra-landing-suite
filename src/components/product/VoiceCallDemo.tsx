@@ -47,7 +47,7 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
             </div>
           </div>
           <div className="mt-4 text-lg font-semibold">Илья</div>
-          <div className="text-xs text-white/50">+7 777 •• •• 18 · АТС</div>
+          <div className="text-xs text-white/50">+7 777 •• •• 18 · входящий</div>
         </div>
 
         <div className="mt-6 flex justify-center">
@@ -67,7 +67,7 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
         </div>
 
         <div className="mt-6 flex items-center justify-center gap-1.5 text-[11px] text-white/60">
-          <Sparkles className="h-3 w-3 text-primary" /> Отвечает Voice AI Guestra
+          <Sparkles className="h-3 w-3 text-primary" /> Отвечает голосовой агент Guestra
         </div>
       </div>
 
@@ -85,7 +85,7 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
             <AnimatePresence initial={false}>
               {step === 0 && (
                 <motion.p key="wait" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-sm text-muted-foreground">
-                  Входящий звонок… Voice AI отвечает через 2 секунды.
+                  Входящий звонок. Голосовой агент отвечает через 2 секунды.
                 </motion.p>
               )}
               {voiceTranscript.slice(0, Math.max(0, Math.min(step - 1, 4))).map((l, i) => (
@@ -138,8 +138,8 @@ export const VoiceCallDemo = ({ className }: { className?: string }) => {
                 </div>
               </dl>
               <div className="mt-3 grid gap-1.5 sm:grid-cols-2">
-                <SystemEvent label="Лид создан в CRM" meta="авто" />
-                <SystemEvent label="Задача менеджеру: отправить предложение" meta="авто" />
+                <SystemEvent label="Обращение создано в CRM" meta="авто" />
+                <SystemEvent label="Предложение отправлено в WhatsApp" meta="авто" />
               </div>
             </motion.div>
           )}

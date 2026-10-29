@@ -16,10 +16,7 @@ export const SectionHeader = ({ eyebrow, title, lede, ledeClassName, align = "le
   const Heading = as;
   const body = (
     <>
-      <span className="eyebrow">
-        <span className="eyebrow-dot" aria-hidden />
-        {eyebrow}
-      </span>
+      <p className="eyebrow">{eyebrow}</p>
       <Heading className="headline mt-5">{title}</Heading>
       {lede && <p className={cn("lede mt-5 max-w-2xl", align === "center" && "mx-auto", ledeClassName)}>{lede}</p>}
     </>
